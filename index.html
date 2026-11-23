@@ -5,14 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="theme-color" content="#043927" />
   <title>Sadat Lineage — Global Canonical Sadat Genealogy Archive & Shia Portal</title>
-  <link rel="manifest" href="manifest.json" />
   <style>
     :root {
       --emerald-dark: #02261a; --emerald: #043927; --emerald-mid: #08543a;
       --gold: #d4af37; --gold-light: #f3e5ab; --gold-dark: #9e7b16;
       --sage: #6e704f; --ivory: #faf8f2; --white: #ffffff;
       --text-dark: #18221e; --text-muted: #52635c; --danger: #9e2a2b;
-      --border: #dfd6be; --shadow: 0 8px 24px rgba(4, 57, 39, 0.10);
+      --border: #dfd6be; --shadow: 0 8px 24px rgba(4,57,39,0.10);
       --font-serif: Georgia, "Times New Roman", serif;
       --font-sans: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
     }
@@ -21,7 +20,7 @@
     [dir="rtl"] { text-align: right; }
     h1, h2, h3, .serif-title { font-family: var(--font-serif); }
 
-    /* LUXURY ROYAL WELCOME SPLASH & GEOMETRIC ANIMATIONS */
+    /* ============ SPLASH ============ */
     #royalWelcomeOverlay {
       position: fixed; inset: 0; z-index: 9999;
       background: radial-gradient(circle at center, #085c40 0%, #02261a 55%, #01120c 100%);
@@ -51,44 +50,23 @@
       animation: goldShimmer 2.5s linear infinite, floatTextUp 0.9s ease forwards;
     }
     .welcome-sub { font-size: 1.02rem; color: #e2ece8; letter-spacing: 1.5px; text-transform: uppercase; animation: floatTextUp 1.2s ease forwards; }
-    .hero-card::after {
-      content: ""; position: absolute; top: 0; left: -120%; width: 60%; height: 100%;
-      background: linear-gradient(120deg, transparent, rgba(243, 229, 171, 0.14), transparent);
-      transform: skewX(-25deg); animation: heroSweep 6s ease-in-out infinite; pointer-events: none;
-    }
-    .hub-tile { transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.28s ease, border-color 0.25s ease !important; }
-    .hub-tile:hover { transform: translateY(-5px) scale(1.015) !important; box-shadow: 0 12px 26px rgba(4, 57, 39, 0.16), 0 0 0 1px var(--gold) !important; }
 
     @keyframes spinSlow { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
     @keyframes spinCounter { from { transform: rotate(360deg); } to { transform: rotate(0deg); } }
     @keyframes pulseGlow { 0%, 100% { filter: drop-shadow(0 0 10px rgba(212,175,55,0.4)); transform: scale(1); } 50% { filter: drop-shadow(0 0 24px rgba(243,229,171,0.85)); transform: scale(1.05); } }
-    @keyframes heroSweep { 0% { left: -120%; } 45%, 100% { left: 160%; } }
     @keyframes goldShimmer { to { background-position: 200% center; } }
     @keyframes floatTextUp { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
     @keyframes slideUp { from { transform: translateY(16px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
     @keyframes curtainReveal { 0% { opacity: 1; transform: translateY(0); } 100% { opacity: 0; transform: translateY(-100%); visibility: hidden; pointer-events: none; } }
-<div id="royalWelcomeOverlay">
-  <div class="welcome-ring-wrap">
-    <svg class="welcome-star-outer" viewBox="0 0 100 100">
-      <polygon points="50,2 62,20 84,16 80,38 98,50 80,62 84,84 62,80 50,98 38,80 16,84 20,62 2,50 20,38 16,16 38,20" fill="none" stroke="#d4af37" stroke-width="2.5"/>
-    </svg>
-    <svg class="welcome-star-inner" viewBox="0 0 100 100">
-      <rect x="20" y="20" width="60" height="60" fill="none" stroke="#f3e5ab" stroke-width="2"/>
-      <rect x="20" y="20" width="60" height="60" transform="rotate(45 50 50)" fill="none" stroke="#d4af37" stroke-width="2"/>
-    </svg>
-    <div class="welcome-monogram">سل</div>
-  </div>
-  <div class="welcome-bismillah">بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ</div>
-  <div class="welcome-sub">Assalamu Alaikum • Sadat Lineage Archive</div>
-</div>
 
+    /* ============ HEADER ============ */
     header {
       background: linear-gradient(135deg, var(--emerald-dark), var(--emerald));
       color: var(--white); border-bottom: 3px solid var(--gold);
       position: sticky; top: 0; z-index: 1000; box-shadow: var(--shadow);
     }
     .top-bar { max-width: 1280px; margin: 0 auto; padding: 0.75rem 1rem; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 0.75rem; }
-    .brand { display: flex; align-items: center; gap: 0.7rem; }
+    .brand { display: flex; align-items: center; gap: 0.7rem; cursor: pointer; }
     .brand-crest {
       width: 44px; height: 44px; border-radius: 50%;
       background: radial-gradient(circle, var(--gold-light), var(--gold));
@@ -109,7 +87,7 @@
     .btn-emerald { background: var(--emerald); color: var(--gold-light); border: 1px solid var(--gold); padding: 0.48rem 0.95rem; border-radius: 7px; font-weight: 600; cursor: pointer; font-size: 0.85rem; }
     .btn-gold:hover, .btn-emerald:hover { opacity: 0.92; }
 
-    /* Hero Banner & 8 SVG Feature Hub */
+    /* ============ HERO & HUB ============ */
     .hero-portal { max-width: 1280px; margin: 1rem auto 0; padding: 0 1rem; }
     .hero-card {
       position: relative; overflow: hidden;
@@ -117,6 +95,12 @@
       border: 2px solid var(--gold); border-radius: 18px; padding: 1.75rem 1.5rem;
       color: var(--white); box-shadow: var(--shadow);
     }
+    .hero-card::after {
+      content: ""; position: absolute; top: 0; left: -120%; width: 60%; height: 100%;
+      background: linear-gradient(120deg, transparent, rgba(243, 229, 171, 0.14), transparent);
+      transform: skewX(-25deg); animation: heroSweep 6s ease-in-out infinite; pointer-events: none;
+    }
+    @keyframes heroSweep { 0% { left: -120%; } 45%, 100% { left: 160%; } }
     .hero-crest-bg { position: absolute; right: 18px; top: 50%; margin-top: -75px; width: 150px; height: 150px; opacity: 0.14; pointer-events: none; animation: spinSlow 45s linear infinite; }
     .hero-badge { display: inline-block; background: rgba(212,175,55,0.18); border: 1px solid var(--gold); color: var(--gold-light); padding: 0.25rem 0.8rem; border-radius: 20px; font-size: 0.78rem; font-weight: 700; margin-bottom: 0.6rem; }
     .hero-card h2 { font-size: 1.65rem; color: var(--gold); line-height: 1.25; margin-bottom: 0.5rem; max-width: 740px; }
@@ -131,6 +115,8 @@
     .hub-svg { width: 42px; height: 42px; flex-shrink: 0; }
     .hub-info strong { display: block; font-size: 0.9rem; color: var(--emerald-dark); }
     .hub-info small { display: block; font-size: 0.75rem; color: var(--text-muted); }
+
+    /* ============ MAIN & CARDS ============ */
     main { max-width: 1280px; margin: 1.25rem auto; padding: 0 1rem 3rem; }
     .tab-section { display: none; }
     .tab-section.active { display: block; animation: slideUp 0.35s ease; }
@@ -141,11 +127,11 @@
     .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem; }
     .form-group { margin-bottom: 0.9rem; }
     label { display: block; font-weight: 600; font-size: 0.88rem; margin-bottom: 0.3rem; color: var(--emerald-dark); }
-    input, select, textarea { width: 100%; padding: 0.6rem 0.75rem; border: 1px solid #bfcbb8; border-radius: 7px; font-size: 0.92rem; background: #fff; }
+    input, select, textarea { width: 100%; padding: 0.6rem 0.75rem; border: 1px solid #bfcbb8; border-radius: 7px; font-size: 0.92rem; background: #fff; font-family: inherit; }
     .search-bar { display: flex; gap: 0.5rem; margin-bottom: 1rem; flex-wrap: wrap; }
     .search-bar input { flex: 1; min-width: 220px; }
 
-    /* Member Profile & Photo Cards */
+    /* ============ PERSON CARD ============ */
     .person-card { border: 1px solid var(--border); border-left: 4px solid var(--gold); border-radius: 10px; padding: 1rem; background: #fdfcf9; display: flex; flex-direction: column; justify-content: space-between; gap: 0.7rem; }
     .person-header { display: flex; gap: 0.8rem; align-items: center; }
     .person-photo { width: 60px; height: 60px; border-radius: 50%; object-fit: cover; border: 2px solid var(--gold); background: var(--emerald); color: var(--gold); display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 1.15rem; flex-shrink: 0; }
@@ -157,54 +143,72 @@
     .bio-box-en { background: #f4f8f6; border-left: 3px solid var(--emerald); padding: 0.75rem; border-radius: 6px; font-size: 0.9rem; margin-top: 0.5rem; }
     .bio-box-ur { background: #fcf9ef; border-right: 3px solid var(--gold); padding: 0.85rem; border-radius: 6px; font-size: 1.05rem; line-height: 1.95; margin-top: 0.5rem; direction: rtl; text-align: right; }
 
-    /* Visual Family Tree & Golden Connectors */
+    /* ============ TREE ============ */
     .tree-chain { position: relative; border-left: 3px solid var(--gold); margin: 1rem 0 1rem 1rem; padding-left: 1.25rem; max-height: 520px; overflow-y: auto; }
     .tree-node { position: relative; padding: 0.65rem 0.9rem; margin-bottom: 0.6rem; background: #f4f7f5; border-radius: 8px; border: 1px solid #d5e0da; }
     .tree-node::before { content: ""; position: absolute; left: -1.35rem; top: 50%; width: 1.2rem; height: 2px; background: var(--gold); }
     .tree-node.active-root { background: #fef9e7; border: 2px solid var(--gold); }
 
-    /* 3x4 Shia Toolkit Grid */
+    /* ============ SIAH / TOOLKIT ============ */
     .siat-hero { position: relative; overflow: hidden; background: linear-gradient(135deg, #02261a 0%, #054731 65%, #096345 100%); color: #fff; border-radius: 16px; padding: 1.35rem 1.25rem 1rem; border: 2px solid var(--gold); margin-bottom: 1rem; }
-    .siat-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1rem; }
+    .siat-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1rem; gap: 1rem; flex-wrap: wrap; }
     .siat-title { font-family: var(--font-serif); font-size: 1.4rem; font-weight: 800; color: var(--gold-light); }
     .siat-prayers { display: grid; grid-template-columns: repeat(5, 1fr); gap: 0.35rem; background: rgba(0,0,0,0.3); padding: 0.65rem 0.4rem; border-radius: 12px; text-align: center; }
     .siat-p-item small { display: block; font-size: 0.72rem; color: var(--gold-light); }
     .siat-p-item strong { font-size: 0.8rem; }
-    .siat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.8rem; margin-bottom: 1.1rem; }
+    .siat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(110px, 1fr)); gap: 0.8rem; margin-bottom: 1.1rem; }
     .siat-tile { background: #fff; border: 1px solid #e6dec8; border-radius: 14px; padding: 0.95rem 0.45rem; text-align: center; cursor: pointer; box-shadow: 0 4px 12px rgba(4,57,39,0.06); transition: 0.15s; }
     .siat-tile:hover { transform: translateY(-2px); border-color: var(--gold); }
     .siat-svg { width: 40px; height: 40px; margin: 0 auto 0.4rem; display: block; }
     .siat-label { font-size: 0.8rem; font-weight: 700; color: var(--emerald-dark); display: block; }
-    .calendar-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 0.65rem; }
     .month-card { border: 1px solid var(--border); border-radius: 8px; padding: 0.75rem; text-align: center; cursor: pointer; background: var(--white); }
     .month-card.active { background: var(--emerald); color: var(--gold-light); }
-    .tasbeeh-circle { width: 165px; height: 165px; border-radius: 50%; background: var(--emerald); border: 5px solid var(--gold); color: var(--gold); display: flex; flex-direction: column; align-items: center; justify-content: center; margin: 1rem auto; cursor: pointer; }
+    .tasbeeh-circle { width: 165px; height: 165px; border-radius: 50%; background: var(--emerald); border: 5px solid var(--gold); color: var(--gold); display: flex; flex-direction: column; align-items: center; justify-content: center; margin: 1rem auto; cursor: pointer; user-select: none; transition: transform 0.08s; }
+    .tasbeeh-circle:active { transform: scale(0.96); }
     .tasbeeh-count { font-size: 2.5rem; font-weight: 800; }
     .governance-note { background: #f0f7f4; border-left: 4px solid var(--emerald); padding: 0.75rem 1rem; font-size: 0.85rem; border-radius: 4px; margin-bottom: 1rem; }
-    @media print { body * { visibility: hidden; } #certificatePrintArea, #certificatePrintArea * { visibility: visible; } #certificatePrintArea { position: absolute; left: 0; top: 0; width: 100%; } }
+
+    /* ============ CERTIFICATE PRINT ============ */
+    #certificatePrintArea { border: 3px double var(--gold); padding: 2rem; text-align: center; background: #fffdf6; border-radius: 8px; }
+    #certificatePrintArea h1 { font-family: var(--font-serif); color: var(--emerald); font-size: 1.6rem; margin-bottom: 0.3rem; }
+    #certificatePrintArea .cert-crest { width: 60px; height: 60px; margin: 0 auto 0.6rem; border-radius: 50%; background: radial-gradient(circle, var(--gold-light), var(--gold)); display: flex; align-items: center; justify-content: center; font-size: 1.4rem; color: var(--emerald-dark); font-weight: 900; }
+    @media print { body * { visibility: hidden; } #certificatePrintArea, #certificatePrintArea * { visibility: visible; } #certificatePrintArea { position: absolute; left: 0; top: 0; width: 100%; border: 3px double #d4af37; } }
+
+    /* ============ FOOTER ============ */
     footer { background: var(--emerald-dark); color: #cbd5e1; border-top: 3px solid var(--gold); padding: 2rem 1rem; font-size: 0.85rem; }
     .footer-inner { max-width: 1280px; margin: 0 auto; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 1rem; }
-    .footer-links button { background: none; border: none; color: var(--gold-light); cursor: pointer; margin-right: 1rem; text-decoration: underline; }
+    .footer-links button { background: none; border: none; color: var(--gold-light); cursor: pointer; margin-right: 1rem; text-decoration: underline; font-size: 0.85rem; }
+
+    .empty-state { text-align: center; padding: 2rem; color: var(--text-muted); font-style: italic; }
+    .feedback { margin-top: 0.75rem; font-size: 0.9rem; }
   </style>
 </head>
 <body>
+
+<!-- ============ SPLASH ============ -->
 <div id="royalWelcomeOverlay">
-  <svg class="welcome-star" viewBox="0 0 100 100">
-    <polygon points="50,4 61,22 82,18 78,39 96,50 78,61 82,82 61,78 50,96 39,78 18,82 22,61 4,50 22,39 18,18 39,22" fill="none" stroke="#d4af37" stroke-width="3"/>
-    <circle cx="50" cy="50" r="22" fill="#043927" stroke="#f3e5ab" stroke-width="2"/>
-    <text x="50" y="57" text-anchor="middle" fill="#d4af37" font-size="22" font-weight="bold" font-family="serif">سل</text>
-  </svg>
+  <div class="welcome-ring-wrap">
+    <svg class="welcome-star-outer" viewBox="0 0 100 100">
+      <polygon points="50,2 62,20 84,16 80,38 98,50 80,62 84,84 62,80 50,98 38,80 16,84 20,62 2,50 20,38 16,16 38,20" fill="none" stroke="#d4af37" stroke-width="2.5"/>
+    </svg>
+    <svg class="welcome-star-inner" viewBox="0 0 100 100">
+      <rect x="20" y="20" width="60" height="60" fill="none" stroke="#f3e5ab" stroke-width="2"/>
+      <rect x="20" y="20" width="60" height="60" transform="rotate(45 50 50)" fill="none" stroke="#d4af37" stroke-width="2"/>
+    </svg>
+    <div class="welcome-monogram">سل</div>
+  </div>
   <div class="welcome-bismillah">بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ</div>
-  <div>Assalamu Alaikum • Welcome to Sadat Lineage</div>
+  <div class="welcome-sub">Assalamu Alaikum • Sadat Lineage Archive</div>
 </div>
 
+<!-- ============ HEADER ============ -->
 <header>
   <div class="top-bar">
-    <div class="brand">
+    <div class="brand" onclick="openTab('homeTab')">
       <div class="brand-crest">سل</div>
       <div>
         <h1>SADAT LINEAGE</h1>
-        <small>Global Canonical Sadat Genealogy Archive & Shia Portal</small>
+        <small id="brandSubtitle">Global Canonical Sadat Genealogy Archive & Shia Portal</small>
       </div>
     </div>
     <div class="header-actions">
@@ -218,61 +222,131 @@
   </div>
 </header>
 
-<section class="hero-portal">
-  <div class="hero-card">
-    <svg class="hero-crest-bg" viewBox="0 0 100 100" fill="#d4af37">
-      <polygon points="50,4 61,22 82,18 78,39 96,50 78,61 82,82 61,78 50,96 39,78 18,82 22,61 4,50 22,39 18,18 39,22"/>
-      <circle cx="50" cy="50" r="24" fill="#043927"/>
-    </svg>
-    <span class="hero-badge">100% Canonical Public-Domain Books Verified Archive</span>
-    <h2>Global Sadat Shajra-e-Nasab & Ithna-Ashari Community Portal</h2>
-    <p>Trace 70+ generations of authentic Sadat lineage from approved historical texts with strict privacy governance, official PDF certificates, and a complete Shia spiritual toolkit.</p>
-    <div style="display:flex; gap:0.6rem; flex-wrap:wrap;">
-      <button class="btn-gold" onclick="openTab('archiveTab')">Search 70-Gen Shajra (Free)</button>
-      <button class="btn-emerald" onclick="openTab('toolkitTab')">Open Shia Toolkit</button>
+<!-- ============ HOME TAB (Hero + Hubs) ============ -->
+<section id="homeTab" class="tab-section active" style="padding-top:0;">
+  <div class="hero-portal">
+    <div class="hero-card">
+      <svg class="hero-crest-bg" viewBox="0 0 100 100" fill="#d4af37">
+        <polygon points="50,4 61,22 82,18 78,39 96,50 78,61 82,82 61,78 50,96 39,78 18,82 22,61 4,50 22,39 18,18 39,22"/>
+        <circle cx="50" cy="50" r="24" fill="#043927"/>
+      </svg>
+      <span class="hero-badge">100% Canonical Public-Domain Books Verified Archive</span>
+      <h2>Global Sadat Shajra-e-Nasab & Ithna-Ashari Community Portal</h2>
+      <p>Trace 70+ generations of authentic Sadat lineage from approved historical texts with strict privacy governance, official PDF certificates, and a complete Shia spiritual toolkit.</p>
+      <div style="display:flex; gap:0.6rem; flex-wrap:wrap;">
+        <button class="btn-gold" onclick="openTab('archiveTab')">Search 70-Gen Shajra (Free)</button>
+        <button class="btn-emerald" onclick="openTab('toolkitTab')">Open Shia Toolkit</button>
+      </div>
     </div>
   </div>
+  <section class="portal-hub-grid" aria-label="Portal Sections">
+    <div class="hub-tile" id="tile-archiveTab" onclick="openTab('archiveTab')">
+      <svg class="hub-svg" viewBox="0 0 48 48"><rect width="48" height="48" rx="12" fill="#f0f7f4"/><path fill="#043927" d="M22 26h4v14h-4z"/><circle cx="24" cy="17" r="9" fill="#043927"/><circle cx="16" cy="23" r="6" fill="#0f7653"/><circle cx="32" cy="23" r="6" fill="#0f7653"/><circle cx="24" cy="14" r="3" fill="#d4af37"/></svg>
+      <div class="hub-info"><strong>70-Gen Shajra Archive</strong><small>100% Free Canonical Search</small></div>
+    </div>
+    <div class="hub-tile" id="tile-certificateTab" onclick="openTab('certificateTab')">
+      <svg class="hub-svg" viewBox="0 0 48 48"><rect width="48" height="48" rx="12" fill="#fcf9ef"/><rect x="12" y="8" width="24" height="32" rx="3" fill="#043927"/><rect x="16" y="13" width="16" height="2.5" fill="#faf8f2"/><rect x="16" y="19" width="16" height="2.5" fill="#faf8f2"/><circle cx="24" cy="30" r="5" fill="#d4af37"/></svg>
+      <div class="hub-info"><strong>Shajra Certificate PDF</strong><small>Official Verified Lineage Seal</small></div>
+    </div>
+    <div class="hub-tile" id="tile-submitTab" onclick="openTab('submitTab')">
+      <svg class="hub-svg" viewBox="0 0 48 48"><rect width="48" height="48" rx="12" fill="#f0f7f4"/><rect x="11" y="10" width="20" height="28" rx="2" fill="#043927"/><path fill="#d4af37" d="M35 13l4 4-13 13-5 1 1-5 13-13z"/></svg>
+      <div class="hub-info"><strong>Book Record Submission</strong><small>10-Day Canonical Verification</small></div>
+    </div>
+    <div class="hub-tile" id="tile-matrimonyTab" onclick="openTab('matrimonyTab')">
+      <svg class="hub-svg" viewBox="0 0 48 48"><rect width="48" height="48" rx="12" fill="#fcf9ef"/><circle cx="19" cy="26" r="8" fill="none" stroke="#043927" stroke-width="3.5"/><circle cx="29" cy="26" r="8" fill="none" stroke="#d4af37" stroke-width="3.5"/><polygon points="29,12 32,16 26,16" fill="#d4af37"/></svg>
+      <div class="hub-info"><strong>Sadat Matrimony (18+)</strong><small>Book-Verified & Wali Approved</small></div>
+    </div>
+    <div class="hub-tile" id="tile-toolkitTab" onclick="openTab('toolkitTab')">
+      <svg class="hub-svg" viewBox="0 0 48 48"><rect width="48" height="48" rx="12" fill="#f0f7f4"/><path fill="#043927" d="M24 10c-6 5-9 10-9 15h18c0-5-3-10-9-15zM13 27h22v11H13z"/><rect x="9" y="15" width="2.5" height="23" fill="#d4af37"/><rect x="36.5" y="15" width="2.5" height="23" fill="#d4af37"/></svg>
+      <div class="hub-info"><strong>Shia Toolkit</strong><small>Hijri Calendar, Duas & Namaz</small></div>
+    </div>
+    <div class="hub-tile" id="tile-newsTab" onclick="openTab('newsTab')">
+      <svg class="hub-svg" viewBox="0 0 48 48"><rect width="48" height="48" rx="12" fill="#fcf9ef"/><rect x="10" y="11" width="28" height="26" rx="3" fill="#043927"/><rect x="14" y="15" width="20" height="5" fill="#d4af37"/><rect x="14" y="23" width="9" height="9" fill="#faf8f2"/><rect x="26" y="23" width="8" height="3" fill="#faf8f2"/><rect x="26" y="29" width="8" height="3" fill="#faf8f2"/></svg>
+      <div class="hub-info"><strong>Worldwide Shia News</strong><small>Holy Shrines & Ziyarat Updates</small></div>
+    </div>
+    <div class="hub-tile" id="tile-adminTab" onclick="openTab('adminTab')">
+      <svg class="hub-svg" viewBox="0 0 48 48"><rect width="48" height="48" rx="12" fill="#f0f7f4"/><path fill="#043927" d="M24 8l13 5v11c0 8-5.5 14-13 16-7.5-2-13-8-13-16V13l13-5z"/><path fill="#d4af37" d="M22 28l-5-5 2-2 3 3 7-7 2 2-9 9z"/></svg>
+      <div class="hub-info"><strong>Admin Portals</strong><small>State, News & Super Admin</small></div>
+    </div>
+    <div class="hub-tile" id="tile-legalTab" onclick="openTab('legalTab')">
+      <svg class="hub-svg" viewBox="0 0 48 48"><rect width="48" height="48" rx="12" fill="#fcf9ef"/><rect x="22.5" y="10" width="3" height="26" fill="#043927"/><rect x="13" y="14" width="22" height="2.5" fill="#d4af37"/><path fill="#043927" d="M11 24h8l-4-7-4 7zm18 0h8l-4-7-4 7z"/><rect x="16" y="35" width="16" height="3" rx="1" fill="#d4af37"/></svg>
+      <div class="hub-info"><strong>Legal & Governance</strong><small>Privacy, Terms & Charter</small></div>
+    </div>
+  </section>
 </section>
-<section class="portal-hub-grid" aria-label="Portal Sections">
-  <div class="hub-tile active-tile" id="tile-archiveTab" onclick="openTab('archiveTab')">
-    <svg class="hub-svg" viewBox="0 0 48 48"><rect width="48" height="48" rx="12" fill="#f0f7f4"/><path fill="#043927" d="M22 26h4v14h-4z"/><circle cx="24" cy="17" r="9" fill="#043927"/><circle cx="16" cy="23" r="6" fill="#0f7653"/><circle cx="32" cy="23" r="6" fill="#0f7653"/><circle cx="24" cy="14" r="3" fill="#d4af37"/></svg>
-    <div class="hub-info"><strong>70-Gen Shajra Archive</strong><small>100% Free Canonical Search</small></div>
-  </div>
-  <div class="hub-tile" id="tile-certificateTab" onclick="openTab('certificateTab')">
-    <svg class="hub-svg" viewBox="0 0 48 48"><rect width="48" height="48" rx="12" fill="#fcf9ef"/><rect x="12" y="8" width="24" height="32" rx="3" fill="#043927"/><rect x="16" y="13" width="16" height="2.5" fill="#faf8f2"/><rect x="16" y="19" width="16" height="2.5" fill="#faf8f2"/><circle cx="24" cy="30" r="5" fill="#d4af37"/></svg>
-    <div class="hub-info"><strong>Shajra Certificate PDF</strong><small>Official Verified Lineage Seal</small></div>
-  </div>
-  <div class="hub-tile" id="tile-submitTab" onclick="openTab('submitTab')">
-    <svg class="hub-svg" viewBox="0 0 48 48"><rect width="48" height="48" rx="12" fill="#f0f7f4"/><rect x="11" y="10" width="20" height="28" rx="2" fill="#043927"/><path fill="#d4af37" d="M35 13l4 4-13 13-5 1 1-5 13-13z"/></svg>
-    <div class="hub-info"><strong>Book Record Submission</strong><small>10-Day Canonical Verification</small></div>
-  </div>
-  <div class="hub-tile" id="tile-matrimonyTab" onclick="openTab('matrimonyTab')">
-    <svg class="hub-svg" viewBox="0 0 48 48"><rect width="48" height="48" rx="12" fill="#fcf9ef"/><circle cx="19" cy="26" r="8" fill="none" stroke="#043927" stroke-width="3.5"/><circle cx="29" cy="26" r="8" fill="none" stroke="#d4af37" stroke-width="3.5"/><polygon points="29,12 32,16 26,16" fill="#d4af37"/></svg>
-    <div class="hub-info"><strong>Sadat Matrimony (18+)</strong><small>Book-Verified & Wali Approved</small></div>
-  </div>
-  <div class="hub-tile" id="tile-toolkitTab" onclick="openTab('toolkitTab')">
-    <svg class="hub-svg" viewBox="0 0 48 48"><rect width="48" height="48" rx="12" fill="#f0f7f4"/><path fill="#043927" d="M24 10c-6 5-9 10-9 15h18c0-5-3-10-9-15zM13 27h22v11H13z"/><rect x="9" y="15" width="2.5" height="23" fill="#d4af37"/><rect x="36.5" y="15" width="2.5" height="23" fill="#d4af37"/></svg>
-    <div class="hub-info"><strong>Shia Toolkit</strong><small>Hijri Calendar, Duas & Namaz</small></div>
-  </div>
-  <div class="hub-tile" id="tile-newsTab" onclick="openTab('newsTab')">
-    <svg class="hub-svg" viewBox="0 0 48 48"><rect width="48" height="48" rx="12" fill="#fcf9ef"/><rect x="10" y="11" width="28" height="26" rx="3" fill="#043927"/><rect x="14" y="15" width="20" height="5" fill="#d4af37"/><rect x="14" y="23" width="9" height="9" fill="#faf8f2"/><rect x="26" y="23" width="8" height="3" fill="#faf8f2"/><rect x="26" y="29" width="8" height="3" fill="#faf8f2"/></svg>
-    <div class="hub-info"><strong>Worldwide Shia News</strong><small>Holy Shrines & Ziyarat Updates</small></div>
-  </div>
-  <div class="hub-tile" id="tile-adminTab" onclick="openTab('adminTab')">
-    <svg class="hub-svg" viewBox="0 0 48 48"><rect width="48" height="48" rx="12" fill="#f0f7f4"/><path fill="#043927" d="M24 8l13 5v11c0 8-5.5 14-13 16-7.5-2-13-8-13-16V13l13-5z"/><path fill="#d4af37" d="M22 28l-5-5 2-2 3 3 7-7 2 2-9 9z"/></svg>
-    <div class="hub-info"><strong>Admin Portals</strong><small>State, News & Super Admin</small></div>
-  </div>
-  <div class="hub-tile" id="tile-legalTab" onclick="openTab('legalTab')">
-    <svg class="hub-svg" viewBox="0 0 48 48"><rect width="48" height="48" rx="12" fill="#fcf9ef"/><rect x="22.5" y="10" width="3" height="26" fill="#043927"/><rect x="13" y="14" width="22" height="2.5" fill="#d4af37"/><path fill="#043927" d="M11 24h8l-4-7-4 7zm18 0h8l-4-7-4 7z"/><rect x="16" y="35" width="16" height="3" rx="1" fill="#d4af37"/></svg>
-    <div class="hub-info"><strong>Legal & Governance</strong><small>Privacy, Terms & Charter</small></div>
-  </div>
-</section>
+
 <main>
-  <!-- Archive, Certificate, and Submit Tabs HTML structure for Sadat Lineage Archive -->
-  <section id="archiveTab" class="tab-section active">...</section>
-  <section id="certificateTab" class="tab-section">...</section>
-  <section id="submitTab" class="tab-section"> </section>
-</main>
+  <!-- ============ ARCHIVE TAB ============ -->
+  <section id="archiveTab" class="tab-section">
+    <div class="card">
+      <h2 class="section-title">70-Generation Shajra Archive</h2>
+      <div class="search-bar">
+        <input type="text" id="shajraSearchInput" placeholder="Search by name, father, or person code (3+ letters)..." oninput="handleLiveSearch()" />
+        <select id="branchFilter" onchange="executeShajraSearch()">
+          <option value="">All Branches</option>
+        </select>
+        <button class="btn-emerald" onclick="executeShajraSearch()">Search</button>
+      </div>
+      <p id="searchStatus" style="font-size:0.85rem; color:var(--text-muted); margin-bottom:0.75rem;">Loading canonical records...</p>
+      <div id="searchResults" class="grid-2"></div>
+    </div>
+
+    <div class="card card-gold" id="lineageViewerCard" style="display:none;">
+      <h2 class="section-title" id="selectedPersonTitle">—</h2>
+      <p id="selectedPersonMeta" style="font-size:0.85rem; color:var(--text-muted); margin-bottom:0.5rem;"></p>
+      <div id="selectedPersonBio"></div>
+      <h3 style="color:var(--emerald); font-size:1.05rem; margin:1rem 0 0.3rem;">Traced Lineage Chain</h3>
+      <div class="tree-chain" id="lineageChainContainer"></div>
+      <button class="btn-gold" onclick="transferToCertificate()" style="margin-top:0.5rem;">Generate Certificate for this Person</button>
+    </div>
+  </section>
+
+  <!-- ============ CERTIFICATE TAB ============ -->
+  <section id="certificateTab" class="tab-section">
+    <div class="card card-gold">
+      <h2 class="section-title">Shajra Certificate Generator</h2>
+      <div class="grid-3">
+        <div class="form-group"><label>Full Name</label><input type="text" id="certPersonName" /></div>
+        <div class="form-group"><label>Father's Name</label><input type="text" id="certFatherName" /></div>
+        <div class="form-group"><label>Book Reference</label><input type="text" id="certBookRef" /></div>
+      </div>
+      <button class="btn-gold" onclick="renderAndPrintCertificate()">Preview & Print / Save as PDF</button>
+    </div>
+    <div id="certificatePrintArea">
+      <div class="cert-crest">سل</div>
+      <h1>Sadat Lineage — Canonical Certificate</h1>
+      <p style="color:var(--text-muted); font-size:0.85rem; letter-spacing:1px; text-transform:uppercase;">Verified by Global Sadat Genealogy Archive</p>
+      <hr style="margin:1rem 0; border:none; border-top:1px solid var(--gold);" />
+      <p style="font-size:1.2rem; margin:0.8rem 0;"><strong id="previewCertName">—</strong></p>
+      <p id="previewCertFather">Son/Daughter of: <strong>—</strong></p>
+      <p id="previewCertBook" style="color:var(--text-muted); font-size:0.9rem; margin-top:0.6rem;">Reference: —</p>
+      <hr style="margin:1rem 0; border:none; border-top:1px solid var(--gold);" />
+      <p style="font-size:0.8rem; color:var(--text-muted);">Issued under Canonical Charter • sadatlineage.in</p>
+    </div>
+  </section>
+
+  <!-- ============ SUBMIT TAB ============ -->
+  <section id="submitTab" class="tab-section">
+    <div class="card">
+      <h2 class="section-title">Submit Book Record for Verification</h2>
+      <form onsubmit="submitCanonicalRecord(event)">
+        <div class="grid-2">
+          <div class="form-group"><label>Full Name</label><input type="text" id="subName" required /></div>
+          <div class="form-group"><label>Father's Name</label><input type="text" id="subFather" required /></div>
+          <div class="form-group"><label>Gender</label><select id="subGender"><option>Male</option><option>Female</option></select></div>
+          <div class="form-group"><label>In-Laws Info (optional)</label><input type="text" id="subInLaws" /></div>
+          <div class="form-group"><label>Canonical Book</label><input type="text" id="subBook" required placeholder="e.g., Mafatih al-Jinan" /></div>
+          <div class="form-group"><label>Page No.</label><input type="text" id="subPage" /></div>
+          <div class="form-group"><label>State / Region</label><input type="text" id="subState" required /></div>
+          <div class="form-group"><label>Payment Receipt No. (optional)</label><input type="text" id="subReceipt" /></div>
+        </div>
+        <button type="submit" class="btn-gold">Submit for 10-Day Verification</button>
+        <div id="submissionFeedback" class="feedback"></div>
+      </form>
+    </div>
+  </section>
+
+  <!-- ============ MATRIMONY TAB ============ -->
   <section id="matrimonyTab" class="tab-section">
     <div class="card card-gold">
       <h2 class="section-title">Sadat Matrimony — 18+ Book-Verified Sayyid Alliance</h2>
@@ -286,6 +360,7 @@
     </div>
   </section>
 
+  <!-- ============ TOOLKIT TAB ============ -->
   <section id="toolkitTab" class="tab-section">
     <div class="siat-hero">
       <div class="siat-top">
@@ -310,257 +385,470 @@
       <div class="siat-tile" onclick="openSiatModule('amaal')"><svg class="siat-svg" viewBox="0 0 48 48"><path fill="#043927" d="M26 8a15 15 0 1 0 14 20A12 12 0 0 1 26 8z"/><polygon fill="#d4af37" points="35,10 37,15 42,15 38,18 39,23 35,20 31,23 32,18 28,15 33,15"/></svg><span class="siat-label">Monthly Amaal</span></div>
       <div class="siat-tile" onclick="openSiatModule('books')"><svg class="siat-svg" viewBox="0 0 48 48"><rect x="8" y="10" width="8" height="28" rx="2" fill="#043927"/><rect x="19" y="8" width="8" height="30" rx="2" fill="#d4af37"/><path fill="#043927" d="M30 11l7-1 4 27-7 1z"/></svg><span class="siat-label">Book Library</span></div>
       <div class="siat-tile" onclick="openSiatModule('hadith')"><svg class="siat-svg" viewBox="0 0 48 48"><rect x="10" y="8" width="28" height="32" rx="4" fill="#043927"/><rect x="15" y="14" width="18" height="3" fill="#d4af37"/><rect x="15" y="21" width="18" height="3" fill="#faf8f2"/></svg><span class="siat-label">Hadith & Masoomeen</span></div>
-      <div class="siat-tile" onclick="openSiatModule('hajj')"><svg class="siat-svg" viewBox="0 0 48 48"><rect x="11" y="11" width="26" height="26" rx="2" fill="#043927"/><rect x="11" y="17" width="26" height="4" fill="#d4af37"/></svg><span class="siat-label">Hajj & Ziaraah Guide</span></div>
+      <div class="siat-tile" onclick="openSiatModule('hajj')"><svg class="siat-svg" viewBox="0 0 48 48"><rect x="11" y="11" width="26" height="26" rx="2" fill="#043927"/><rect x="11" y="17" width="26" height="4" fill="#d4af37"/></svg><span class="siat-label">Hajj & Ziaraah</span></div>
       <div class="siat-tile" onclick="openSiatModule('sajjadia')"><svg class="siat-svg" viewBox="0 0 48 48"><rect x="11" y="7" width="26" height="34" rx="3" fill="#043927"/><circle cx="24" cy="24" r="6" fill="#d4af37"/></svg><span class="siat-label">Sahifa Sajjadiyya</span></div>
-      <div class="siat-tile" onclick="openSiatModule('specific')"><svg class="siat-svg" viewBox="0 0 48 48"><circle cx="24" cy="24" r="15" fill="#043927"/><path fill="#d4af37" d="M24 13l3 7 8 1-6 5 2 8-7-4-7 4 2-8-6-5 8-1z"/></svg><span class="siat-label">Specific Duas & Quiz</span></div>
-      <div class="siat-tile" onclick="openSiatModule('qibla')"><svg class="siat-svg" viewBox="0 0 48 48"><circle cx="24" cy="24" r="16" fill="#043927" stroke="#d4af37" stroke-width="3"/><polygon fill="#d4af37" points="24,12 28,24 24,22 20,24"/></svg><span class="siat-label">GPS Qibla Compass</span></div>
+      <div class="siat-tile" onclick="openSiatModule('specific')"><svg class="siat-svg" viewBox="0 0 48 48"><circle cx="24" cy="24" r="15" fill="#043927"/><path fill="#d4af37" d="M24 13l3 7 8 1-6 5 2 8-7-4-7 4 2-8-6-5 8-1z"/></svg><span class="siat-label">Specific Duas</span></div>
+      <div class="siat-tile" onclick="openSiatModule('qibla')"><svg class="siat-svg" viewBox="0 0 48 48"><circle cx="24" cy="24" r="16" fill="#043927" stroke="#d4af37" stroke-width="3"/><polygon fill="#d4af37" points="24,12 28,24 24,22 20,24"/></svg><span class="siat-label">GPS Qibla</span></div>
     </div>
 
     <div class="card card-gold" id="siatViewerCard">
-      <h3 class="section-title" id="siatModuleTitle">Al Quran — Surah Al-Fatiha & Isal-e-Sawab</h3>
+      <h3 class="section-title" id="siatModuleTitle">Al Quran — Surah Al-Fatiha</h3>
       <div id="siatModuleBody"></div>
     </div>
   </section>
 
-  <section id="newsTab" class="tab-section"><div class="card"><h2 class="section-title">Worldwide Shia News</h2><div id="newsFeedGrid" class="grid-2"><div class="person-card"><strong>6,000+ Canonical Sadat Records Live</strong><small>Trace 70+ generations free of cost.</small></div></div></div></section>
-  <section id="adminTab" class="tab-section"><div class="card card-gold"><h2 class="section-title">Admin Portals (Paid License)</h2><div class="grid-3"><div><label>Role</label><select id="adminRoleSelect"><option value="state_admin">State Shajra Admin</option><option value="ads_news_admin">News & Ads Admin</option><option value="super_admin">Super Admin</option></select></div><div><label>License Key</label><input type="password" id="adminLicenseInput" /></div><div style="display:flex; align-items:flex-end;"><button class="btn-emerald" style="width:100%;" onclick="unlockAdminPortal()">Unlock</button></div></div><div id="adminWorkspace" style="display:none; margin-top:1rem;"><h3 id="adminRoleHeading"></h3><div id="adminQueueContent"></div></div></div></section>
-  <section id="authTab" class="tab-section"><div class="card" style="max-width:480px; margin:0 auto;"><h2 class="section-title">Free Member Sign-In</h2><div class="form-group"><label>Email</label><input type="email" id="authEmail" /></div><div class="form-group"><label>Password</label><input type="password" id="authPassword" /></div><button class="btn-gold" onclick="supabaseSignIn()">Sign In</button> <button class="btn-emerald" onclick="supabaseSignUp()">Create Account</button><div id="authStatusMsg" style="margin-top:0.75rem;"></div></div></section>
-  <section id="legalTab" class="tab-section"><div class="card"><h2 class="section-title">Legal Policies & Charter</h2><div style="display:flex; gap:0.5rem; flex-wrap:wrap; margin-bottom:1rem;"><button class="btn-emerald" onclick="showLegalDoc('privacy')">Privacy Policy</button><button class="btn-emerald" onclick="showLegalDoc('terms')">Terms</button><button class="btn-emerald" onclick="showLegalDoc('refund')">Refund Policy</button><button class="btn-emerald" onclick="showLegalDoc('genealogy')">Canonical Charter</button></div><div id="legalDocContent" style="background:#faf9f5; padding:1rem; border:1px solid var(--border);"></div></div></section>
+  <!-- ============ NEWS TAB ============ -->
+  <section id="newsTab" class="tab-section">
+    <div class="card"><h2 class="section-title">Worldwide Shia News</h2>
+      <div id="newsFeedGrid" class="grid-2">
+        <div class="person-card"><strong>6,000+ Canonical Sadat Records Live</strong><small>Trace 70+ generations free of cost.</small></div>
+        <div class="person-card"><strong>Arbaeen 1448 Pilgrimage Updates</strong><small>Karbala route guidance & ziaraah timings.</small></div>
+        <div class="person-card"><strong>New Book Digitized: Mafatih al-Jinan</strong><small>Full Urdu translation available in library.</small></div>
+        <div class="person-card"><strong>Sadat Lineage Mobile App Beta</strong><small>Offline shajra access coming soon.</small></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ ADMIN TAB ============ -->
+  <section id="adminTab" class="tab-section">
+    <div class="card card-gold">
+      <h2 class="section-title">Admin Portals (Paid License)</h2>
+      <div class="grid-3">
+        <div><label>Role</label><select id="adminRoleSelect"><option value="state_admin">State Shajra Admin</option><option value="ads_news_admin">News & Ads Admin</option><option value="super_admin">Super Admin</option></select></div>
+        <div><label>License Key</label><input type="password" id="adminLicenseInput" placeholder="Any non-empty key for demo" /></div>
+        <div style="display:flex; align-items:flex-end;"><button class="btn-emerald" style="width:100%;" onclick="unlockAdminPortal()">Unlock</button></div>
+      </div>
+      <div id="adminWorkspace" style="display:none; margin-top:1rem;">
+        <h3 id="adminRoleHeading" style="color:var(--emerald); margin-bottom:0.5rem;"></h3>
+        <div id="adminQueueContent"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ AUTH TAB ============ -->
+  <section id="authTab" class="tab-section">
+    <div class="card" style="max-width:480px; margin:0 auto;">
+      <h2 class="section-title">Free Member Sign-In</h2>
+      <div class="form-group"><label>Email</label><input type="email" id="authEmail" /></div>
+      <div class="form-group"><label>Password</label><input type="password" id="authPassword" /></div>
+      <button class="btn-gold" onclick="supabaseSignIn()">Sign In</button>
+      <button class="btn-emerald" onclick="supabaseSignUp()">Create Account</button>
+      <div id="authStatusMsg" class="feedback"></div>
+    </div>
+  </section>
+
+  <!-- ============ LEGAL TAB ============ -->
+  <section id="legalTab" class="tab-section">
+    <div class="card">
+      <h2 class="section-title">Legal Policies & Charter</h2>
+      <div style="display:flex; gap:0.5rem; flex-wrap:wrap; margin-bottom:1rem;">
+        <button class="btn-emerald" onclick="showLegalDoc('privacy')">Privacy Policy</button>
+        <button class="btn-emerald" onclick="showLegalDoc('terms')">Terms</button>
+        <button class="btn-emerald" onclick="showLegalDoc('refund')">Refund Policy</button>
+        <button class="btn-emerald" onclick="showLegalDoc('genealogy')">Canonical Charter</button>
+      </div>
+      <div id="legalDocContent" style="background:#faf9f5; padding:1rem; border:1px solid var(--border); border-radius:6px;"></div>
+    </div>
+  </section>
 </main>
 
 <footer>
   <div class="footer-inner">
-    <div><strong style="color:var(--gold);">SADAT LINEAGE (sadatlineage.in)</strong> — Global Canonical Sadat Genealogy Archive</div>
-    <div class="footer-links"><button onclick="openTab('legalTab'); showLegalDoc('privacy')">Privacy</button><button onclick="openTab('legalTab'); showLegalDoc('terms')">Terms</button><button onclick="openTab('legalTab'); showLegalDoc('refund')">Refund</button><button onclick="openTab('legalTab'); showLegalDoc('genealogy')">Charter</button></div>
+    <div><strong style="color:var(--gold);">SADAT LINEAGE</strong> — Global Canonical Sadat Genealogy Archive</div>
+    <div class="footer-links">
+      <button onclick="openTab('legalTab'); showLegalDoc('privacy')">Privacy</button>
+      <button onclick="openTab('legalTab'); showLegalDoc('terms')">Terms</button>
+      <button onclick="openTab('legalTab'); showLegalDoc('refund')">Refund</button>
+      <button onclick="openTab('legalTab'); showLegalDoc('genealogy')">Charter</button>
+    </div>
   </div>
 </footer>
+
 <script>
-  const SUPABASE_URL = "https://supabase.co";
-  const SUPABASE_REST = SUPABASE_URL + "/rest/v1/";
-  const SUPABASE_ANON_KEY = "sb_publishable_Tds1DzdM6s5cdv2kXQx_JA_uNJdHROT";
-  const sbHeaders = { "apikey": SUPABASE_ANON_KEY, "Authorization": "Bearer " + SUPABASE_ANON_KEY, "Content-Type": "application/json" };
-  let cachedPeople = [], selectedPersonRecord = null, searchTimer = null, tasbeehCount = 0;
+/* ==================================================
+   MOCK DATA — replace with Supabase fetch later
+   ================================================== */
+const MOCK_BRANCHES = [
+  { id: 1, branch_name: "Husaini — Najaf" },
+  { id: 2, branch_name: "Rizvi — Lucknow" },
+  { id: 3, branch_name: "Naqvi — Delhi" },
+  { id: 4, branch_name: "Kazmi — Lahore" },
+  { id: 5, branch_name: "Jafri — Qom" }
+];
 
-  async function sbFetch(endpoint) {
-    const res = await fetch(SUPABASE_REST + endpoint, { headers: sbHeaders });
-    if (!res.ok) throw new Error("Error " + res.status);
-    return res.json();
-  }
+const MOCK_PEOPLE = [
+  { id:1, person_code:"SL-0001", full_name:"Sayyid Ali al-Husaini", father_name:"Sayyid Hasan", gender:"Male", global_generation:34, branch_name:"Husaini — Najaf", source_book:"Mafatih al-Jinan", source_page:"p. 412", life_status:"Living", book_text_english:"A renowned scholar of the Husaini lineage from Najaf, traced through 34 verified generations.", book_text_urdu:"نجف کے حسینی سلسلے کے ایک معروف عالم، ۳۴ تصدیق شدہ پشتوں سے۔", lineage_path:"1/2/3" },
+  { id:2, person_code:"SL-0002", full_name:"Sayyida Fatima Rizvi", father_name:"Sayyid Mehdi", gender:"Female", global_generation:36, branch_name:"Rizvi — Lucknow", source_book:"Shajra-e-Nasab Rizvi", source_page:"p. 88", life_status:"Living", book_text_english:"Direct descendant of Imam Ali al-Ridha (a.s.), Lucknow branch.", book_text_urdu:"امام علی الرضا (ع) کی براہِ راست اولاد، لکھنؤ شاخ۔", lineage_path:"1/2" },
+  { id:3, person_code:"SL-0003", full_name:"Sayyid Baqir Naqvi", father_name:"Sayyid Jafar", gender:"Male", global_generation:32, branch_name:"Naqvi — Delhi", source_book:"Tazkirat ul-Ansab", source_page:"p. 220", life_status:"Living", book_text_english:"Delhi-based Naqvi scholar and trustee of the canonical archive.", book_text_urdu:"دہلی کے نقوی عالم اور کینونیکل آرکائیو کے ٹرسٹی۔" },
+  { id:4, person_code:"SL-0004", full_name:"Sayyid Kazim Kazmi", father_name:"Sayyid Raza", gender:"Male", global_generation:38, branch_name:"Kazmi — Lahore", source_book:"Riyaz ul-Sadat", source_page:"p. 156", life_status:"Living", book_text_english:"Lahore Kazmi lineage, custodian of several Shia shrines.", book_text_urdu:"لاہور کاظمی سلسلہ، کئی شیعہ مزارات کے متولی۔" },
+  { id:5, person_code:"SL-0005", full_name:"Sayyida Zainab Jafri", father_name:"Sayyid Abbas", gender:"Female", global_generation:35, branch_name:"Jafri — Qom", source_book:"Shajra Qom", source_page:"p. 45", life_status:"Living", book_text_english:"Qom-based Jafri scholar and teacher of Fiqh-e-Jafari.", book_text_urdu:"قم میں مقیم جعفری عالمہ اور فقہ جعفری کی معلمہ۔" },
+  { id:6, person_code:"SL-0006", full_name:"Sayyid Husain Rizvi", father_name:"Sayyid Ali Akbar", gender:"Male", global_generation:33, branch_name:"Rizvi — Lucknow", source_book:"Nasab Rizvi", source_page:"p. 102", life_status:"Living", book_text_english:"Lucknow Rizvi elder, keeper of family manuscripts.", book_text_urdu:"لکھنؤ کے رضوی بزرگ، خاندانی مخطوطات کے محافظ۔" },
+  { id:7, person_code:"SL-0007", full_name:"Sayyid Mehdi Naqvi", father_name:"Sayyid Hasan", gender:"Male", global_generation:31, branch_name:"Naqvi — Delhi", source_book:"Tazkirat", source_page:"p. 88", life_status:"Living", book_text_english:"Naqvi family historian.", book_text_urdu:"نقوی خاندان کے مورخ۔" },
+  { id:8, person_code:"SL-0008", full_name:"Sayyida Ruqayya Kazmi", father_name:"Sayyid Kazim", gender:"Female", global_generation:37, branch_name:"Kazmi — Lahore", source_book:"Riyaz", source_page:"p. 210", life_status:"Living", book_text_english:"Kazmi family, Lahore.", book_text_urdu:"کاظمی خاندان، لاہور۔" }
+];
 
-  async function initArchive() {
-    try {
-      const branches = await sbFetch("branches?select=*&order=id.asc");
-      const sel = document.getElementById("branchFilter");
-      branches.forEach(function(b) {
-        const o = document.createElement("option");
-        o.value = b.id;
-        o.textContent = b.branch_name || b.name || ("Branch " + b.id);
-        sel.appendChild(o);
-      });
-    } catch (e) {}
-    try {
-      const initial = await sbFetch("public_people_view?select=*&order=id.asc&limit=8");
-      cachedPeople = initial || [];
-      document.getElementById("searchStatus").textContent = "Showing " + cachedPeople.length + " canonical records (Type 3+ letters to search all 6,000+):";
-      renderPersonCards(cachedPeople);
-    } catch (e) {
-      document.getElementById("searchStatus").textContent = "Type 3+ letters to search canonical archive.";
-    }
-  }
+/* Simple lineage map for ancestors */
+const MOCK_ANCESTORS = {
+  1: { id:1, global_generation:34, full_name:"Sayyid Ali al-Husaini" },
+  2: { id:101, global_generation:33, full_name:"Sayyid Hasan al-Husaini" },
+  3: { id:102, global_generation:32, full_name:"Sayyid Mehdi al-Husaini" }
+};
 
-  function handleLiveSearch() {
-    clearTimeout(searchTimer);
-    searchTimer = setTimeout(executeShajraSearch, 300);
-  }
+/* ==================================================
+   GLOBAL STATE
+   ================================================== */
+let cachedPeople = [];
+let selectedPersonRecord = null;
+let searchTimer = null;
+let tasbeehCount = 0;
+let submissionStore = JSON.parse(localStorage.getItem("sl_submissions") || "[]");
 
-  async function executeShajraSearch() {
-    const qRaw = document.getElementById("shajraSearchInput").value.trim();
-    const bId = document.getElementById("branchFilter").value;
-    const statusEl = document.getElementById("searchStatus");
-    if (qRaw.length < 3 && !bId) { statusEl.textContent = "Enter at least 3 letters."; return; }
-    statusEl.textContent = "Searching...";
-    try {
-      let filter = "select=*&order=id.asc&limit=40";
-      if (qRaw.length >= 3) {
-        const q = encodeURIComponent(qRaw);
-        filter += "&or=(full_name.ilike.*" + q + "*,person_code.ilike.*" + q + "*,father_name.ilike.*" + q + "*)";
-      }
-      if (bId) filter += "&branch_id=eq." + encodeURIComponent(bId);
-      cachedPeople = await sbFetch("public_people_view?" + filter) || [];
-      statusEl.textContent = "Found " + cachedPeople.length + " verified record(s):";
-      renderPersonCards(cachedPeople);
-    } catch (e) { statusEl.textContent = e.message; }
-  }
-
-  function renderPersonCards(list) {
-    document.getElementById("searchResults").innerHTML = list.map(function(p, idx) {
-      const isD = (p.gender || "").toLowerCase() === "female";
-      const avatarHtml = p.photo_url
-        ? '<img src="' + escapeHtml(p.photo_url) + '" alt="Photo" class="person-photo" onerror="this.outerHTML=\'<div class=person-photo>سل</div>\'" />'
-        : '<div class="person-photo">سل</div>';
-      return '<div class="person-card"><div class="person-header">' + avatarHtml + '<div>' +
-        '<span class="badge badge-code">' + escapeHtml(p.person_code || p.id) + '</span>' +
-        '<span class="badge ' + (isD ? 'badge-daughter' : 'badge-verified') + '">' + (isD ? "Daughter" : "Gen #" + (p.global_generation || p.generation_number || "")) + '</span><br/>' +
-        '<strong>' + escapeHtml(p.full_name) + '</strong></div></div>' +
-        '<div style="font-size:0.85rem;">Father: ' + escapeHtml(p.father_name || "—") + '<br/>Book: <em>' + escapeHtml(p.source_book || "") + '</em></div>' +
-        '<button class="btn-emerald" onclick="viewFullLineage(' + idx + ')">View Biography & Shajra</button></div>';
-    }).join("");
-  }
-
-  async function viewFullLineage(idx) {
-    const p = cachedPeople[idx];
-    if (!p) return;
-    selectedPersonRecord = p;
-    document.getElementById("lineageViewerCard").style.display = "block";
-    document.getElementById("selectedPersonTitle").textContent = p.full_name;
-    document.getElementById("selectedPersonMeta").innerHTML = "<strong>Branch:</strong> " + escapeHtml(p.branch_name || "") + " | <strong>Source:</strong> " + escapeHtml(p.source_book || "") + " (" + escapeHtml(p.source_page || "") + ")";
-    let bio = "";
-    if (p.book_text_english) bio += '<div class="bio-box-en">' + escapeHtml(p.book_text_english) + '</div>';
-    if (p.book_text_urdu) bio += '<div class="bio-box-ur">' + escapeHtml(p.book_text_urdu) + '</div>';
-    document.getElementById("selectedPersonBio").innerHTML = bio;
-    let chain = [p];
-    try {
-      if (p.lineage_path) {
-        const ids = String(p.lineage_path).split("/").filter(Boolean);
-        const anc = await sbFetch("public_people_view?id=in.(" + ids.join(",") + ")&select=id,person_code,full_name,global_generation");
-        const map = {};
-        anc.forEach(function(a) { map[String(a.id)] = a; });
-        const ord = ids.map(function(id) { return map[id]; }).filter(Boolean);
-        if (ord.length) chain = ord.reverse();
-      }
-    } catch (e) {}
-    selectedPersonRecord._tracedChain = chain;
-    document.getElementById("lineageChainContainer").innerHTML = chain.map(function(n) {
-      return '<div class="tree-node"><strong>Gen #' + escapeHtml(n.global_generation || "") + ':</strong> ' + escapeHtml(n.full_name) + '</div>';
-    }).join("");
-    document.getElementById("lineageViewerCard").scrollIntoView({ behavior: "smooth" });
-  }
-  function transferToCertificate() {
-    if (!selectedPersonRecord) return;
-    document.getElementById("certPersonName").value = selectedPersonRecord.full_name || "";
-    document.getElementById("certFatherName").value = selectedPersonRecord.father_name || "";
-    document.getElementById("certBookRef").value = (selectedPersonRecord.source_book || "") + " " + (selectedPersonRecord.source_page || "");
-    openTab("certificateTab");
-  }
-
-  function renderAndPrintCertificate() {
-    document.getElementById("previewCertName").textContent = document.getElementById("certPersonName").value;
-    document.getElementById("previewCertFather").innerHTML = "Son/Daughter of: <strong>" + escapeHtml(document.getElementById("certFatherName").value) + "</strong>";
-    document.getElementById("previewCertBook").textContent = "Reference: " + document.getElementById("certBookRef").value;
-    window.print();
-  }
-
-  async function submitCanonicalRecord(e) {
-    e.preventDefault();
-    const fb = document.getElementById("submissionFeedback");
-    fb.textContent = "Saving submission...";
-    const code = "SUB-" + Date.now().toString().slice(-6);
-    const payload = {
-      submission_code: code,
-      full_name: document.getElementById("subName").value.trim(),
-      father_name: document.getElementById("subFather").value.trim(),
-      gender: document.getElementById("subGender").value,
-      in_laws_info: document.getElementById("subInLaws").value.trim(),
-      canonical_book: document.getElementById("subBook").value,
-      book_page: document.getElementById("subPage").value.trim(),
-      state_queue: document.getElementById("subState").value,
-      payment_receipt: document.getElementById("subReceipt").value.trim()
-    };
-    try {
-      const res = await fetch(SUPABASE_REST + "shajra_submissions", {
-        method: "POST",
-        headers: Object.assign({}, sbHeaders, { "Prefer": "return=minimal" }),
-        body: JSON.stringify(payload)
-      });
-      if (!res.ok) throw new Error(await res.text());
-      fb.innerHTML = '<span style="color:var(--emerald);">Saved! Tracking ID: <strong>' + code + '</strong> (10-Day Book Verification).</span>';
-      e.target.reset();
-    } catch (err) { fb.textContent = "Error: " + err.message; }
-  }
-
-  async function loadMatrimonyProfiles() {
-    const g = document.getElementById("matGender").value;
-    let q = "public_people_view?select=*&life_status=eq.Living&limit=10";
-    if (g !== "All") q += "&gender=eq." + g;
-    const recs = await sbFetch(q);
-    document.getElementById("matrimonyList").innerHTML = (recs || []).map(function(r) {
-      return '<div class="person-card"><strong>' + escapeHtml(r.full_name) + '</strong><small>Father: ' + escapeHtml(r.father_name || "") + ' | Phone/Email/Address Hidden</small><button class="btn-gold" onclick="alert(\'Wali Approval Requested\')">Request Wali Approval</button></div>';
-    }).join("") || "No living verified records under this filter.";
-  }
-
-  function openSiatModule(mod) {
-    const modules = {
-      quran: { t: "Al Quran — Surah Al-Fatiha & Isal-e-Sawab", b: '<div dir="rtl" style="font-size:1.25rem; line-height:2.1; background:#faf6eb; padding:1rem; border-radius:8px; text-align:center;">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ ﴿١﴾ الْحَمْدُ لِلَّهِ رَبِّ الْعَالَمِينَ ﴿٢﴾ الرَّحْمَٰنِ الرَّحِيمِ ﴿٣﴾ مَالِكِ يَوْمِ الدِّينِ ﴿٤﴾ إِيَّاكَ نَعْبُدُ وَإِيَّاكَ نَسْتَعِينُ ﴿٥﴾ اهْدِنَا الصِّرَاطَ الْمُسْتَقِيمَ ﴿٦﴾ صِرَاطَ الَّذِينَ أَنْعَمْتَ عَلَيْهِمْ غَيْرِ الْمَغْضُوبِ عَلَيْهِمْ وَلَا الضَّالِّينَ ﴿٧﴾</div><p style="margin-top:0.6rem;">Recite 1x Surah Al-Fatiha & 3x Surah Al-Ikhlas for Isal-e-Sawab of Sadat ancestors.</p>' },
-      duas: { t: "Dua Directory (Kumayl, Tawassul, Faraj, Nudba)", b: '<div dir="rtl" style="font-size:1.2rem; background:#faf6eb; padding:0.9rem; border-radius:8px;">اللَّهُمَّ إِنِّي أَسْأَلُكَ بِرَحْمَتِكَ الَّتِي وَسِعَتْ كُلَّ شَيْءٍ... (Dua-e-Kumayl)<br/><br/>اللَّهُمَّ كُنْ لِوَلِيِّكَ الْحُجَّةِ بْنِ الْحَسَنِ... (Dua-e-Faraj)</div>' },
-      ziaraah: { t: "Ziaraah Directory (Ashura, Waritha, Aminullah)", b: '<div dir="rtl" style="font-size:1.2rem; background:#faf6eb; padding:0.9rem; border-radius:8px;">السَّلَامُ عَلَيْكَ يَا أَبَا عَبْدِ اللَّهِ، السَّلَامُ عَلَيْكَ يَا ابْنَ رَسُولِ اللَّهِ... (Ziyarat-e-Ashura)</div>' },
-      salah: { t: "Salah & Digital Tasbeeh-e-Zahra (s.a.)", b: '<div style="text-align:center;"><div id="tasbeehPhase" style="font-weight:700;">34 × Allahu Akbar</div><div class="tasbeeh-circle" onclick="incrementTasbeeh()"><div class="tasbeeh-count" id="tasbeehCounter">0</div><small>Tap</small></div><button class="btn-emerald" onclick="resetTasbeeh()">Reset</button></div>' },
-      taqibaat: { t: "Daily Taqibaat e Namaz", b: '<p><strong>After Every Wajib Salah:</strong> Recite Tasbeeh-e-Zahra (s.a.) — 34x Allahu Akbar, 33x Alhamdulillah, 33x SubhanAllah, followed by Sajdah-e-Shukr.</p>' },
-      amaal: { t: "12-Month Islamic Calendar & Amaal", b: '<p><strong>Key Observances:</strong> 10 Muharram (Ashura), 20 Safar (Arbaeen), 13 Rajab (Wiladat Imam Ali a.s.), 15 Sha\'ban (Wiladat Imam Mahdi a.t.f.s.), 19-23 Ramadan (Laylat-ul-Qadr), 18 Dhul Hijjah (Eid-e-Ghadeer).</p>' },
-      books: { t: "Classical Shia Book Library", b: '<p><strong>1. Nahjul Balagha:</strong> Sermons & Letters of Imam Ali (a.s.).<br/><strong>2. Mafatih al-Jinan:</strong> Compiled by Shaykh Abbas Qummi (r.a.).</p>' },
-      hadith: { t: "Hadith & 14 Masoomeen (a.s.)", b: '<p><strong>Imam Jafar al-Sadiq (a.s.):</strong> "Our Shia are those who follow our commands, avoid our prohibitions, and are a source of honor for us." (Al-Kafi)</p>' },
-      hajj: { t: "Hajj & Ziaraah Guide", b: '<p><strong>Umrah Mufradah Steps:</strong> 1. Ihram at Miqat → 2. 7 Rounds Tawaf → 3. 2 Rak\'at Namaz-e-Tawaf → 4. 7 Laps Sa\'i → 5. Taqseer.</p>' },
-      sajjadia: { t: "As-Sahifa Al-Sajjadiyya", b: '<div dir="rtl" style="font-size:1.2rem; background:#faf6eb; padding:0.9rem; border-radius:8px;">الْحَمْدُ لِلَّهِ الأَوَّلِ بِلاَ أَوَّلٍ كَانَ قَبْلَهُ، وَالآخِرِ بِلاَ آخِرٍ يَكُونُ بَعْدَهُ...</div>' },
-      specific: { t: "Specific Purpose Duas & Quiz", b: '<div dir="rtl" style="font-size:1.2rem; background:#faf6eb; padding:0.9rem; border-radius:8px;">أَمَّن يُجِيبُ الْمُضْطَرَّ إِذَا دَعَاهُ وَيَكْشِفُ السُّوءَ</div><p style="margin-top:0.5rem;"><strong>Daily Quiz:</strong> Which date is Eid-e-Ghadeer? <strong>18th Dhul Hijjah</strong>.</p>' },
-      qibla: { t: "GPS Qibla Direction Finder", b: '<button class="btn-gold" style="width:100%;" onclick="findQiblaDirection()">Detect Exact Qibla Bearing (GPS)</button><div id="qiblaResult" style="margin-top:0.75rem; padding:0.75rem; background:#f4f7f5; text-align:center; font-weight:700;">Tap button to calculate Kaaba angle.</div>' }
-    };
-    const item = modules[mod] || modules.quran;
-    document.getElementById("siatModuleTitle").textContent = item.t;
-    document.getElementById("siatModuleBody").innerHTML = item.b;
-  }
-
-  function incrementTasbeeh() {
-    tasbeehCount = (tasbeehCount % 100) + 1;
-    document.getElementById("tasbeehCounter").textContent = tasbeehCount;
-    document.getElementById("tasbeehPhase").textContent = tasbeehCount <= 34 ? "34 × Allahu Akbar (" + tasbeehCount + "/34)" : tasbeehCount <= 67 ? "33 × Alhamdulillah (" + (tasbeehCount - 34) + "/33)" : "33 × SubhanAllah (" + (tasbeehCount - 67) + "/33)";
-  }
-  function resetTasbeeh() { tasbeehCount = 0; document.getElementById("tasbeehCounter").textContent = "0"; }
-
-  function findQiblaDirection() {
-    const out = document.getElementById("qiblaResult");
-    if (!navigator.geolocation) { out.textContent = "GPS not supported."; return; }
-    out.textContent = "Detecting GPS...";
-    navigator.geolocation.getCurrentPosition(function(pos) {
-      const lat1 = pos.coords.latitude * Math.PI / 180, lon1 = pos.coords.longitude * Math.PI / 180;
-      const lat2 = 21.4225 * Math.PI / 180, lon2 = 39.8262 * Math.PI / 180;
-      const y = Math.sin(lon2 - lon1) * Math.cos(lat2);
-      const x = Math.cos(lat1) * Math.sin(lat2) - Math.sin(lat1) * Math.cos(lat2) * Math.cos(lon2 - lon1);
-      const angle = ((Math.atan2(y, x) * 180 / Math.PI) + 360) % 360;
-      out.innerHTML = 'Exact Qibla Bearing: <span style="color:var(--emerald); font-size:1.25rem;">' + angle.toFixed(1) + '°</span> from True North';
-    }, function(err) { out.textContent = "Allow location permission: " + err.message; });
-  }
-
-  function unlockAdminPortal() {
-    if (!document.getElementById("adminLicenseInput").value.trim()) { alert("Enter Admin License Key."); return; }
-    document.getElementById("adminWorkspace").style.display = "block";
-    document.getElementById("adminRoleHeading").textContent = "Licensed Admin Workspace Active";
-    document.getElementById("adminQueueContent").innerHTML = "<p>Append-only canonical governance active on 6,000+ records.</p>";
-  }
-  function supabaseSignIn() { document.getElementById("authStatusMsg").textContent = "Signing in via Supabase Auth..."; }
-  function supabaseSignUp() { document.getElementById("authStatusMsg").textContent = "Registering free account..."; }
-  function showLegalDoc(t) { document.getElementById("legalDocContent").innerHTML = "<strong>" + t.toUpperCase() + ":</strong> Strict privacy lock (phone, email, address hidden). 100% canonical public-domain books mandate."; }
-  function setLanguage(l) {
-    document.documentElement.dir = l === "ur" ? "rtl" : "ltr";
-    ["en", "ur", "hi"].forEach(function(x) { document.getElementById("btn-" + x).classList.toggle("active", x === l); });
-  function openTab(id) {
-    document.querySelectorAll(".tab-section").forEach(function(s) { s.classList.remove("active"); });
-    document.querySelectorAll(".hub-tile").forEach(function(t) { t.classList.remove("active-tile"); });
-    const target = document.getElementById(id);
-    if (target) target.classList.add("active");
-    const tile = document.getElementById("tile-" + id);
-    if (tile) tile.classList.add("active-tile");
-    if (id === "matrimonyTab") loadMatrimonyProfiles();
-  }
-
-  function escapeHtml(s) {
-    if (!s || s === "NULL" || s === "null") return "";
-    return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
-  }
-
-  if ("serviceWorker" in navigator) window.addEventListener("load", function() { navigator.serviceWorker.register("sw.js").catch(function() {}); });
+/* ==================================================
+   INIT
+   ================================================== */
+document.addEventListener("DOMContentLoaded", () => {
   initArchive();
   openSiatModule("quran");
   showLegalDoc("privacy");
+  loadMatrimonyProfiles();
+});
+
+function initArchive() {
+  // Populate branch filter
+  const sel = document.getElementById("branchFilter");
+  MOCK_BRANCHES.forEach(b => {
+    const o = document.createElement("option");
+    o.value = b.id;
+    o.textContent = b.branch_name;
+    sel.appendChild(o);
+  });
+  // Show initial 6 records
+  cachedPeople = MOCK_PEOPLE.slice(0, 6);
+  document.getElementById("searchStatus").textContent =
+    "Showing " + cachedPeople.length + " canonical records (type 3+ letters to search all 6,000+):";
+  renderPersonCards(cachedPeople);
+}
+
+/* ==================================================
+   SEARCH
+   ================================================== */
+function handleLiveSearch() {
+  clearTimeout(searchTimer);
+  searchTimer = setTimeout(executeShajraSearch, 300);
+}
+
+function executeShajraSearch() {
+  const q = document.getElementById("shajraSearchInput").value.trim().toLowerCase();
+  const bId = document.getElementById("branchFilter").value;
+  const statusEl = document.getElementById("searchStatus");
+
+  if (q.length < 3 && !bId) {
+    statusEl.textContent = "Enter at least 3 letters, or select a branch.";
+    return;
+  }
+
+  let results = MOCK_PEOPLE.filter(p => {
+    const matchesQ = q.length >= 3
+      ? (p.full_name.toLowerCase().includes(q) ||
+         p.person_code.toLowerCase().includes(q) ||
+         (p.father_name || "").toLowerCase().includes(q))
+      : true;
+    const matchesB = !bId || String(
+      MOCK_BRANCHES.find(b => b.branch_name === p.branch_name)?.id
+    ) === String(bId);
+    return matchesQ && matchesB;
+  });
+
+  cachedPeople = results;
+  statusEl.textContent = "Found " + results.length + " verified record(s):";
+  renderPersonCards(results);
+}
+
+function renderPersonCards(list) {
+  const wrap = document.getElementById("searchResults");
+  if (!list.length) {
+    wrap.innerHTML = '<div class="empty-state">No records matched. Try another name or branch.</div>';
+    return;
+  }
+  wrap.innerHTML = list.map((p, idx) => {
+    const isD = (p.gender || "").toLowerCase() === "female";
+    return `<div class="person-card">
+      <div class="person-header">
+        <div class="person-photo">سل</div>
+        <div>
+          <span class="badge badge-code">${escapeHtml(p.person_code)}</span>
+          <span class="badge ${isD ? 'badge-daughter' : 'badge-verified'}">${isD ? 'Daughter' : 'Gen #' + p.global_generation}</span>
+          <br/><strong>${escapeHtml(p.full_name)}</strong>
+        </div>
+      </div>
+      <div style="font-size:0.85rem;">Father: ${escapeHtml(p.father_name || '—')}<br/>Book: <em>${escapeHtml(p.source_book)}</em></div>
+      <button class="btn-emerald" onclick="viewFullLineage(${idx})">View Biography & Shajra</button>
+    </div>`;
+  }).join("");
+}
+
+/* ==================================================
+   LINEAGE VIEWER
+   ================================================== */
+function viewFullLineage(idx) {
+  const p = cachedPeople[idx];
+  if (!p) return;
+  selectedPersonRecord = p;
+
+  document.getElementById("lineageViewerCard").style.display = "block";
+  document.getElementById("selectedPersonTitle").textContent = p.full_name;
+  document.getElementById("selectedPersonMeta").innerHTML =
+    `<strong>Branch:</strong> ${escapeHtml(p.branch_name)} | <strong>Source:</strong> ${escapeHtml(p.source_book)} (${escapeHtml(p.source_page || "")})`;
+
+  let bio = "";
+  if (p.book_text_english) bio += `<div class="bio-box-en">${escapeHtml(p.book_text_english)}</div>`;
+  if (p.book_text_urdu) bio += `<div class="bio-box-ur">${escapeHtml(p.book_text_urdu)}</div>`;
+  document.getElementById("selectedPersonBio").innerHTML = bio || '<p style="color:var(--text-muted);">No biography text available.</p>';
+
+  // Build chain from mock ancestors
+  const chain = p.lineage_path
+    ? p.lineage_path.split("/").map(id => MOCK_ANCESTORS[id]).filter(Boolean).reverse()
+    : [{ global_generation: p.global_generation, full_name: p.full_name }];
+
+  document.getElementById("lineageChainContainer").innerHTML = chain.map((n, i) => {
+    const isRoot = i === chain.length - 1;
+    return `<div class="tree-node ${isRoot ? 'active-root' : ''}"><strong>Gen #${n.global_generation}:</strong> ${escapeHtml(n.full_name)}</div>`;
+  }).join("");
+
+  document.getElementById("lineageViewerCard").scrollIntoView({ behavior: "smooth", block: "start" });
+}
+
+function transferToCertificate() {
+  if (!selectedPersonRecord) return;
+  document.getElementById("certPersonName").value = selectedPersonRecord.full_name || "";
+  document.getElementById("certFatherName").value = selectedPersonRecord.father_name || "";
+  document.getElementById("certBookRef").value = `${selectedPersonRecord.source_book || ""} ${selectedPersonRecord.source_page || ""}`.trim();
+  openTab("certificateTab");
+  renderAndPrintCertificate(false); // preview only
+}
+
+/* ==================================================
+   CERTIFICATE
+   ================================================== */
+function renderAndPrintCertificate(shouldPrint = true) {
+  const name = document.getElementById("certPersonName").value.trim() || "—";
+  const father = document.getElementById("certFatherName").value.trim() || "—";
+  const book = document.getElementById("certBookRef").value.trim() || "—";
+
+  document.getElementById("previewCertName").textContent = name;
+  document.getElementById("previewCertFather").innerHTML = `Son/Daughter of: <strong>${escapeHtml(father)}</strong>`;
+  document.getElementById("previewCertBook").textContent = `Reference: ${book}`;
+
+  if (shouldPrint) {
+    setTimeout(() => window.print(), 100);
+  }
+}
+
+/* ==================================================
+   SUBMIT RECORD
+   ================================================== */
+function submitCanonicalRecord(e) {
+  e.preventDefault();
+  const fb = document.getElementById("submissionFeedback");
+  const code = "SUB-" + Date.now().toString().slice(-6);
+  const payload = {
+    code,
+    full_name: document.getElementById("subName").value.trim(),
+    father_name: document.getElementById("subFather").value.trim(),
+    gender: document.getElementById("subGender").value,
+    in_laws: document.getElementById("subInLaws").value.trim(),
+    book: document.getElementById("subBook").value.trim(),
+    page: document.getElementById("subPage").value.trim(),
+    state: document.getElementById("subState").value.trim(),
+    receipt: document.getElementById("subReceipt").value.trim(),
+    submitted_at: new Date().toISOString()
+  };
+
+  submissionStore.push(payload);
+  localStorage.setItem("sl_submissions", JSON.stringify(submissionStore));
+
+  fb.innerHTML = `<span style="color:var(--emerald); font-weight:700;">Saved! Tracking ID: ${code} (10-Day Book Verification).</span>`;
+  e.target.reset();
+}
+
+/* ==================================================
+   MATRIMONY
+   ================================================== */
+function loadMatrimonyProfiles() {
+  const g = document.getElementById("matGender").value;
+  const list = MOCK_PEOPLE.filter(p =>
+    p.life_status === "Living" &&
+    (g === "All" || p.gender === g)
+  );
+
+  document.getElementById("matrimonyList").innerHTML = list.length
+    ? list.map(r => `
+      <div class="person-card">
+        <strong>${escapeHtml(r.full_name)}</strong>
+        <small style="color:var(--text-muted);">Father: ${escapeHtml(r.father_name || '')} | Phone/Email/Address Hidden</small>
+        <button class="btn-gold" onclick="requestWali('${escapeHtml(r.person_code)}')">Request Wali Approval</button>
+      </div>`).join("")
+    : '<div class="empty-state">No living verified records under this filter.</div>';
+}
+
+function requestWali(code) {
+  alert(`Wali Approval request sent for ${code}. The Wali will be contacted via the archive admin within 48 hours.`);
+}
+
+/* ==================================================
+   TOOLKIT MODULES
+   ================================================== */
+function openSiatModule(mod) {
+  const modules = {
+    quran: { t: "Al Quran — Surah Al-Fatiha & Isal-e-Sawab",
+      b: `<div dir="rtl" style="font-size:1.25rem; line-height:2.1; background:#faf6eb; padding:1rem; border-radius:8px; text-align:center;">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ ﴿١﴾ الْحَمْدُ لِلَّهِ رَبِّ الْعَالَمِينَ ﴿٢﴾ الرَّحْمَٰنِ الرَّحِيمِ ﴿٣﴾ مَالِكِ يَوْمِ الدِّينِ ﴿٤﴾ إِيَّاكَ نَعْبُدُ وَإِيَّاكَ نَسْتَعِينُ ﴿٥﴾ اهْدِنَا الصِّرَاطَ الْمُسْتَقِيمَ ﴿٦﴾ صِرَاطَ الَّذِينَ أَنْعَمْتَ عَلَيْهِمْ غَيْرِ الْمَغْضُوبِ عَلَيْهِمْ وَلَا الضَّالِّينَ ﴿٧﴾</div>
+      <p style="margin-top:0.6rem;">Recite 1× Surah Al-Fatiha & 3× Surah Al-Ikhlas for Isal-e-Sawab of Sadat ancestors.</p>` },
+    duas: { t: "Dua Directory (Kumayl, Tawassul, Faraj, Nudba)",
+      b: `<div dir="rtl" style="font-size:1.2rem; background:#faf6eb; padding:0.9rem; border-radius:8px; line-height:2;">اللَّهُمَّ إِنِّي أَسْأَلُكَ بِرَحْمَتِكَ الَّتِي وَسِعَتْ كُلَّ شَيْءٍ... (Dua-e-Kumayl)<br/><br/>اللَّهُمَّ كُنْ لِوَلِيِّكَ الْحُجَّةِ بْنِ الْحَسَنِ... (Dua-e-Faraj)</div>` },
+    ziaraah: { t: "Ziaraah Directory (Ashura, Waritha, Aminullah)",
+      b: `<div dir="rtl" style="font-size:1.2rem; background:#faf6eb; padding:0.9rem; border-radius:8px; line-height:2;">السَّلَامُ عَلَيْكَ يَا أَبَا عَبْدِ اللَّهِ، السَّلَامُ عَلَيْكَ يَا ابْنَ رَسُولِ اللَّهِ... (Ziyarat-e-Ashura)</div>` },
+    salah: { t: "Salah & Digital Tasbeeh-e-Zahra (s.a.)",
+      b: `<div style="text-align:center;">
+        <div id="tasbeehPhase" style="font-weight:700; margin-bottom:0.3rem;">34 × Allahu Akbar</div>
+        <div class="tasbeeh-circle" onclick="incrementTasbeeh()">
+          <div class="tasbeeh-count" id="tasbeehCounter">0</div><small>Tap to count</small>
+        </div>
+        <button class="btn-emerald" onclick="resetTasbeeh()">Reset</button>
+      </div>` },
+    taqibaat: { t: "Daily Taqibaat e Namaz",
+      b: `<p><strong>After Every Wajib Salah:</strong> Recite Tasbeeh-e-Zahra (s.a.) — 34× Allahu Akbar, 33× Alhamdulillah, 33× SubhanAllah, followed by Sajdah-e-Shukr.</p>` },
+    amaal: { t: "12-Month Islamic Calendar & Amaal",
+      b: `<p><strong>Key Observances:</strong> 10 Muharram (Ashura), 20 Safar (Arbaeen), 13 Rajab (Wiladat Imam Ali a.s.), 15 Sha'ban (Wiladat Imam Mahdi a.t.f.s.), 19–23 Ramadan (Laylat-ul-Qadr), 18 Dhul Hijjah (Eid-e-Ghadeer).</p>` },
+    books: { t: "Classical Shia Book Library",
+      b: `<p><strong>1. Nahjul Balagha:</strong> Sermons & Letters of Imam Ali (a.s.).<br/><strong>2. Mafatih al-Jinan:</strong> Compiled by Shaykh Abbas Qummi (r.a.).<br/><strong>3. Sahifa Sajjadiyya:</strong> Supplications of Imam Zain-ul-Abideen (a.s.).</p>` },
+    hadith: { t: "Hadith & 14 Masoomeen (a.s.)",
+      b: `<p><strong>Imam Jafar al-Sadiq (a.s.):</strong> "Our Shia are those who follow our commands, avoid our prohibitions, and are a source of honor for us." (Al-Kafi)</p>` },
+    hajj: { t: "Hajj & Ziaraah Guide",
+      b: `<p><strong>Umrah Mufradah Steps:</strong><br/>1. Ihram at Miqat → 2. 7 Rounds Tawaf → 3. 2 Rak'at Namaz-e-Tawaf → 4. 7 Laps Sa'i → 5. Taqseer.</p>` },
+    sajjadia: { t: "As-Sahifa Al-Sajjadiyya",
+      b: `<div dir="rtl" style="font-size:1.2rem; background:#faf6eb; padding:0.9rem; border-radius:8px; line-height:2;">الْحَمْدُ لِلَّهِ الأَوَّلِ بِلاَ أَوَّلٍ كَانَ قَبْلَهُ، وَالآخِرِ بِلاَ آخِرٍ يَكُونُ بَعْدَهُ...</div>` },
+    specific: { t: "Specific Purpose Duas & Quiz",
+      b: `<div dir="rtl" style="font-size:1.2rem; background:#faf6eb; padding:0.9rem; border-radius:8px; line-height:2;">أَمَّن يُجِيبُ الْمُضْطَرَّ إِذَا دَعَاهُ وَيَكْشِفُ السُّوءَ</div>
+      <p style="margin-top:0.5rem;"><strong>Daily Quiz:</strong> Which date is Eid-e-Ghadeer? <strong>18th Dhul Hijjah</strong>.</p>` },
+    qibla: { t: "GPS Qibla Direction Finder",
+      b: `<button class="btn-gold" style="width:100%;" onclick="findQiblaDirection()">Detect Exact Qibla Bearing (GPS)</button>
+      <div id="qiblaResult" style="margin-top:0.75rem; padding:0.75rem; background:#f4f7f5; text-align:center; font-weight:700; border-radius:6px;">Tap button to calculate Kaaba angle.</div>` }
+  };
+
+  const item = modules[mod] || modules.quran;
+  document.getElementById("siatModuleTitle").textContent = item.t;
+  document.getElementById("siatModuleBody").innerHTML = item.b;
+  document.getElementById("siatViewerCard").scrollIntoView({ behavior: "smooth", block: "nearest" });
+}
+
+function incrementTasbeeh() {
+  tasbeehCount = (tasbeehCount % 100) + 1;
+  document.getElementById("tasbeehCounter").textContent = tasbeehCount;
+  document.getElementById("tasbeehPhase").textContent =
+    tasbeehCount <= 34 ? `34 × Allahu Akbar (${tasbeehCount}/34)` :
+    tasbeehCount <= 67 ? `33 × Alhamdulillah (${tasbeehCount - 34}/33)` :
+    `33 × SubhanAllah (${tasbeehCount - 67}/33)`;
+}
+
+function resetTasbeeh() {
+  tasbeehCount = 0;
+  document.getElementById("tasbeehCounter").textContent = "0";
+  document.getElementById("tasbeehPhase").textContent = "34 × Allahu Akbar";
+}
+
+function findQiblaDirection() {
+  const out = document.getElementById("qiblaResult");
+  if (!navigator.geolocation) { out.textContent = "GPS not supported on this browser."; return; }
+  out.textContent = "Detecting GPS...";
+  navigator.geolocation.getCurrentPosition(pos => {
+    const lat1 = pos.coords.latitude * Math.PI / 180;
+    const lon1 = pos.coords.longitude * Math.PI / 180;
+    const lat2 = 21.4225 * Math.PI / 180;
+    const lon2 = 39.8262 * Math.PI / 180;
+    const y = Math.sin(lon2 - lon1) * Math.cos(lat2);
+    const x = Math.cos(lat1) * Math.sin(lat2) - Math.sin(lat1) * Math.cos(lat2) * Math.cos(lon2 - lon1);
+    const angle = ((Math.atan2(y, x) * 180 / Math.PI) + 360) % 360;
+    out.innerHTML = `Exact Qibla Bearing: <span style="color:var(--emerald); font-size:1.25rem;">${angle.toFixed(1)}°</span> from True North`;
+  }, err => {
+    out.textContent = "Location permission denied: " + err.message;
+  });
+}
+
+/* ==================================================
+   ADMIN
+   ================================================== */
+function unlockAdminPortal() {
+  const key = document.getElementById("adminLicenseInput").value.trim();
+  if (!key) { alert("Enter Admin License Key."); return; }
+  const role = document.getElementById("adminRoleSelect").value;
+  document.getElementById("adminWorkspace").style.display = "block";
+  document.getElementById("adminRoleHeading").textContent = "Licensed Admin Workspace Active — " + role.replace(/_/g, " ").toUpperCase();
+  document.getElementById("adminQueueContent").innerHTML =
+    `<p>Append-only canonical governance active on 6,000+ records.</p>
+     <p style="margin-top:0.5rem;">Pending submissions: <strong>${submissionStore.length}</strong></p>
+     ${submissionStore.length ? '<ul style="margin-top:0.5rem; padding-left:1.2rem;">' + submissionStore.map(s => `<li>${escapeHtml(s.code)} — ${escapeHtml(s.full_name)} (${escapeHtml(s.state)})</li>`).join("") + '</ul>' : ''}`;
+}
+
+/* ==================================================
+   AUTH (mock)
+   ================================================== */
+function supabaseSignIn() {
+  const email = document.getElementById("authEmail").value.trim();
+  if (!email) { document.getElementById("authStatusMsg").textContent = "Enter your email."; return; }
+  document.getElementById("authStatusMsg").innerHTML = `<span style="color:var(--emerald);">Signed in as ${escapeHtml(email)} (demo mode).</span>`;
+}
+function supabaseSignUp() {
+  const email = document.getElementById("authEmail").value.trim();
+  if (!email) { document.getElementById("authStatusMsg").textContent = "Enter your email to register."; return; }
+  document.getElementById("authStatusMsg").innerHTML = `<span style="color:var(--emerald);">Free account created for ${escapeHtml(email)} (demo mode).</span>`;
+}
+
+/* ==================================================
+   LEGAL
+   ================================================== */
+function showLegalDoc(t) {
+  const docs = {
+    privacy: "<strong>PRIVACY POLICY:</strong> Strict privacy lock — phone, email, and home address of all Sadat records remain hidden. Only canonical names, father's names, and book references are public.",
+    terms: "<strong>TERMS OF USE:</strong> All records must trace to a verifiable published canonical book (public-domain). Any submission without a valid book reference is rejected.",
+    refund: "<strong>REFUND POLICY:</strong> Paid admin licenses and certificate issuance are refundable within 7 days if no verification has been processed.",
+    genealogy: "<strong>CANONICAL CHARTER:</strong> 100% canonical public-domain books mandate. Every record must cite book, page, and edition. Append-only governance ensures no record is deleted — only corrections appended."
+  };
+  document.getElementById("legalDocContent").innerHTML = docs[t] || "Document not found.";
+}
+
+/* ==================================================
+   NAVIGATION
+   ================================================== */
+function openTab(id) {
+  document.querySelectorAll(".tab-section").forEach(s => s.classList.remove("active"));
+  document.querySelectorAll(".hub-tile").forEach(t => t.classList.remove("active-tile"));
+  const target = document.getElementById(id);
+  if (target) target.classList.add("active");
+  const tile = document.getElementById("tile-" + id);
+  if (tile) tile.classList.add("active-tile");
+  if (id === "matrimonyTab") loadMatrimonyProfiles();
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+/* ==================================================
+   LANGUAGE (basic — sets dir only; full i18n can be added)
+   ================================================== */
+function setLanguage(l) {
+  document.documentElement.dir = l === "ur" ? "rtl" : "ltr";
+  document.documentElement.lang = l;
+  ["en", "ur", "hi"].forEach(x => {
+    const b = document.getElementById("btn-" + x);
+    if (b) b.classList.toggle("active", x === l);
+  });
+}
+
+/* ==================================================
+   HELPERS
+   ================================================== */
+function escapeHtml(s) {
+  if (!s || s === "NULL" || s === "null") return "";
+  return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+}
 </script>
 </body>
 </html>
-
