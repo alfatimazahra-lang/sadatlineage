@@ -359,18 +359,29 @@
     } catch (e) { statusEl.textContent = e.message; }
   }
 
-  function renderPersonCards(list) {
+    function renderPersonCards(list) {
     document.getElementById("searchResults").innerHTML = list.map(function(p, idx) {
       const isD = (p.gender || "").toLowerCase() === "female";
-      return '<div class="person-card"><div>' +
-        '<span class="badge badge-code">' + escapeHtml(p.person_code || p.id) + '</span>' +
-        '<span class="badge ' + (isD ? 'badge-daughter' : 'badge-verified') + '">' + (isD ? "Daughter" : "Gen #" + (p.global_generation || p.generation_number || "")) + '</span>' +
-        '<br/><strong>' + escapeHtml(p.full_name) + '</strong>' +
+      const avatarHtml = p.photo_url
+        ? '<img src="' + escapeHtml(p.photo_url) + '" alt="Photo" class="person-photo" onerror="this.outerHTML=\'<div class=person-photo>سل</div>\'" />'
+        : '<div class="person-photo">سل</div>';
+
+      return '<div class="person-card">' +
+        '<div class="person-header">' +
+          avatarHtml +
+          '<div>' +
+            '<span class="badge badge-code">' + escapeHtml(p.person_code || p.id) + '</span>' +
+            '<span class="badge ' + (isD ? 'badge-daughter' : 'badge-verified') + '">' + (isD ? "Daughter" : "Gen #" + (p.global_generation || p.generation_number || "")) + '</span>' +
+            '<br/><strong>' + escapeHtml(p.full_name) + '</strong>' +
+          '</div>' +
+        '</div>' +
         '<div style="font-size:0.85rem;">Father: ' + escapeHtml(p.father_name || "—") + '<br/>Book: <em>' + escapeHtml(p.source_book || "") + '</em></div>' +
-        '</div><button class="btn-emerald" onclick="viewFullLineage(' + idx + ')">View Biography & Shajra</button></div>';
+        '<button class="btn-emerald" onclick="viewFullLineage(' + idx + ')">View Biography & Shajra</button>' +
+      '</div>';
     }).join("");
   }
-   async function viewFullLineage(idx) {
+
+  async function viewFullLineage(idx) {
     const p = cachedPeople[idx];
     if (!p) return;
     selectedPersonRecord = p;
@@ -398,7 +409,6 @@
       return '<div class="tree-node"><strong>Gen #' + escapeHtml(n.global_generation || "") + ':</strong> ' + escapeHtml(n.full_name) + '</div>';
     }).join("");
   }
-
   function transferToCertificate() {
     if (!selectedPersonRecord) return;
     document.getElementById("certPersonName").value = selectedPersonRecord.full_name || "";
@@ -467,11 +477,10 @@
       }
       const ads = await sbFetch("sponsored_ads?select=*&order=id.desc&limit=1");
       if (Array.isArray(ads) && ads.length > 0) {
-        document.getElementById("sponsoredBanner").innerHTML = '<div><span class="ad-badge">Sponsored Ziyarat & Umrah</span> <strong>' + escapeHtml(ads[0].agency_name) + ':</strong> ' + escapeHtml(ads[0].banner_text) + '</div><button class="btn-gold" onclick="openTab(\'adminTab\')">Advertise Your Caravan</button>';
+        document.getElementById("sponsoredBanner").innerHTML = '<div><span class="ad-badge">Sponsored Ziyarat & Umrah</span> <strong>' + escapeHtml(ads.agency_name) + ':</strong> ' + escapeHtml(ads.banner_text) + '</div><button class="btn-gold" onclick="openTab(\'adminTab\')">Advertise Your Caravan</button>';
       }
     } catch (e) {}
   }
-
   async function unlockAdminPortal() {
     if (!document.getElementById("adminLicenseInput").value.trim()) { alert("Enter Admin License Key."); return; }
     const role = document.getElementById("adminRoleSelect").value;
@@ -492,7 +501,7 @@
   const hijriMonthsData = ["1. Muharram: 10 Ashura", "2. Safar: 20 Arbaeen", "3. Rabi al-Awwal: 17 Wiladat Prophet (s.a.w.w.)", "4. Rabi al-Thani: 10 Wafat Masooma (s.a.)", "5. Jumada al-Ula: 5 Wiladat Bibi Zainab (s.a.)", "6. Jumada al-Thani: 20 Wiladat Bibi Fatima (s.a.)", "7. Rajab: 13 Wiladat Imam Ali (a.s.)", "8. Sha'ban: 15 Wiladat Imam Mahdi (a.t.f.s.)", "9. Ramadan: 21 Shahadat Imam Ali (a.s.)", "10. Shawwal: 1 Eid-ul-Fitr", "11. Dhul Qa'dah: 11 Wiladat Imam Ridha (a.s.)", "12. Dhul Hijjah: 18 Eid-e-Ghadeer"];
   function renderHijriCalendar() {
     document.getElementById("hijriMonthsGrid").innerHTML = hijriMonthsData.map(function(m) {
-      return '<div class="month-card" onclick="document.getElementById(\'hijriEventsBox\').textContent=\'' + m + '\'"><strong>' + m.split(":")[0] + '</strong></div>';
+      return '<div class="month-card" onclick="document.getElementById(\'hijriEventsBox\').textContent=\'' + m + '\'"><strong>' + m.split(":") + '</strong></div>';
     }).join("");
   }
   function calculateJafariTimes() {
@@ -503,7 +512,8 @@
   }
   function incrementTasbeeh() { tasbeehCount = (tasbeehCount % 100) + 1; document.getElementById("tasbeehCounter").textContent = tasbeehCount; }
   function resetTasbeeh() { tasbeehCount = 0; document.getElementById("tasbeehCounter").textContent = "0"; }
-    function calcKaabaAngle(lat, lon) {
+
+  function calcKaabaAngle(lat, lon) {
     const lat1 = lat * Math.PI / 180, lon1 = lon * Math.PI / 180;
     const lat2 = 21.4225 * Math.PI / 180, lon2 = 39.8262 * Math.PI / 180;
     const y = Math.sin(lon2 - lon1) * Math.cos(lat2);
@@ -514,7 +524,7 @@
   function findQiblaDirection() {
     const out = document.getElementById("qiblaResult");
     if (!navigator.geolocation) {
-      out.innerHTML = "GPS not supported on this device. (Example: Kuwait City Qibla = <strong>224.8° SW</strong>)";
+      out.innerHTML = "GPS not supported on this device.";
       return;
     }
     out.textContent = "Requesting GPS permission...";
@@ -524,7 +534,7 @@
         out.innerHTML = '🧭 Exact Qibla Bearing: <span style="color:var(--emerald); font-size:1.25rem;">' + angle.toFixed(1) + '°</span> from True North<br/><small>GPS: ' + pos.coords.latitude.toFixed(4) + ', ' + pos.coords.longitude.toFixed(4) + '</small>';
       },
       function(err) {
-        out.innerHTML = '⚠️ Location blocked (' + escapeHtml(err.message) + '). Please allow Location permission in browser settings and use <strong>https://sadatlineage.in</strong>.';
+        out.innerHTML = '⚠️ Location blocked (' + escapeHtml(err.message) + '). Please allow Location permission in browser settings.';
       },
       { enableHighAccuracy: true, timeout: 10000 }
     );
