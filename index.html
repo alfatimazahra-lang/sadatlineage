@@ -367,7 +367,7 @@
         '</div><button class="btn-emerald" onclick="viewFullLineage(' + idx + ')">View Biography & Shajra</button></div>';
     }).join("");
   }
-  async function viewFullLineage(idx) {
+   async function viewFullLineage(idx) {
     const p = cachedPeople[idx];
     if (!p) return;
     selectedPersonRecord = p;
@@ -403,29 +403,92 @@
     document.getElementById("certBookRef").value = (selectedPersonRecord.source_book || "") + " " + (selectedPersonRecord.source_page || "");
     openTab("certificateTab");
   }
+
   function renderAndPrintCertificate() {
     document.getElementById("previewCertName").textContent = document.getElementById("certPersonName").value;
     document.getElementById("previewCertFather").innerHTML = "Son/Daughter of: <strong>" + escapeHtml(document.getElementById("certFatherName").value) + "</strong>";
     document.getElementById("previewCertBook").textContent = "Reference: " + document.getElementById("certBookRef").value;
     window.print();
   }
-  function submitCanonicalRecord(e) {
+
+  async function submitCanonicalRecord(e) {
     e.preventDefault();
-    document.getElementById("submissionFeedback").textContent = "Submitted for 10-Day Canonical Book Verification.";
-    e.target.reset();
+    const fb = document.getElementById("submissionFeedback");
+    fb.textContent = "Saving submission to Supabase...";
+    const code = "SUB-" + Date.now().toString().slice(-6);
+    const payload = {
+      submission_code: code,
+      full_name: document.getElementById("subName").value.trim(),
+      father_name: document.getElementById("subFather").value.trim(),
+      gender: document.getElementById("subGender").value,
+      in_laws_info: document.getElementById("subInLaws").value.trim(),
+      canonical_book: document.getElementById("subBook").value,
+      book_page: document.getElementById("subPage").value.trim(),
+      state_queue: document.getElementById("subState").value,
+      payment_receipt: document.getElementById("subReceipt").value.trim()
+    };
+    try {
+      const res = await fetch(SUPABASE_REST + "shajra_submissions", {
+        method: "POST",
+        headers: Object.assign({}, sbHeaders, { "Prefer": "return=minimal" }),
+        body: JSON.stringify(payload)
+      });
+      if (!res.ok) throw new Error(await res.text());
+      fb.innerHTML = '<span style="color:var(--emerald);">✅ Saved in Supabase! Tracking ID: <strong>' + code + '</strong> (10-Day Canonical Book Verification started).</span>';
+      e.target.reset();
+    } catch (err) {
+      fb.innerHTML = '<span style="color:var(--danger);">Error: ' + escapeHtml(err.message) + '</span>';
+    }
   }
+
   async function loadMatrimonyProfiles() {
     const g = document.getElementById("matGender").value;
     let q = "public_people_view?select=*&life_status=eq.Living&limit=10";
     if (g !== "All") q += "&gender=eq." + g;
     const recs = await sbFetch(q);
     document.getElementById("matrimonyList").innerHTML = (recs || []).map(function(r) {
-      return '<div class="person-card"><strong>' + escapeHtml(r.full_name) + '</strong><small>Father: ' + escapeHtml(r.father_name || "") + '</small><button class="btn-gold" onclick="alert(\'Wali Approval Requested\')">Request Wali Approval</button></div>';
-    }).join("") || "No living records under filter.";
+      return '<div class="person-card"><strong>' + escapeHtml(r.full_name) + '</strong><small>Father: ' + escapeHtml(r.father_name || "") + ' | Phone/Email/Address Hidden</small><button class="btn-gold" onclick="alert(\'Wali Approval Requested\')">Request Wali Approval</button></div>';
+    }).join("") || "No living verified records under this filter.";
   }
+
+  async function loadLiveNewsAndAds() {
+    try {
+      const news = await sbFetch("shia_news?select=*&order=id.desc&limit=6");
+      if (Array.isArray(news) && news.length > 0) {
+        const newsGrid = document.querySelector("#newsTab .grid-2");
+        if (newsGrid) {
+          newsGrid.innerHTML = news.map(function(n) {
+            return '<div class="person-card"><div><span class="badge badge-verified">' + escapeHtml(n.category) + '</span><h4 style="margin-top:0.35rem;">' + escapeHtml(n.title) + '</h4><p style="font-size:0.85rem;">' + escapeHtml(n.summary) + '</p></div></div>';
+          }).join("");
+        }
+      }
+      const ads = await sbFetch("sponsored_ads?select=*&order=id.desc&limit=1");
+      if (Array.isArray(ads) && ads.length > 0) {
+        document.getElementById("sponsoredBanner").innerHTML = '<div><span class="ad-badge">Sponsored Ziyarat & Umrah</span> <strong>' + escapeHtml(ads[0].agency_name) + ':</strong> ' + escapeHtml(ads[0].banner_text) + '</div><button class="btn-gold" onclick="openTab(\'adminTab\')">Advertise Your Caravan</button>';
+      }
+    } catch (e) {}
+  }
+
+  async function unlockAdminPortal() {
+    if (!document.getElementById("adminLicenseInput").value.trim()) { alert("Enter Admin License Key."); return; }
+    const role = document.getElementById("adminRoleSelect").value;
+    document.getElementById("adminWorkspace").style.display = "block";
+    const box = document.getElementById("adminQueueContent");
+    if (role === "state_admin") {
+      document.getElementById("adminRoleHeading").textContent = "Live 10-Day Book Verification Queue (Supabase)";
+      const subs = await sbFetch("shajra_submissions?select=*&order=id.desc&limit=20");
+      box.innerHTML = (subs || []).map(function(s) {
+        return '<div class="person-card" style="margin-bottom:0.5rem;"><div><strong>' + escapeHtml(s.submission_code) + ' — ' + escapeHtml(s.full_name) + '</strong> (Father: ' + escapeHtml(s.father_name) + ')<br/><small>Book: ' + escapeHtml(s.canonical_book) + ' (' + escapeHtml(s.book_page) + ') | Queue: ' + escapeHtml(s.state_queue) + ' | Status: ' + escapeHtml(s.status) + '</small></div></div>';
+      }).join("") || "<p>No pending submissions yet.</p>";
+    } else {
+      document.getElementById("adminRoleHeading").textContent = "Super Admin & News/Ads Console Active";
+      box.innerHTML = "<p>Append-only protection active on 6,000+ canonical records. Live tables <code>shajra_submissions</code>, <code>shia_news</code>, and <code>sponsored_ads</code> connected.</p>";
+    }
+  }
+
   const hijriMonthsData = ["1. Muharram: 10 Ashura", "2. Safar: 20 Arbaeen", "3. Rabi al-Awwal: 17 Wiladat Prophet (s.a.w.w.)", "4. Rabi al-Thani: 10 Wafat Masooma (s.a.)", "5. Jumada al-Ula: 5 Wiladat Bibi Zainab (s.a.)", "6. Jumada al-Thani: 20 Wiladat Bibi Fatima (s.a.)", "7. Rajab: 13 Wiladat Imam Ali (a.s.)", "8. Sha'ban: 15 Wiladat Imam Mahdi (a.t.f.s.)", "9. Ramadan: 21 Shahadat Imam Ali (a.s.)", "10. Shawwal: 1 Eid-ul-Fitr", "11. Dhul Qa'dah: 11 Wiladat Imam Ridha (a.s.)", "12. Dhul Hijjah: 18 Eid-e-Ghadeer"];
   function renderHijriCalendar() {
-    document.getElementById("hijriMonthsGrid").innerHTML = hijriMonthsData.map(function(m, i) {
+    document.getElementById("hijriMonthsGrid").innerHTML = hijriMonthsData.map(function(m) {
       return '<div class="month-card" onclick="document.getElementById(\'hijriEventsBox\').textContent=\'' + m + '\'"><strong>' + m.split(":")[0] + '</strong></div>';
     }).join("");
   }
@@ -438,7 +501,6 @@
   function incrementTasbeeh() { tasbeehCount = (tasbeehCount % 100) + 1; document.getElementById("tasbeehCounter").textContent = tasbeehCount; }
   function resetTasbeeh() { tasbeehCount = 0; document.getElementById("tasbeehCounter").textContent = "0"; }
   function findQiblaDirection() { document.getElementById("qiblaResult").textContent = "Enable GPS for Qibla bearing toward Makkah."; }
-  function unlockAdminPortal() { document.getElementById("adminWorkspace").style.display = "block"; document.getElementById("adminRoleHeading").textContent = "Licensed Admin Workspace Active"; }
   function supabaseSignIn() { document.getElementById("authStatusMsg").textContent = "Signing in via Supabase Auth..."; }
   function supabaseSignUp() { document.getElementById("authStatusMsg").textContent = "Registering free account..."; }
   function showLegalDoc(t) { document.getElementById("legalDocContent").innerHTML = "<strong>" + t.toUpperCase() + ":</strong> Strict privacy lock (phone, email, address hidden). 100% canonical public-domain books mandate."; }
@@ -449,7 +511,3 @@
     if (id === "matrimonyTab") loadMatrimonyProfiles();
   }
   function escapeHtml(s) { return (!s || s === "NULL" || s === "null") ? "" : String(s).replace(/[&<>"']/g, function(m) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[m]; }); }
-  initArchive(); renderHijriCalendar(); calculateJafariTimes(); showLegalDoc("privacy");
-</script>
-</body>
-</html>
