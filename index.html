@@ -500,7 +500,33 @@
   }
   function incrementTasbeeh() { tasbeehCount = (tasbeehCount % 100) + 1; document.getElementById("tasbeehCounter").textContent = tasbeehCount; }
   function resetTasbeeh() { tasbeehCount = 0; document.getElementById("tasbeehCounter").textContent = "0"; }
-  function findQiblaDirection() { document.getElementById("qiblaResult").textContent = "Enable GPS for Qibla bearing toward Makkah."; }
+    function calcKaabaAngle(lat, lon) {
+    const lat1 = lat * Math.PI / 180, lon1 = lon * Math.PI / 180;
+    const lat2 = 21.4225 * Math.PI / 180, lon2 = 39.8262 * Math.PI / 180;
+    const y = Math.sin(lon2 - lon1) * Math.cos(lat2);
+    const x = Math.cos(lat1) * Math.sin(lat2) - Math.sin(lat1) * Math.cos(lat2) * Math.cos(lon2 - lon1);
+    return ((Math.atan2(y, x) * 180 / Math.PI) + 360) % 360;
+  }
+
+  function findQiblaDirection() {
+    const out = document.getElementById("qiblaResult");
+    if (!navigator.geolocation) {
+      out.innerHTML = "GPS not supported on this device. (Example: Kuwait City Qibla = <strong>224.8° SW</strong>)";
+      return;
+    }
+    out.textContent = "Requesting GPS permission...";
+    navigator.geolocation.getCurrentPosition(
+      function(pos) {
+        const angle = calcKaabaAngle(pos.coords.latitude, pos.coords.longitude);
+        out.innerHTML = '🧭 Exact Qibla Bearing: <span style="color:var(--emerald); font-size:1.25rem;">' + angle.toFixed(1) + '°</span> from True North<br/><small>GPS: ' + pos.coords.latitude.toFixed(4) + ', ' + pos.coords.longitude.toFixed(4) + '</small>';
+      },
+      function(err) {
+        out.innerHTML = '⚠️ Location blocked (' + escapeHtml(err.message) + '). Please allow Location permission in browser settings and use <strong>https://sadatlineage.in</strong>.';
+      },
+      { enableHighAccuracy: true, timeout: 10000 }
+    );
+  }
+
   function supabaseSignIn() { document.getElementById("authStatusMsg").textContent = "Signing in via Supabase Auth..."; }
   function supabaseSignUp() { document.getElementById("authStatusMsg").textContent = "Registering free account..."; }
   function showLegalDoc(t) { document.getElementById("legalDocContent").innerHTML = "<strong>" + t.toUpperCase() + ":</strong> Strict privacy lock (phone, email, address hidden). 100% canonical public-domain books mandate."; }
