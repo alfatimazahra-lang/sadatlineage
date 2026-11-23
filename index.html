@@ -4,7 +4,6 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Sadat Lineage — Book-Verified Shajra Portal</title>
-  <script src="https://jsdelivr.net"></script>
   <style>
     body { font-family: system-ui, sans-serif; background: #faf8f3; color: #111827; margin: 0; }
     .top { background: #041f15; color: #f3e5ab; padding: 10px 20px; font-size: 13px; display: flex; justify-content: space-between; }
@@ -46,32 +45,54 @@
   </div>
 
   <script>
-    const sb = window.supabase.createClient('https://wouvkonvfqhztuienrgi.supabase.co', 'sb_publishable_Tds1DzdM6s5cdv2kXQx_JA_uNJdHROT');
-    async function loadBranches() {
-      const { data, error } = await sb.from('branches').select('id,branch_name').order('branch_name');
-      document.getElementById('status').textContent = error ? 'Error: ' + error.message : 'Live Connected • ' + data.length + ' Branches';
-      if (data) data.forEach(b => {
-        const o = document.createElement('option'); o.value = b.id; o.textContent = b.branch_name;
-        document.getElementById('branchSel').appendChild(o);
-      });
+    const URL_BASE = 'https://supabase.co';
+    const API_KEY = 'sb_publishable_Tds1DzdM6s5cdv2kXQx_JA_uNJdHROT';
+    const HEADERS = { 'apikey': API_KEY, 'Authorization': 'Bearer ' + API_KEY };
+
+    async function apiGet(path) {
+      const res = await fetch(URL_BASE + path, { headers: HEADERS });
+      if (!res.ok) throw new Error(await res.text());
+      return res.json();
     }
+
+    async function loadBranches() {
+      try {
+        const data = await apiGet('branches?select=id,branch_name&order=branch_name.asc');
+        document.getElementById('status').textContent = 'Live Connected • ' + data.length + ' Branches';
+        data.forEach(b => {
+          const o = document.createElement('option');
+          o.value = b.id;
+          o.textContent = b.branch_name;
+          document.getElementById('branchSel').appendChild(o);
+        });
+      } catch (e) {
+        document.getElementById('status').textContent = 'DB Error: ' + e.message;
+      }
+    }
+
     async function search() {
       const q = document.getElementById('searchInp').value.trim();
       const b = document.getElementById('branchSel').value;
       const t = document.getElementById('townInp').value.trim();
       if (q.length < 3) { document.getElementById('listBox').innerHTML = ''; return; }
-      let req = sb.from('public_people_view').select('*').ilike('full_name', '%' + q + '%').limit(50);
-      if (b !== 'ALL') req = req.eq('branch_id', b);
-      if (t.length >= 2) req = req.ilike('town_qasba', '%' + t + '%');
-      const { data, error } = await req;
-      if (error) { document.getElementById('msg').textContent = error.message; return; }
-      document.getElementById('msg').textContent = 'Found ' + data.length + ' match(es)';
-      document.getElementById('listBox').innerHTML = data.map(p =>
-        '<div class="row" onclick="openPerson(\'' + p.id + '\')"><div><strong>' + p.full_name + '</strong><br><small>Father: ' + (p.father_name || '—') + ' • ID: ' + p.id + ' • ' + (p.town_qasba || '') + '</small></div><button class="btn">View Shajra →</button></div>'
-      ).join('');
+      document.getElementById('msg').textContent = 'Searching...';
+      try {
+        let path = 'public_people_view?select=*&full_name=ilike.*' + encodeURIComponent(q) + '*&limit=50';
+        if (b !== 'ALL') path += '&branch_id=eq.' + encodeURIComponent(b);
+        if (t.length >= 2) path += '&town_qasba=ilike.*' + encodeURIComponent(t) + '*';
+        const data = await apiGet(path);
+        document.getElementById('msg').textContent = 'Found ' + data.length + ' match(es)';
+        document.getElementById('listBox').innerHTML = data.map(p =>
+          '<div class="row" onclick="openPerson(\'' + p.id + '\')"><div><strong>' + p.full_name + '</strong><br><small>Father: ' + (p.father_name || '—') + ' • ID: ' + p.id + ' • ' + (p.town_qasba || '') + '</small></div><button class="btn">View Shajra →</button></div>'
+        ).join('');
+      } catch (e) {
+        document.getElementById('msg').textContent = 'Error: ' + e.message;
+      }
     }
+
     async function openPerson(id) {
-      const { data: p } = await sb.from('public_people_view').select('*').eq('id', id).single();
+      const rows = await apiGet('public_people_view?select=*&id=eq.' + encodeURIComponent(id));
+      const p = rows[0];
       if (!p) return;
       document.getElementById('listBox').style.display = 'none';
       document.getElementById('detailBox').style.display = 'block';
@@ -80,15 +101,16 @@
       while (curr && s < 75) {
         chain.unshift(curr);
         if (!curr.father_id || curr.father_id === 'NULL') break;
-        const { data: par } = await sb.from('public_people_view').select('id,full_name,father_id,generation_number').eq('id', curr.father_id).single();
-        curr = par; s++;
+        const pRows = await apiGet('public_people_view?select=id,full_name,father_id,generation_number&id=eq.' + encodeURIComponent(curr.father_id));
+        curr = pRows[0]; s++;
       }
       document.getElementById('chainBox').innerHTML = chain.map(a =>
         '<div class="node" onclick="openPerson(\'' + a.id + '\')">Gen ' + (a.generation_number || '-') + ': <strong>' + a.full_name + '</strong> (ID: ' + a.id + ')</div>'
       ).join('');
-      const { data: kids } = await sb.from('public_people_view').select('id,full_name,gender').eq('father_id', String(id));
-      document.getElementById('kidsBox').innerHTML = (kids && kids.length) ? kids.map(k => '<button class="btn" style="margin:4px" onclick="openPerson(\'' + k.id + '\')">' + k.full_name + ' (' + k.gender + ')</button>').join('') : 'None';
+      const kids = await apiGet('public_people_view?select=id,full_name,gender&father_id=eq.' + encodeURIComponent(id));
+      document.getElementById('kidsBox').innerHTML = kids.length ? kids.map(k => '<button class="btn" style="margin:4px" onclick="openPerson(\'' + k.id + '\')">' + k.full_name + ' (' + k.gender + ')</button>').join('') : 'None';
     }
+
     function showList() { document.getElementById('detailBox').style.display = 'none'; document.getElementById('listBox').style.display = 'block'; }
     document.getElementById('searchInp').addEventListener('input', search);
     document.getElementById('branchSel').addEventListener('change', search);
