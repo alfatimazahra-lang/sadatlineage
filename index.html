@@ -46,7 +46,7 @@
   </div>
 
   <script>
-    const sb = window.supabase.createClient('https://supabase.co', 'sb_publishable_Tds1DzdM6s5cdv2kXQx_JA_uNJdHROT');
+    const sb = window.supabase.createClient('https://wouvkonvfqhztuienrgi.supabase.co', 'sb_publishable_Tds1DzdM6s5cdv2kXQx_JA_uNJdHROT');
     async function loadBranches() {
       const { data, error } = await sb.from('branches').select('id,branch_name').order('branch_name');
       document.getElementById('status').textContent = error ? 'Error: ' + error.message : 'Live Connected • ' + data.length + ' Branches';
