@@ -511,3 +511,8 @@
     if (id === "matrimonyTab") loadMatrimonyProfiles();
   }
   function escapeHtml(s) { return (!s || s === "NULL" || s === "null") ? "" : String(s).replace(/[&<>"']/g, function(m) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[m]; }); }
+  if ("serviceWorker" in navigator) window.addEventListener("load", function() { navigator.serviceWorker.register("sw.js").catch(function() {}); });
+  initArchive(); loadLiveNewsAndAds(); renderHijriCalendar(); calculateJafariTimes(); showLegalDoc("privacy");
+</script>
+</body>
+</html>
