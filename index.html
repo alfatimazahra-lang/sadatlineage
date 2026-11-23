@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sadat Lineage — Book-Verified Shajra Portal</title>
+  <script src="https://jsdelivr.net"></script>
+  <style>
+    body { font-family: system-ui, sans-serif; background: #faf8f3; color: #111827; margin: 0; }
+    .top { background: #041f15; color: #f3e5ab; padding: 10px 20px; font-size: 13px; display: flex; justify-content: space-between; }
+    .hdr { background: #093323; color: #fff; padding: 20px; border-bottom: 3px solid #c59b27; }
+    .hdr h1 { margin: 0; font-size: 22px; }
+    .box { max-width: 960px; margin: 24px auto; background: #fff; padding: 22px; border-radius: 14px; border: 1px solid #e5e2d9; }
+    .grid { display: grid; grid-template-columns: 1fr 1fr 1.5fr; gap: 12px; }
+    input, select { width: 100%; padding: 11px; border: 1.5px solid #ccc; border-radius: 8px; font-size: 15px; box-sizing: border-box; }
+    .row { background: #fff; border: 1px solid #e5e2d9; border-left: 5px solid #0f4d36; padding: 16px; border-radius: 10px; margin-top: 12px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; }
+    .btn { background: #093323; color: #f3e5ab; border: 1px solid #c59b27; padding: 9px 15px; border-radius: 8px; font-weight: 700; cursor: pointer; }
+    .gold-btn { background: #c59b27; color: #041f15; border: none; padding: 9px 15px; border-radius: 8px; font-weight: 800; cursor: pointer; }
+    .node { background: #fcfbf9; border: 1px solid #ddd; padding: 10px 14px; border-radius: 8px; margin-bottom: 6px; cursor: pointer; }
+    @media(max-width:700px){ .grid { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+  <div class="top"><span id="status">Connecting to Supabase...</span><span>100% Book-Verified • Contacts Hidden</span></div>
+  <div class="hdr"><h1>Sadat Lineage (sadatlineage.in)</h1><small style="color:#f3e5ab;">Canonical Book-Verified Shajra-e-Nasab</small></div>
+
+  <div class="box">
+    <div class="grid">
+      <div><label>Branch</label><select id="branchSel"><option value="ALL">All Branches</option></select></div>
+      <div><label>Town / Qasba</label><input id="townInp" placeholder="Nanauta, Jansath..." /></div>
+      <div><label>Search Name (Min 3 Letters)</label><input id="searchInp" placeholder="Type Anwar, Naseer..." /></div>
+    </div>
+    <p id="msg" style="font-size:13px;color:#4b5563;margin-top:10px;">Type 3 letters to search live records.</p>
+  </div>
+
+  <div class="box" id="listBox" style="background:transparent;border:none;padding-top:0;"></div>
+
+  <div class="box" id="detailBox" style="display:none;">
+    <button class="btn" onclick="showList()">← Back</button>
+    <button class="gold-btn" onclick="alert('Paid Official Shajra PDF Download')">📄 Download Shajra PDF (Paid)</button>
+    <div id="profHead" style="margin-top:14px;"></div>
+    <h3>Ancestral Lineage Chain</h3>
+    <div id="chainBox"></div>
+    <h3>Children</h3>
+    <div id="kidsBox"></div>
+  </div>
+
+  <script>
+    const sb = window.supabase.createClient('https://supabase.co', 'sb_publishable_Tds1DzdM6s5cdv2kXQx_JA_uNJdHROT');
+    async function loadBranches() {
+      const { data, error } = await sb.from('branches').select('id,branch_name').order('branch_name');
+      document.getElementById('status').textContent = error ? 'Error: ' + error.message : 'Live Connected • ' + data.length + ' Branches';
+      if (data) data.forEach(b => {
+        const o = document.createElement('option'); o.value = b.id; o.textContent = b.branch_name;
+        document.getElementById('branchSel').appendChild(o);
+      });
+    }
+    async function search() {
+      const q = document.getElementById('searchInp').value.trim();
+      const b = document.getElementById('branchSel').value;
+      const t = document.getElementById('townInp').value.trim();
+      if (q.length < 3) { document.getElementById('listBox').innerHTML = ''; return; }
+      let req = sb.from('public_people_view').select('*').ilike('full_name', '%' + q + '%').limit(50);
+      if (b !== 'ALL') req = req.eq('branch_id', b);
+      if (t.length >= 2) req = req.ilike('town_qasba', '%' + t + '%');
+      const { data, error } = await req;
+      if (error) { document.getElementById('msg').textContent = error.message; return; }
+      document.getElementById('msg').textContent = 'Found ' + data.length + ' match(es)';
+      document.getElementById('listBox').innerHTML = data.map(p =>
+        '<div class="row" onclick="openPerson(\'' + p.id + '\')"><div><strong>' + p.full_name + '</strong><br><small>Father: ' + (p.father_name || '—') + ' • ID: ' + p.id + ' • ' + (p.town_qasba || '') + '</small></div><button class="btn">View Shajra →</button></div>'
+      ).join('');
+    }
+    async function openPerson(id) {
+      const { data: p } = await sb.from('public_people_view').select('*').eq('id', id).single();
+      if (!p) return;
+      document.getElementById('listBox').style.display = 'none';
+      document.getElementById('detailBox').style.display = 'block';
+      document.getElementById('profHead').innerHTML = '<h2>' + p.full_name + '</h2><p>Father: ' + (p.father_name || '—') + ' • Gen: ' + (p.generation_number || '—') + ' • Book: ' + (p.source_book || '') + '</p>';
+      const chain = []; let curr = p, s = 0;
+      while (curr && s < 75) {
+        chain.unshift(curr);
+        if (!curr.father_id || curr.father_id === 'NULL') break;
+        const { data: par } = await sb.from('public_people_view').select('id,full_name,father_id,generation_number').eq('id', curr.father_id).single();
+        curr = par; s++;
+      }
+      document.getElementById('chainBox').innerHTML = chain.map(a =>
+        '<div class="node" onclick="openPerson(\'' + a.id + '\')">Gen ' + (a.generation_number || '-') + ': <strong>' + a.full_name + '</strong> (ID: ' + a.id + ')</div>'
+      ).join('');
+      const { data: kids } = await sb.from('public_people_view').select('id,full_name,gender').eq('father_id', String(id));
+      document.getElementById('kidsBox').innerHTML = (kids && kids.length) ? kids.map(k => '<button class="btn" style="margin:4px" onclick="openPerson(\'' + k.id + '\')">' + k.full_name + ' (' + k.gender + ')</button>').join('') : 'None';
+    }
+    function showList() { document.getElementById('detailBox').style.display = 'none'; document.getElementById('listBox').style.display = 'block'; }
+    document.getElementById('searchInp').addEventListener('input', search);
+    document.getElementById('branchSel').addEventListener('change', search);
+    document.getElementById('townInp').addEventListener('input', search);
+    loadBranches();
+  </script>
+</body>
+</html>
