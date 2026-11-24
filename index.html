@@ -382,10 +382,16 @@
   let cachedPeople = [], selectedPersonRecord = null, searchTimer = null, tasbeehCount = 0;
 
   async function sbFetch(endpoint) {
-    const res = await fetch(SUPABASE_REST + endpoint, { headers: sbHeaders });
-    if (!res.ok) throw new Error("Error " + res.status);
-    return res.json();
+    const fullUrl = SUPABASE_REST + endpoint;
+    try {
+      const res = await fetch(fullUrl, { headers: sbHeaders });
+      if (!res.ok) throw new Error("HTTP " + res.status);
+      return res.json();
+    } catch (err) {
+      throw new Error(err.message + " -> " + fullUrl);
+    }
   }
+
 
   async function initArchive() {
     try {
