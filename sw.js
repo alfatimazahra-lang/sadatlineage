@@ -1,11 +1,18 @@
-const CACHE_NAME = "sadat-lineage-v2";
-const ASSETS = ["./", "./index.html", "./manifest.json"];
+const CACHE_NAME = "sadat-lineage-v10";
 
-self.addEventListener("install", function(e) {
-  e.waitUntil(caches.open(CACHE_NAME).then(function(cache) { return cache.addAll(ASSETS); }));
+self.addEventListener("install", (event) => {
+  self.skipWaiting();
 });
 
-self.addEventListener("fetch", function(e) {
-  if (e.request.url.indexOf("supabase.co") !== -1) return;
-  e.respondWith(caches.match(e.request).then(function(cached) { return cached || fetch(e.request); }));
+self.addEventListener("activate", (event) => {
+  event.waitUntil(
+    caches.keys().then((keys) => Promise.all(keys.map((k) => caches.delete(k))))
+  );
+  self.clients.claim();
+});
+
+self.addEventListener("fetch", (event) => {
+  // Supabase API calls ko seedha internet se jaane dein, cache/intercept mat karein
+  if (event.request.url.includes("supabase.co")) return;
+  event.respondWith(fetch(event.request).catch(() => caches.match(event.request)));
 });
