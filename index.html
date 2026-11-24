@@ -192,6 +192,36 @@
     </div>
   </div>
 </section>
+<main>
+  <section id="archiveTab" class="tab-section active">
+    <div class="card">
+      <h2 class="section-title">Global Sadat Shajra Search (100% Free &amp; Canonical Book-Verified)</h2>
+      <div class="governance-note"><strong>Strict Privacy &amp; Lineage Governance:</strong> Connected to <code>public_people_view</code> (Phone, Email &amp; Address hidden). Father-to-Son traces 70+ generations; Daughters stay in father's shajra with in-laws info while children trace via husband's paternal line.</div>
+      <div class="search-bar">
+        <input type="text" id="shajraSearchInput" placeholder="Type 3+ letters (e.g., Ali, Fatima, Baqir, Nasir)..." oninput="handleLiveSearch()" />
+        <select id="branchFilter" style="max-width:260px;" onchange="handleLiveSearch()">
+          <option value="">All Branches / Khandan</option>
+        </select>
+        <button class="btn-emerald" onclick="handleLiveSearch()">Search Shajra</button>
+      </div>
+      <div id="searchStatus" style="font-size:0.85rem; color:var(--text-muted); margin-bottom:0.75rem;">Loading canonical records...</div>
+      <div id="searchResults" class="grid-2"></div>
+    </div>
+
+    <div class="card card-gold" id="lineageViewerCard" style="display:none;">
+      <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.5rem;">
+        <h3 class="section-title" style="border:none; margin:0;" id="selectedPersonTitle">Lineage Chain</h3>
+        <div style="display:flex; gap:0.5rem;">
+          <button class="btn-gold" onclick="transferToCertificate()">Generate Official PDF Certificate</button>
+          <button class="btn-emerald" onclick="document.getElementById('lineageViewerCard').style.display='none'">Close</button>
+        </div>
+      </div>
+      <div id="selectedPersonMeta" style="margin:0.65rem 0; font-size:0.9rem;"></div>
+      <div id="selectedPersonBio"></div>
+      <h4 style="margin-top:1rem; color:var(--emerald);">Complete Paternal Shajra-e-Nasab:</h4>
+      <div id="lineageChainContainer" class="tree-chain"></div>
+    </div>
+  </section>
 
 <section class="portal-hub-grid" aria-label="Portal Sections">
   <div class="hub-tile active-tile" id="tile-archiveTab" onclick="openTab('archiveTab')">
@@ -230,6 +260,50 @@
 
 
 </section>
+
+    <section id="certificateTab" class="tab-section">
+    <div class="card card-gold">
+      <h2 class="section-title">Official Shajra Certificate PDF (Paid Feature)</h2>
+      <div class="grid-2">
+        <div>
+          <div class="form-group"><label>Verified Full Name</label><input type="text" id="certPersonName" /></div>
+          <div class="form-group"><label>Father's Name</label><input type="text" id="certFatherName" /></div>
+          <div class="form-group"><label>Book &amp; Page Citation</label><input type="text" id="certBookRef" /></div>
+          <div class="form-group"><label>Certificate License Key</label><input type="text" id="certLicenseKey" value="SADAT-CERT-2026" /></div>
+          <button class="btn-gold" onclick="renderAndPrintCertificate()">Unlock &amp; Print / Save PDF</button>
+        </div>
+        <div id="certificatePrintArea" style="border:6px double var(--emerald); padding:1.5rem; background:#fffdf7; border-radius:8px; text-align:center;">
+          <div style="color:var(--gold-dark); font-weight:800;">بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ</div>
+          <h2 style="color:var(--emerald); margin:0.4rem 0;">SADAT LINEAGE ARCHIVE</h2>
+          <p>This certifies the canonical record of</p>
+          <h3 id="previewCertName" style="color:var(--emerald-dark); margin:0.4rem 0;">[Select Ancestor]</h3>
+          <p id="previewCertFather">Son/Daughter of: <strong>—</strong></p>
+          <p id="previewCertBook">Canonical Reference: —</p>
+          <div style="margin-top:1rem; font-size:0.75rem;">ID: <strong>SL-VERIFIED</strong> | Canonical Board</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="submitTab" class="tab-section">
+    <div class="card">
+      <h2 class="section-title">Submit New Shajra Record (10-Day Verification)</h2>
+      <form id="submissionForm" onsubmit="submitCanonicalRecord(event)">
+        <div class="grid-2">
+          <div class="form-group"><label>Full Name *</label><input type="text" id="subName" required /></div>
+          <div class="form-group"><label>Father's Name *</label><input type="text" id="subFather" required /></div>
+          <div class="form-group"><label>Gender *</label><select id="subGender"><option value="Male">Male</option><option value="Female">Female / Daughter</option></select></div>
+          <div class="form-group"><label>If Daughter: Husband &amp; In-Laws</label><input type="text" id="subInLaws" /></div>
+          <div class="form-group"><label>Canonical Book *</label><select id="subBook"><option value="Tareekh Anwar Al Sadat">Tarikh Anwar-us-Sadat</option><option value="Tarikh Sadat-e-Barha Vol I">Tarikh Sadat-e-Barha Vol I</option><option value="Tarikh Sadat-e-Barha Vol II">Tarikh Sadat-e-Barha Vol II</option><option value="Sadat-e-Barha ka Tarikhi Jaiza">Sadat-e-Barha ka Tarikhi Jaiza</option></select></div>
+          <div class="form-group"><label>Page Number *</label><input type="text" id="subPage" required /></div>
+          <div class="form-group"><label>State Admin Queue *</label><select id="subState"><option value="UP-India">India - UP</option><option value="Bihar-India">India - Bihar</option><option value="Punjab-Pakistan">Pakistan - Punjab</option><option value="Sindh-Pakistan">Pakistan - Sindh</option></select></div>
+          <div class="form-group"><label>Payment Receipt ID *</label><input type="text" id="subReceipt" required /></div>
+        </div>
+        <button type="submit" class="btn-gold">Submit for 10-Day Book Verification</button>
+      </form>
+      <div id="submissionFeedback" style="margin-top:0.75rem; font-weight:600;"></div>
+    </div>
+  </section>
 
   
     <section id="matrimonyTab" class="tab-section">
