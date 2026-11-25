@@ -1,18 +1,39 @@
-const CACHE_NAME = "sadat-lineage-v10";
+const CACHE_NAME = 'sadatlineage-v1';
+const urlsToCache = [
+  '/',
+  '/index.html',
+  '/manifest.json',
+  '/sw.js',
+  '/icon.png',
+  // Add any other static assets you need
+];
 
-self.addEventListener("install", (event) => {
-  self.skipWaiting();
-});
-
-self.addEventListener("activate", (event) => {
+self.addEventListener('install', event => {
   event.waitUntil(
-    caches.keys().then((keys) => Promise.all(keys.map((k) => caches.delete(k))))
+    caches.open(CACHE_NAME)
+      .then(cache => cache.addAll(urlsToCache))
   );
-  self.clients.claim();
 });
 
-self.addEventListener("fetch", (event) => {
-  // Supabase API calls ko seedha internet se jaane dein, cache/intercept mat karein
-  if (event.request.url.includes("supabase.co")) return;
-  event.respondWith(fetch(event.request).catch(() => caches.match(event.request)));
+self.addEventListener('activate', event => {
+  const cacheWhitelist = [CACHE_NAME];
+  event.waitUntil(
+    caches.keys().then(cacheNames => {
+      return Promise.all(
+        cacheNames.map(name => {
+          if (!cacheWhitelist.includes(name)) {
+            return caches.delete(name);
+          }
+        })
+      );
+    })
+  );
+});
+
+self.addEventListener('fetch', event => {
+  event.respondWith(
+    caches.match(event.request).then(response => {
+      return response || fetch(event.request);
+    })
+  );
 });
