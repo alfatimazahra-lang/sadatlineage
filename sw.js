@@ -1,39 +1,43 @@
-const CACHE_NAME = 'sadatlineage-v1';
-const urlsToCache = [
-  '/',
-  '/index.html',
-  '/manifest.json',
-  '/sw.js',
-  '/icon.png',
-  // Add any other static assets you need
-];
+// src/main.tsx
+import React from 'react'
+import ReactDOM from 'react-dom/client'
+import App from './App'
+import './index.css'
+import { registerSW } from 'virtual:pwa-register/react' // <-- Vite PWA virtual module
 
-self.addEventListener('install', event => {
-  event.waitUntil(
-    caches.open(CACHE_NAME)
-      .then(cache => cache.addAll(urlsToCache))
-  );
-});
+// 1. Register SW + Get update handler
+const { needRefresh, updateSW } = registerSW({
+  onNeedRefresh() {
+    // User sees toast: "New version available"
+    if (confirm('New version available. Reload to update?')) {
+      updateSW(true) // true = reload after update
+    }
+  },
+  onOfflineReady() {
+    console.log('App ready for offline use.')
+  }
+})
 
-self.addEventListener('activate', event => {
-  const cacheWhitelist = [CACHE_NAME];
-  event.waitUntil(
-    caches.keys().then(cacheNames => {
-      return Promise.all(
-        cacheNames.map(name => {
-          if (!cacheWhitelist.includes(name)) {
-            return caches.delete(name);
-          }
-        })
-      );
-    })
-  );
-});
-
-self.addEventListener('fetch', event => {
-  event.respondWith(
-    caches.match(event.request).then(response => {
-      return response || fetch(event.request);
-    })
-  );
-});
+ReactDOM.createRoot(document.getElementById('root')!).render(
+  <React.StrictMode>
+    <App />
+    {/* 2. Toast Component (renders only when needRefresh=true) */}
+    {needRefresh && (
+      <div style={{
+        position: 'fixed', bottom: '1rem', right: '1rem', zIndex: 9999,
+        background: '#1e293b', color: 'white', padding: '1rem 1.5rem',
+        borderRadius: '0.5rem', boxShadow: '0 4px 20px rgba(0,0,0,0.2)',
+        display: 'flex', alignItems: 'center', gap: '1rem', fontSize: '0.9rem'
+      }}>
+        <span>New version ready.</span>
+        <button onClick={() => updateSW(true)} style={{
+          background: '#4A5446', color: 'white', border: 'none',
+          padding: '0.4rem 1rem', borderRadius: '0.3rem', cursor: 'pointer'
+        }}>Refresh</button>
+        <button onClick={() => needRefresh(false)} style={{
+          background: 'transparent', color: '#94a3b8', border: 'none', cursor: 'pointer'
+        }}>Later</button>
+      </div>
+    )}
+  </React.StrictMode>
+)
