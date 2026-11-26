@@ -1,8 +1,14 @@
 <script>
 const QURAN_API = "https://api.quran.com/api/v4";
 
+// --- Safe DOM Getter ---
+const $ = (id) => document.getElementById(id);
+const log = (msg, data) => console.log(`[Quran] ${msg}`, data ?? "");
+const err = (msg, e) => console.error(`[Quran ERROR] ${msg}`, e);
+
 function populateJuzSelect() {
-  const sel = document.getElementById("juzSelect");
+  const sel = $("juzSelect");
+  if (!sel) return log("Missing #juzSelect");
   for (let i = 1; i <= 30; i++) {
     const o = document.createElement("option");
     o.value = i; o.textContent = `Juz ${i}`;
@@ -11,27 +17,33 @@ function populateJuzSelect() {
 }
 
 function showLoading() {
-  document.getElementById("quranContent").innerHTML = '<div class="loading">Loading…</div>';
+  const el = $("quranContent");
+  if (el) el.innerHTML = '<div class="loading">Loading…</div>';
 }
 function showError(msg) {
-  document.getElementById("quranContent").innerHTML = `<div class="loading" style="color:red">Error: ${msg}</div>`;
+  const el = $("quranContent");
+  if (el) el.innerHTML = `<div class="loading" style="color:red">Error: ${msg}</div>`;
 }
 
 function renderQuran(data) {
-  const verses = data.verses || [];
+  const verses = data?.verses || [];
   if (!verses.length) { showError("No verses found"); return; }
 
   const first = verses[0];
-  document.getElementById("surahName").textContent = 
-    `${first.chapter_id}: ${first.chapter_name_arabic} (${first.chapter_name_complex})`;
-  document.getElementById("ayahCount").textContent = verses.length;
-  document.getElementById("surahType").textContent = first.chapter_type;
-  document.getElementById("juzNum").textContent = first.juz_number;
+  // Safe textContent updates
+  const setText = (id, val) => { const el = $(id); if (el) el.textContent = val; };
+  
+  setText("surahName", `${first.chapter_id}: ${first.chapter_name_arabic} (${first.chapter_name_complex})`);
+  setText("ayahCount", verses.length);
+  setText("surahType", first.chapter_type);
+  setText("juzNum", first.juz_number);
 
   const html = verses.map(v => 
     `<span class="ayah">${v.text_uthmani} <sup class="ayah-num">${v.verse_key.split(":")[1]}</sup></span>`
   ).join(" ");
-  document.getElementById("quranContent").innerHTML = html;
+  
+  const contentEl = $("quranContent");
+  if (contentEl) contentEl.innerHTML = html;
 }
 
 // ✅ SAHI ENDPOINTS
@@ -40,41 +52,54 @@ async function fetchVerses(params) {
   const { surah, page, juz, ...query } = params;
   const qs = new URLSearchParams(query).toString();
 
-  if (surah) {
-    url = `${QURAN_API}/verses/by_chapter/${surah}`;
-  } else if (page) {
-    url = `${QURAN_API}/verses/by_page/${page}`;
-  } else if (juz) {
-    url = `${QURAN_API}/verses/by_juz/${juz}`;
-  } else {
-    throw new Error("No valid query (surah/page/juz)");
-  }
+  if (surah) url = `${QURAN_API}/verses/by_chapter/${surah}`;
+  else if (page) url = `${QURAN_API}/verses/by_page/${page}`;
+  else if (juz) url = `${QURAN_API}/verses/by_juz/${juz}`;
+  else throw new Error("No valid query (surah/page/juz)");
 
   if (qs) url += `?${qs}`;
+  
+  log("Fetching:", url);
   const res = await fetch(url, { headers: { Accept: "application/json" } });
-  if (!res.ok) throw new Error(`API ${res.status}`);
+  if (!res.ok) {
+    const txt = await res.text();
+    throw new Error(`API ${res.status}: ${txt}`);
+  }
   return res.json();
 }
 
 async function loadSurah() {
-  const surah = parseInt(document.getElementById("surahInput").value) || 1;
-  const ayah = document.getElementById("ayahInput").value ? parseInt(document.getElementById("ayahInput").value) : null;
+  const surahEl = $("surahInput");
+  const ayahEl = $("ayahInput");
+  if (!surahEl) return err("Missing #surahInput");
+  
+  const surah = parseInt(surahEl.value) || 1;
+  // Client-side ayah filter (API limitation)
+  const ayahFilter = ayahEl ? parseInt(ayahEl.value) : null;
+  
   showLoading();
   try {
-    const params = { 
+    const data = await fetchVerses({ 
       surah, 
       translations: "20,21", 
       fields: "text_uthmani,verse_key,chapter_id,chapter_name_arabic,chapter_name_complex,chapter_type,juz_number" 
-    };
-    // Note: Quran.com API doesn't support 'ayah' filter on by_chapter directly in v4 easily,
-    // but we fetch all and could filter client-side if needed. For now, fetch whole surah.
-    const data = await fetchVerses(params);
+    });
+    
+    // Client-side Ayah Filter
+    if (ayahFilter && data.verses) {
+      data.verses = data.verses.filter(v => {
+        const vAyah = parseInt(v.verse_key.split(":")[1]);
+        return vAyah === ayahFilter;
+      });
+    }
     renderQuran(data);
-  } catch (e) { showError(e.message); }
+  } catch (e) { showError(e.message); err("loadSurah", e); }
 }
 
 async function loadPage() {
-  const page = parseInt(document.getElementById("surahInput").value) || 1;
+  const pageEl = $("surahInput"); // Reusing input for page num
+  if (!pageEl) return err("Missing #surahInput for Page");
+  const page = parseInt(pageEl.value) || 1;
   showLoading();
   try {
     const data = await fetchVerses({ 
@@ -83,11 +108,13 @@ async function loadPage() {
       fields: "text_uthmani,verse_key,chapter_id,chapter_name_arabic,chapter_name_complex,chapter_type,juz_number" 
     });
     renderQuran(data);
-  } catch (e) { showError(e.message); }
+  } catch (e) { showError(e.message); err("loadPage", e); }
 }
 
 async function loadJuz() {
-  const juz = parseInt(document.getElementById("juzSelect").value);
+  const juzEl = $("juzSelect");
+  if (!juzEl) return err("Missing #juzSelect");
+  const juz = parseInt(juzEl.value);
   if (!juz) return;
   showLoading();
   try {
@@ -97,23 +124,30 @@ async function loadJuz() {
       fields: "text_uthmani,verse_key,chapter_id,chapter_name_arabic,chapter_name_complex,chapter_type,juz_number" 
     });
     renderQuran(data);
-  } catch (e) { showError(e.message); }
+  } catch (e) { showError(e.message); err("loadJuz", e); }
 }
 
 async function loadSurahList() {
+  const container = $("surahList");
+  if (!container) return log("Missing #surahList (Optional)");
   try {
     const res = await fetch(`${QURAN_API}/chapters?language=en`, { headers: { Accept: "application/json" } });
     const data = await res.json();
-    const container = document.getElementById("surahList");
     container.innerHTML = (data.chapters || []).map(c => 
-      `<button class="btn btn-emerald" style="padding:.4rem .8rem;font-size:.8rem" onclick="document.getElementById('surahInput').value=${c.id};loadSurah()">${c.id}. ${c.name_arabic}</button>`
+      `<button class="btn btn-emerald" style="padding:.4rem .8rem;font-size:.8rem;margin:2px" onclick="document.getElementById('surahInput').value=${c.id};loadSurah()">${c.id}. ${c.name_arabic}</button>`
     ).join("");
-  } catch (e) { console.error(e); }
+  } catch (e) { err("loadSurahList", e); }
 }
 
+// --- Init ---
 document.addEventListener("DOMContentLoaded", () => {
+  log("DOM Ready. Checking Elements...");
+  ["surahInput", "ayahInput", "juzSelect", "quranContent", "surahList"].forEach(id => {
+    if (!$(id)) console.warn(`[Quran] Missing Element: #${id}`);
+  });
+  
   populateJuzSelect();
   loadSurahList();
-  loadSurah();
+  loadSurah(); // Default load Surah 1
 });
 </script>
