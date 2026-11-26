@@ -641,19 +641,46 @@ function escapeHtml(s) {
   return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 }
 
-// AI Chatbot (Free Gemini)
+// AI Chatbot (Free Gemini) - NETLIFY FUNCTION VERSION
 const WORKER_URL = "https://lambent-blini-bfc728.netlify.app/.netlify/functions/gemini";
-function toggleAIChat(){const b=document.getElementById("aiChatBox");b.style.display=b.style.display==="flex"?"none":"flex";b.style.flexDirection="column";}
-function addMsg(t,who){const d=document.createElement("div");d.style.margin="6px 0";d.style.textAlign=who==="user"?"right":"left";d.innerHTML=`<span style="display:inline-block;padding:6px 10px;border-radius:10px;background:${who==="user"?"var(--olive-light)":"var(--gold-light)"};">${t}</span>`;document.getElementById("aiMessages").appendChild(d);document.getElementById("aiMessages").scrollTop=9999;}
-async function sendAI(){
-  const inp=document.getElementById("aiInput");const q=inp.value.trim();if(!q)return;
-  addMsg(q,"user");inp.value="";addMsg("Thinking...","ai");
-  try{
-    const res=await fetch("https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key="+GEMINI_KEY,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({contents:[{parts:[{text:"You are Sadat Lineage AI assistant. Help with Sadat genealogy, Shia toolkit, Namaz, Duas. Be concise. User: "+q}]}]})});
-    const data=await res.json();
-    const last=document.getElementById("aiMessages").lastChild;last.remove();
-    addMsg(data.candidates?.[0]?.content?.parts?.[0]?.text||"Error","ai");
-  }catch(e){const last=document.getElementById("aiMessages").lastChild;last.remove();addMsg("Network error","ai");}
+
+function toggleAIChat() {
+  const b = document.getElementById("aiChatBox");
+  b.style.display = b.style.display === "flex" ? "none" : "flex";
+  b.style.flexDirection = "column";
+}
+
+function addMsg(t, who) {
+  const d = document.createElement("div");
+  d.style.margin = "6px 0";
+  d.style.textAlign = who === "user" ? "right" : "left";
+  d.innerHTML = `<span style="display:inline-block;padding:6px 10px;border-radius:10px;background:${who==="user"?"var(--olive-light)":"var(--gold-light)"};">${t}</span>`;
+  document.getElementById("aiMessages").appendChild(d);
+  document.getElementById("aiMessages").scrollTop = 9999;
+}
+
+async function sendAI() {
+  const inp = document.getElementById("aiInput");
+  const q = inp.value.trim();
+  if (!q) return;
+  addMsg(q, "user");
+  inp.value = "";
+  addMsg("Thinking...", "ai");
+  try {
+    const res = await fetch(WORKER_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ prompt: q })
+    });
+    const data = await res.json();
+    const last = document.getElementById("aiMessages").lastChild;
+    last.remove();
+    addMsg(data.candidates?.[0]?.content?.parts?.[0]?.text || "Error", "ai");
+  } catch (e) {
+    const last = document.getElementById("aiMessages").lastChild;
+    last.remove();
+    addMsg("Network error", "ai");
+  }
 }
 
 initArchive(); openSiatModule("quran"); showLegalDoc("privacy");
