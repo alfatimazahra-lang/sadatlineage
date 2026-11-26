@@ -5,7 +5,7 @@ export default async (request) => {
     return corsResponse();
   }
 
-  // 1️⃣2️⃣ केवल POST अनुरोधों को अनुमति दें – अन्य सभी मेथड्स को 405 से अस्वीकार करें
+  // 1️⃣2️⃣ केवल POST अनुरोधों को अनुमति दें – बाकी सभी को 405 से अस्वीकार करें
   if (request.method !== 'POST') {
     return new Response('Method Not Allowed', { status: 405 });
   }
@@ -20,7 +20,7 @@ export default async (request) => {
     if (surah)   params.set('surah',   surah);
     if (ayah)  params.set('ayah',   ayah);
     if (page)    params.set('page',   page);
-    if (juz)     params.set('juz',    juz);
+    if (juz)     params.set('juz',     juz);
     if (params.toString()) url += '?' + params.toString();
 
     // ------------------- LIST केस (chapters) -------------------
