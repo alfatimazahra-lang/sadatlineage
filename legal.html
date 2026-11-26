@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Legal Governance — Sadat Lineage</title>
+  <link rel="manifest" href="manifest.json" />
+  <meta name="theme-color" content="#4A5446" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{--bg-cream:#F5F2EB;--bg-white:#FFF;--olive-dark:#2F362C;--olive-primary:#4A5446;--olive-mid:#687463;--olive-soft:#E3E8DF;--gold-accent:#C89D54;--gold-light:#F9F3EA;--text-dark:#1E231C;--text-muted:#656E61;--border-color:#E2DDD3;--shadow-soft:0 8px 24px rgba(47,54,44,.05);--shadow-card:0 12px 32px rgba(47,54,44,.08);--radius-xl:20px;--radius-lg:14px;--radius-md:10px;--font-serif:'Playfair Display',Georgia,serif;--font-sans:'Plus Jakarta Sans',sans-serif;--font-arabic:'Amiri',serif}
+    *{box-sizing:border-box;margin:0;padding:0}body{font-family:var(--font-sans);background:var(--bg-cream);color:var(--text-dark);line-height:1.7}[dir="rtl"]{text-align:right}h1,h2,h3,h4{font-family:var(--font-serif)}
+    header{background:rgba(255,255,255,.88);backdrop-filter:blur(14px);border-bottom:1px solid var(--border-color);position:sticky;top:0;z-index:1000}
+    .top-bar{max-width:1280px;margin:0 auto;padding:.9rem 1.25rem;display:flex;justify-content:space-between;align-items:center;gap:1rem}
+    .brand{display:flex;align-items:center;gap:.85rem}.brand-crest{width:44px;height:44px;border-radius:12px;background:var(--olive-primary);color:#fff;display:flex;align-items:center;justify-content:center;font-family:var(--font-arabic);font-weight:700;font-size:1.4rem}.brand h1{font-size:1.25rem;color:var(--olive-dark)}
+    .nav-links{display:flex;gap:.5rem;flex-wrap:wrap}.nav-links a{padding:.5rem 1rem;border-radius:8px;background:var(--olive-light);color:var(--olive-dark);text-decoration:none;font-weight:600;font-size:.85rem}.nav-links a:hover{background:var(--gold-accent);color:#fff}.nav-links a.active{background:var(--olive-primary);color:#fff}
+    main{max-width:900px;margin:0 auto;padding:2rem 1.25rem}
+    .doc-nav{position:sticky;top:100px;background:#fff;border:1px solid var(--border-color);border-radius:var(--radius-lg);padding:1rem;box-shadow:var(--shadow-soft);margin-bottom:2rem}
+    .doc-nav h3{color:var(--olive-dark);margin-bottom:1rem;font-size:1rem}
+    .doc-nav ul{list-style:none;display:flex;flex-direction:column;gap:.5rem}
+    .doc-nav a{display:block;padding:.6rem 1rem;border-radius:8px;color:var(--text-dark);text-decoration:none;font-weight:500;transition:.2s;border:1px solid transparent}.doc-nav a:hover{background:var(--olive-light);color:var(--olive-primary)}.doc-nav a.active{background:var(--olive-primary);color:#fff}
+    .doc-content{background:#fff;border:1px solid var(--border-color);border-radius:var(--radius-xl);padding:2.5rem;box-shadow:var(--shadow-soft)}
+    .doc-section{display:none}.doc-section.active{display:block;animation:fadeIn .4s ease}@keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+    .doc-section h2{color:var(--olive-dark);font-size:1.75rem;margin-bottom:1rem;padding-bottom:.75rem;border-bottom:2px solid var(--gold-accent)}
+    .doc-section h3{color:var(--olive-dark);font-size:1.25rem;margin:2rem 0 1rem}
+    .doc-section h4{color:var(--olive-mid);font-size:1rem;margin:1.5rem 0 .75rem}
+    .doc-section p{margin-bottom:1rem;color:var(--text-dark)}
+    .doc-section ul{margin:1rem 0 1rem 1.5rem}.doc-section li{margin-bottom:.5rem}
+    .doc-section ol{margin:1rem 0 1rem 1.5rem}.doc-section ol li{margin-bottom:.5rem}
+    .doc-section code{background:var(--bg-cream-card);padding:.15rem .4rem;border-radius:4px;font-size:.9em;font-family:monospace}
+    .doc-section blockquote{border-left:4px solid var(--gold-accent);padding:1rem 1.5rem;margin:1.5rem 0;background:var(--gold-light);font-style:italic;color:var(--olive-dark)}
+    .doc-section .highlight-box{background:var(--olive-light);border-left:4px solid var(--olive-primary);padding:1rem 1.25rem;border-radius:8px;margin:1.5rem 0}
+    .doc-section .arabic{font-family:var(--font-arabic);font-size:1.2rem;line-height:2;direction:rtl;text-align:right;background:#fffdf7;padding:1rem;border-radius:8px;border:1px solid var(--border-color);margin:1rem 0}
+    .last-updated{font-size:.85rem;color:var(--text-muted);margin-bottom:2rem;padding-bottom:1rem;border-bottom:1px solid var(--border-color)}
+    .toc{background:var(--bg-cream-card);border:1px solid var(--border-color);border-radius:var(--radius-lg);padding:1.5rem;margin-bottom:2rem}
+    .toc h4{color:var(--olive-dark);margin-bottom:1rem}
+    .toc ul{list-style:none;margin:0}.toc li{margin:.5rem 0}.toc a{color:var(--text-dark);text-decoration:none;transition:.2s}.toc a:hover{color:var(--gold-accent)}
+    footer{background:var(--olive-dark);color:#A3ACA0;padding:1.5rem 1.25rem;text-align:center;font-size:.85rem}
+  </style>
+</head>
+<body>
+<header>
+  <div class="top-bar">
+    <div class="brand"><div class="brand-crest">سل</div><div><h1>LEGAL GOVERNANCE</h1><small style="display:block;font-size:.7rem;color:var(--text-muted)">Policies & Charter</small></div></div>
+    <nav class="nav-links">
+      <a href="index.html">🏠 Archive</a>
+      <a href="quran.html">📖 Quran</a>
+      <a href="toolkit.html">🛠 Toolkit</a>
+      <a href="certificate.html">📜 Certificate</a>
+      <a href="submit.html">📝 Submit</a>
+      <a href="matrimony.html">💍 Matrimony</a>
+      <a href="admin.html">⚙️ Admin</a>
+      <a href="auth.html">🔐 Sign In</a>
+      <a href="legal.html" class="active">⚖️ Legal</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <aside class="doc-nav">
+    <h3>📋 Documents</h3>
+    <ul>
+      <li><a href="#privacy" onclick="showDoc('privacy')" class="active" id="nav-privacy">Privacy Policy</a></li>
+      <li><a href="#terms" onclick="showDoc('terms')" id="nav-terms">Terms of Service</a></li>
+      <li><a href="#genealogy" onclick="showDoc('genealogy')" id="nav-genealogy">Canonical Genealogy Charter</a></li>
+      <li><a href="#data" onclick="showDoc('data')" id="nav-data">Data Processing Addendum</a></li>
+      <li><a href="#cookies" onclick="showDoc('cookies')" id="nav-cookies">Cookie Policy</a></li>
+      <li><a href="#contact" onclick="showDoc('contact')" id="nav-contact">Contact & DPO</a></li>
+    </ul>
+  </aside>
+
+  <div class="doc-content">
+    <!-- Privacy Policy -->
+    <section class="doc-section active" id="privacy">
+      <p class="last-updated">Last updated: November 26, 2026 | Version 2.1</p>
+      <h2>Privacy Policy</h2>
+      
+      <div class="toc">
+        <h4>Table of Contents</h4>
+        <ul>
+          <li><a href="#p1">1. Data Controller & Contact</a></li>
+          <li><a href="#p2">2. Data We Collect</a></li>
+          <li><a href="#p3">3. Legal Basis for Processing</a></li>
+          <li><a href="#p4">4. Purpose of Processing</a></li>
+          <li><a href="#p5">5. Data Sharing & Disclosure</a></li>
+          <li><a href="#p6">6. International Transfers</a></li>
+          <li><a href="#p7">7. Data Retention</a></li>
+          <li><a href="#p8">8. Your Rights</a></li>
+          <li><a href="#p9">9. Security Measures</a></li>
+          <li><a href="#p10">10. Children's Privacy</a></li>
+          <li><a href="#p11">11. Changes to This Policy</a></li>
+        </ul>
+      </div>
+
+      <h3 id="p1">1. Data Controller & Contact</h3>
+      <p><strong>Sadat Lineage Archive</strong> ("we", "us", "our") is the data controller for personal data processed through our services.</p>
+      <p><strong>Contact:</strong> Data Protection Officer — <a href="mailto:dpo@sadatlineage.in" style="color:var(--olive-primary)">dpo@sadatlineage.in</a></p>
+      <p><strong>Address:</strong> Sadat Lineage Archive, Canonical Governance Board, Registered Office.</p>
+
+      <h3 id="p2">2. Data We Collect</h3>
+      <h4>2.1 Canonical Lineage Data (Public)</h4>
+      <ul>
+        <li>Full name, father's name, gender, generation number</li>
+        <li>Branch/khandan affiliation, source book & page citation</li>
+        <li>Birth/death year (if publicly documented)</li>
+        <li>Lineage path (father-to-son chain)</li>
+      </ul>
+      <div class="highlight-box"><strong>⚠️ Never Collected/Displayed:</strong> Phone numbers, email addresses, physical addresses, national ID numbers, financial data, medical records, biometric data.</div>
+
+      <h4>2.2 Account & Authentication Data</h4>
+      <ul>
+        <li>Email address, hashed password, full name, gender, phone (for verification)</li>
+        <li>Session tokens, refresh tokens, login timestamps</li>
+      </ul>
+
+      <h4>2.3 Submission & Verification Data</h4>
+      <ul>
+        <li>Submitted lineage records (pending approval)</li>
+        <li>Source book references, page numbers, state queue</li>
+        <li>Payment receipt IDs, admin review notes</li>
+      </ul>
+
+      <h4>2.4 Matrimony Data (Restricted Access)</h4>
+      <ul>
+        <li>Profile data from canonical records (living individuals only)</li>
+        <li>Wali-approved communication logs</li>
+        <li>Subscription/access keys</li>
+      </ul>
+
+      <h4>2.5 Technical & Analytics Data</h4>
+      <ul>
+        <li>IP address (anonymized), browser type, device info</li>
+        <li>Page views, search queries (anonymized), error logs</li>
+        <li>Service worker cache, PWA installation status</li>
+      </ul>
+
+      <h3 id="p3">3. Legal Basis for Processing (GDPR Art. 6 / PDP Bill)</h3>
+      <table style="width:100%;border-collapse:collapse;margin:1rem 0;font-size:.9rem">
+        <thead><tr style="background:var(--olive-light)"><th style="padding:.5rem;border:1px solid var(--border-color)">Data Category</th><th style="padding:.5rem;border:1px solid var(--border-color)">Legal Basis</th></tr></thead>
+        <tbody>
+          <tr><td style="padding:.5rem;border:1px solid var(--border-color)">Canonical lineage data</td><td style="padding:.5rem;border:1px solid var(--border-color)">Legitimate interest (public genealogy) / Public task</td></tr>
+          <tr><td style="padding:.5rem;border:1px solid var(--border-color)">Account data</td><td style="padding:.5rem;border:1px solid var(--border-color)">Contract (Terms of Service)</td></tr>
+          <tr><td style="padding:.5rem;border:1px solid var(--border-color)">Submission data</td><td style="padding:.5rem;border:1px solid var(--border-color)">Legitimate interest / Legal obligation</td></tr>
+          <tr><td style="padding:.5rem;border:1px solid var(--border-color)">Matrimony data</td><td style="padding:.5rem;border:1px solid var(--border-color)">Explicit consent + Wali approval</td></tr>
+          <tr><td style="padding:.5rem;border:1px solid var(--border-color)">Technical data</td><td style="padding:.5rem;border:1px solid var(--border-color)">Legitimate interest (security, performance)</td></tr>
+        </tbody>
+      </table>
+
+      <h3 id="p4">4. Purpose of Processing</h3>
+      <ul>
+        <li>Provide canonical genealogy search & lineage certificates</li>
+        <li>Verify & canonicalize submitted lineage records</li>
+        <li>Enable Wali-approved matrimony matching</li>
+        <li>Operate Shia toolkit (prayer times, Qibla, Quran, Duas)</li>
+        <li>Secure authentication & session management</li>
+        <li>Audit logging & governance compliance</li>
+        <li>Improve service performance & security</li>
+      </ul>
+
+      <h3 id="p5">5. Data Sharing & Disclosure</h3>
+      <h4>5.1 No Sale of Data</h4>
+      <p>We <strong>never sell</strong> personal data to third parties.</p>
+      
+      <h4>5.2 Authorized Disclosures</h4>
+      <ul>
+        <li><strong>State Admins:</strong> For verification of submissions in their jurisdiction</li>
+        <li><strong>Super Admins:</strong> For cross-state governance & audit</li>
+        <li><strong>Wali/Guardian:</strong> Matrimony communication (with explicit approval)</li>
+        <li><strong>Legal Authorities:</strong> When required by law or court order</li>
+        <li><strong>Service Providers:</strong> Supabase (hosting/auth), Netlify (functions/hosting), Cloudflare (CDN) — under DPAs</li>
+      </ul>
+
+      <h3 id="p6">6. International Transfers</h3>
+      <p>Data may be processed on servers in:</p>
+      <ul>
+        <li>United States (Supabase, Netlify)</li>
+        <li>European Union (Cloudflare edge)</li>
+      </ul>
+      <p>Transfers rely on <strong>Standard Contractual Clauses (SCCs)</strong> and <strong>adequacy decisions</strong> where applicable.</p>
+
+      <h3 id="p7">7. Data Retention</h3>
+      <table style="width:100%;border-collapse:collapse;margin:1rem 0;font-size:.9rem">
+        <thead><tr style="background:var(--olive-light)"><th style="padding:.5rem;border:1px solid var(--border-color)">Data Type</th><th style="padding:.5rem;border:1px solid var(--border-color)">Retention Period</th></tr></thead>
+        <tbody>
+          <tr><td style="padding:.5rem;border:1px solid var(--border-color)">Canonical lineage records</td><td style="padding:.5rem;border:1px solid var(--border-color)">Permanent (public genealogy)</td></tr>
+          <tr><td style="padding:.5rem;border:1px solid var(--border-color)">Account data</td><td style="padding:.5rem;border:1px solid var(--border-color)">Active + 2 years after deletion</td></tr>
+          <tr><td style="padding:.5rem;border:1px solid var(--border-color)">Submission records</td><td style="padding:.5rem;border:1px solid var(--border-color)">Approved: permanent; Rejected: 3 years</td></tr>
+          <tr><td style="padding:.5rem;border:1px solid var(--border-color)">Matrimony requests</td><td style="padding:.5rem;border:1px solid var(--border-color)">Active + 1 year after closure</td></tr>
+          <tr><td style="padding:.5rem;border:1px solid var(--border-color)">Audit logs</td><td style="padding:.5rem;border:1px solid var(--border-color)">7 years</td></tr>
+          <tr><td style="padding:.5rem;border:1px solid var(--border-color)">Technical logs</td><td style="padding:.5rem;border:1px solid var(--border-color)">90 days</td></tr>
+          <tr><td style="padding:.5rem;border:1px solid var(--border-color)">Session tokens</td><td style="padding:.5rem;border:1px solid var(--border-color)">Active session + 30 days</td></tr>
+        </tbody>
+      </table>
+
+      <h3 id="p8">8. Your Rights</h3>
+      <p>Under applicable law (GDPR, PDP Bill, etc.), you have the right to:</p>
+      <ul>
+        <li><strong>Access</strong> — Request copy of your personal data</li>
+        <li><strong>Rectification</strong> — Correct inaccurate data</li>
+        <li><strong>Erasure</strong> — Request deletion (subject to canonical retention)</li>
+        <li><strong>Restriction</strong> — Limit processing</li>
+        <li><strong>Portability</strong> — Receive data in structured format</li>
+        <li><strong>Object</strong> — Object to processing (legitimate interest basis)</li>
+        <li><strong>Withdraw Consent</strong> — For consent-based processing</li>
+        <li><strong>Complain</strong> — To supervisory authority</li>
+      </ul>
+      <p><strong>Exercise rights:</strong> Email <a href="mailto:dpo@sadatlineage.in" style="color:var(--olive-primary)">dpo@sadatlineage.in</a> with "Data Subject Request" in subject.</p>
+
+      <h3 id="p9">9. Security Measures</h3>
+      <ul>
+        <li>TLS 1.3 encryption in transit</li>
+        <li>Supabase row-level security (RLS) policies</li>
+        <li>Netlify Functions with environment variable isolation</li>
+        <li>Content Security Policy (CSP) headers</li>
+        <li>Row-level access control for admin functions</li>
+        <li>Audit logging of all admin actions</li>
+        <li>Regular penetration testing & dependency scanning</li>
+      </ul>
+
+      <h3 id="p10">10. Children's Privacy</h3>
+      <p>Our services are not directed to children under 13 (or 16 per jurisdiction). We do not knowingly collect children's data. Matrimony profiles are adults only (18+).</p>
+
+      <h3 id="p11">11. Changes to This Policy</h3>
+      <p>We may update this policy. Material changes will be notified via email and prominent site notice. Continued use constitutes acceptance.</p>
+
+      <blockquote>
+        <strong>Canonical Principle:</strong> "Genealogy is a public trust. Privacy is a sacred right. We balance both through canonical governance."
+      </blockquote>
+    </section>
+
+    <!-- Terms of Service -->
+    <section class="doc-section" id="terms">
+      <p class="last-updated">Last updated: November 26, 2026 | Version 2.0</p>
+      <h2>Terms of Service</h2>
+      
+      <h3>1. Acceptance of Terms</h3>
+      <p>By accessing or using Sadat Lineage Archive ("Service"), you agree to these Terms. If you disagree, do not use the Service.</p>
+
+      <h3>2. Description of Service</h3>
+      <p>The Service provides:</p>
+      <ul>
+        <li>Canonical Sadat genealogy search (70+ generations)</li>
+        <li>Official Shajra certificate PDF generation</li>
+        <li>Lineage record submission & verification</li>
+        <li>Verified Sayyid matrimony matching (Wali-approved)</li>
+        <li>Shia Ithna Asheri toolkit (Quran, Duas, Ziyarat, Tasbeeh, Qibla)</li>
+        <li>Admin governance portal for State/Super Admins</li>
+      </ul>
+
+      <h3>3. User Accounts</h3>
+      <h4>3.1 Registration</h4>
+      <p>You must provide accurate information. You are responsible for password security.</p>
+      <h4>3.2 Eligibility</h4>
+      <p>You must be 18+ for matrimony features. Canonical features available to all ages.</p>
+      <h4>3.3 Termination</h4>
+      <p>We may suspend/terminate accounts violating these Terms.</p>
+
+      <h3>4. Canonical Data License</h3>
+      <p>All canonical lineage data is <strong>public domain</strong> under canonical governance. You may:</p>
+      <ul>
+        <li>Search, view, and download for personal/research use</li>
+        <li>Generate certificates for verified records</li>
+        <li>Cite with proper attribution: "Sadat Lineage Archive (sadatlineage.in)"</li>
+      </ul>
+      <p>You may <strong>NOT</strong>: resell bulk data, remove attribution, or claim ownership.</p>
+
+      <h3>5. Certificate Generation</h3>
+      <p>Official certificates require valid license key. Unauthorized generation is prohibited. Certificates are verifiable via QR code at <code>sadatlineage.in/verify</code>.</p>
+
+      <h3>6. Matrimony Service</h3>
+      <ul>
+        <li>Subscription key required (Wali-issued)</li>
+        <li>All communication requires Wali approval</li>
+        <li>No contact details disclosed without mutual Wali consent</li>
+        <li>Service facilitates introduction only; not a marriage bureau</li>
+      </ul>
+
+      <h3>7. Submissions & Verification</h3>
+      <p>Submitted records enter canonical verification queue. State Admins verify against source books. Decisions are final. False submissions may result in permanent ban.</p>
+
+      <h3>8. Prohibited Conduct</h3>
+      <ul>
+        <li>Reverse engineering, scraping, or bulk extraction</li>
+        <li>Impersonation, fraud, or false submissions</li>
+        <li>Unauthorized access to admin functions</li>
+        <li>Harassment, spam, or misuse of matrimony features</li>
+        <li>Violation of canonical governance rules</li>
+      </ul>
+
+      <h3>9. Disclaimers</h3>
+      <blockquote>
+        <strong>Genealogical Accuracy:</strong> We strive for canonical accuracy based on source books (Tarikh Anwar-us-Sadat, Sadat-e-Barha, etc.). However, genealogy involves historical records that may contain errors. We do not warrant absolute accuracy.
+      </blockquote>
+      <blockquote>
+        <strong>Service Availability:</strong> Provided "as is" without warranties. We may suspend for maintenance.
+      </blockquote>
+
+      <h3>10. Limitation of Liability</h3>
+      <p>To the maximum extent permitted by law, we are not liable for indirect, incidental, or consequential damages. Total liability limited to fees paid (if any).</p>
+
+      <h3>11. Indemnification</h3>
+      <p>You agree to indemnify us from claims arising from your use violating these Terms.</p>
+
+      <h3>12. Governing Law & Disputes</h3>
+      <p>Governed by laws of the jurisdiction of the Canonical Governance Board. Disputes resolved via canonical arbitration before State Admin panel.</p>
+
+      <h3>13. Changes</h3>
+      <p>We may modify Terms. Continued use = acceptance. Material changes notified via email/site notice.</p>
+
+      <h3>14. Contact</h3>
+      <p>Questions: <a href="mailto:legal@sadatlineage.in" style="color:var(--olive-primary)">legal@sadatlineage.in</a></p>
+    </section>
+
+    <!-- Canonical Genealogy Charter -->
+    <section class="doc-section" id="genealogy">
+      <p class="last-updated">Ratified: November 26, 2026 | Version 1.0</p>
+      <h2>Canonical Genealogy Charter</h2>
+      
+      <div class="arabic">
+        بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ
+      </div>
+
+      <h3>Preamble</h3>
+      <p>This Charter establishes the canonical governance framework for the Sadat Lineage Archive, binding all State Admins, Super Admins, contributors, and users.</p>
+
+      <h3>Article 1 — Canonical Sources</h3>
+      <ol>
+        <li><strong>Primary Sources:</strong> Tarikh Anwar-us-Sadat, Tarikh Sadat-e-Barha (Vol I & II), Tarikh Sadat-e-Amroha, Shajra Nasab Sadat Barha.</li>
+        <li><strong>Supplementary:</strong> Verified manuscripts, waqf records, sanad chains with isnad.</li>
+        <li><strong>Hierarchy:</strong> Primary > Supplementary > Oral tradition (with isnad).</li>
+      </ol>
+
+      <h3>Article 2 — Verification Standards</h3>
+      <ol>
+        <li><strong>Father-to-son chain</strong> required for each generation.</li>
+        <li><strong>Source citation</strong> mandatory: Book + Page + Line.</li>
+        <li><strong>Cross-referencing</strong> with at least one other primary source.</li>
+        <li><strong>State Admin verification</strong> required before public entry.</li>
+      </ol>
+
+      <h3>Article 3 — Privacy Governance</h3>
+      <ol>
+        <li><strong>Living individuals:</strong> Only canonical fields public (name, father, generation, branch, source).</li>
+        <li><strong>Contact data:</strong> Never stored in public view. Encrypted at rest.</li>
+        <li><strong>Matrimony:</strong> Wali approval required for any disclosure.</li>
+        <li><strong>Right to be forgotten:</strong> Applies to non-canonical fields only.</li>
+      </ol>
+
+      <h3>Article 4 — Governance Structure</h3>
+      <table style="width:100%;border-collapse:collapse;margin:1rem 0;font-size:.9rem">
+        <thead><tr style="background:var(--olive-light)"><th style="padding:.5rem;border:1px solid var(--border-color)">Role</th><th style="padding:.5rem;border:1px solid var(--border-color)">Authority</th></tr></thead>
+        <tbody>
+          <tr><td style="padding:.5rem;border:1px solid var(--border-color)">Canonical Board</td><td style="padding:.5rem;border:1px solid var(--border-color)">Charter amendments, source authentication</td></tr>
+          <tr><td style="padding:.5rem;border:1px solid var(--border-color)">Super Admin</td><td style="padding:.5rem;border:1px solid var(--border-color)">Cross-state governance, audit, emergency powers</td></tr>
+          <tr><td style="padding:.5rem;border:1px solid var(--border-color)">State Admin</td><td style="padding:.5rem;border:1px solid var(--border-color)">Submission verification, matrimony Wali approval, regional governance</td></tr>
+          <tr><td style="padding:.5rem;border:1px solid var(--border-color)">Contributor</td><td style="padding:.5rem;border:1px solid var(--border-color)">Submit records, suggest corrections</td></tr>
+        </tbody>
+      </table>
+
+      <h3>Article 5 — Canonical Integrity</h3>
+      <ol>
+        <li>No record modified without audit trail.</li>
+        <li>Conflicts resolved by earliest primary source.</li>
+        <li>Doubtful lineages marked "Unverified" until resolved.</li>
+        <li>Annual canonical audit by Super Admin panel.</li>
+      </ol>
+
+      <h3>Article 6 — Dispute Resolution</h3>
+      <ol>
+        <li>Lineage disputes → State Admin review → Canonical Board appeal.</li>
+        <li>Cross-state disputes → Super Admin mediation.</li>
+        <li>Final authority: Canonical Board (unanimous decision).</li>
+      </ol>
+
+      <h3>Article 7 — Amendments</h3>
+      <p>Charter amendments require: Canonical Board unanimous vote + Super Admin ratification + 30-day public notice.</p>
+
+      <blockquote>
+        <strong>Canonical Maxim:</strong> "Truth in lineage is a trust (amanah). Governance is its shield."
+      </blockquote>
+    </section>
+
+    <!-- Data Processing Addendum -->
+    <section class="doc-section" id="data">
+      <p class="last-updated">Last updated: November 26, 2026 | Version 1.0</p>
+      <h2>Data Processing Addendum (DPA)</h2>
+      <p>This DPA forms part of the Terms of Service between Sadat Lineage Archive ("Controller") and subprocessors.</p>
+
+      <h3>1. Subprocessors</h3>
+      <table style="width:100%;border-collapse:collapse;margin:1rem 0;font-size:.9rem">
+        <thead><tr style="background:var(--olive-light)"><th style="padding:.5rem;border:1px solid var(--border-color)">Subprocessor</th><th style="padding:.5rem;border:1px solid var(--border-color)">Purpose</th><th style="padding:.5rem;border:1px solid var(--border-color)">Location</th><th style="padding:.5rem;border:1px solid var(--border-color)">Safeguards</th></tr></thead>
+        <tbody>
+          <tr><td style="padding:.5rem;border:1px solid var(--border-color)">Supabase Inc.</td><td style="padding:.5rem;border:1px solid var(--border-color)">Database, Auth, Storage</td><td style="padding:.5rem;border:1px solid var(--border-color)">US/EU</td><td style="padding:.5rem;border:1px solid var(--border-color)">SCCs, ISO 27001, SOC 2</td></tr>
+          <tr><td style="padding:.5rem;border:1px solid var(--border-color)">Netlify Inc.</td><td style="padding:.5rem;border:1px solid var(--border-color)">Hosting, Functions, CDN</td><td style="padding:.5rem;border:1px solid var(--border-color)">US/EU</td><td style="padding:.5rem;border:1px solid var(--border-color)">SCCs, SOC 2</td></tr>
+          <tr><td style="padding:.5rem;border:1px solid var(--border-color)">Cloudflare Inc.</td><td style="padding:.5rem;border:1px solid var(--border-color)">DNS, WAF, Edge Cache</td><td style="padding:.5rem;border:1px solid var(--border-color)">Global</td><td style="padding:.5rem;border:1px solid var(--border-color)">SCCs, Privacy Shield (legacy)</td></tr>
+          <tr><td style="padding:.5rem;border:1px solid var(--border-color)">Google Fonts</td><td style="padding:.5rem;border:1px solid var(--border-color)">Web Fonts</td><td style="padding:.5rem;border:1px solid var(--border-color)">US</td><td style="padding:.5rem;border:1px solid var(--border-color)">Adequacy (self-cert)</td></tr>
+          <tr><td style="padding:.5rem;border:1px solid var(--border-color)">qrcodejs (CDN)</td><td style="padding:.5rem;border:1px solid var(--border-color)">QR Generation</td><td style="padding:.5rem;border:1px solid var(--border-color)">US</td><td style="padding:.5rem;border:1px solid var(--border-color)">No personal data</td></tr>
+        </tbody>
+      </table>
+
+      <h3>2. Data Subject Rights Support</h3>
+      <p>Subprocessors must support: Access, Rectification, Erasure, Restriction, Portability, Objection within 30 days.</p>
+
+      <h3>3. Security Requirements</h3>
+      <ul>
+        <li>Encryption at rest (AES-256) and in transit (TLS 1.3)</li>
+        <li>Annual penetration testing</li>
+        <li>Incident notification within 72 hours</li>
+        <li>Data Processing Agreement executed with each</li>
+      </ul>
+
+      <h3>4. Data Retention & Deletion</h3>
+      <p>Subprocessors delete data within 30 days of Controller instruction or contract termination.</p>
+    </section>
+
+    <!-- Cookie Policy -->
+    <section class="doc-section" id="cookies">
+      <p class="last-updated">Last updated: November 26, 2026 | Version 1.0</p>
+      <h2>Cookie Policy</h2>
+
+      <h3>1. What Are Cookies</h3>
+      <p>Small text files stored on your device. We use first-party cookies only.</p>
+
+      <h3>2. Categories</h3>
+      <table style="width:100%;border-collapse:collapse;margin:1rem 0;font-size:.9rem">
+        <thead><tr style="background:var(--olive-light)"><th style="padding:.5rem;border:1px solid var(--border-color)">Cookie</th><th style="padding:.5rem;border:1px solid var(--border-color)">Purpose</th><th style="padding:.5rem;border:1px solid var(--border-color)">Duration</th><th style="padding:.5rem;border:1px solid var(--border-color)">Type</th></tr></thead>
+        <tbody>
+          <tr><td style="padding:.5rem;border:1px solid var(--border-color)">sb_token</td><td style="padding:.5rem;border:1px solid var(--border-color)">Supabase auth session</td><td style="padding:.5rem;border:1px solid var(--border-color)">Session + 30 days</td><td style="padding:.5rem;border:1px solid var(--border-color)">Essential</td></tr>
+          <tr><td style="padding:.5rem;border:1px solid var(--border-color)">sb_refresh</td><td style="padding:.5rem;border:1px solid var(--border-color)">Token refresh</td><td style="padding:.5rem;border:1px solid var(--border-color)">30 days</td><td style="padding:.5rem;border:1px solid var(--border-color)">Essential</td></tr>
+          <tr><td style="padding:.5rem;border:1px solid var(--border-color)">language</td><td style="padding:.5rem;border:1px solid var(--border-color)">UI language preference</td><td style="padding:.5rem;border:1px solid var(--border-color)">1 year</td><td style="padding:.5rem;border:1px solid var(--border-color)">Preferences</td></tr>
+          <tr><td style="padding:.5rem;border:1px solid var(--border-color)">matrimony_key</td><td style="padding:.5rem;border:1px solid var(--border-color)">Subscription access</td><td style="padding:.5rem;border:1px solid var(--border-color)">Session</td><td style="padding:.5rem;border:1px solid var(--border-color)">Functional</td></tr>
+          <tr><td style="padding:.5rem;border:1px solid var(--border-color)">sw_cache</td><td style="padding:.5rem;border:1px solid var(--border-color)">Service worker cache</td><td style="padding:.5rem;border:1px solid var(--border-color)">Until cleared</td><td style="padding:.5rem;border:1px solid var(--border-color)">Essential</td></tr>
+        </tbody>
+      </table>
+
+      <h3>3. No Third-Party Cookies</h3>
+      <p>We do not use advertising, analytics, or tracking cookies from third parties.</p>
+
+      <h3>4. Managing Cookies</h3>
+      <p>Browser settings → Clear site data for sadatlineage.in. Essential cookies cannot be disabled without breaking functionality.</p>
+    </section>
+
+    <!-- Contact & DPO -->
+    <section class="doc-section" id="contact">
+      <p class="last-updated">Last updated: November 26, 2026</p>
+      <h2>Contact & Data Protection Officer</h2>
+
+      <h3>Data Protection Officer (DPO)</h3>
+      <p><strong>Name:</strong> Syed Hassan Raza (Canonical Governance Board)</p>
+      <p><strong>Email:</strong> <a href="mailto:dpo@sadatlineage.in" style="color:var(--olive-primary)">dpo@sadatlineage.in</a></p>
+      <p><strong>PGP Key:</strong> Available on request</p>
+
+      <h3>General Inquiries</h3>
+      <p><strong>Email:</strong> <a href="mailto:info@sadatlineage.in" style="color:var(--olive-primary)">info@sadatlineage.in</a></p>
+      <p><strong>Legal:</strong> <a href="mailto:legal@sadatlineage.in" style="color:var(--olive-primary)">legal@sadatlineage.in</a></p>
+      <p><strong>Technical:</strong> <a href="mailto:tech@sadatlineage.in" style="color:var(--olive-primary)">tech@sadatlineage.in</a></p>
+
+      <h3>Postal Address</h3>
+      <p>Sadat Lineage Archive<br>
+      Canonical Governance Board<br>
+      Registered Office</p>
+
+      <h3>Supervisory Authority</h3>
+      <p>You may lodge a complaint with your local data protection authority.</p>
+
+      <h3>Response Timelines</h3>
+      <ul>
+        <li>Data Subject Requests: 30 days (extendable to 60)</li>
+        <li>Security Incidents: 72 hours notification</li>
+        <li>General Inquiries: 5 business days</li>
+      </ul>
+
+      <blockquote>
+        <strong>Our Commitment:</strong> "Canonical truth, sacred privacy, transparent governance."
+      </blockquote>
+    </section>
+  </div>
+</main>
+
+<footer>SADAT LINEAGE ARCHIVE — <a href="index.html" style="color:var(--gold-accent)">Back to Home</a></footer>
+
+<script>
+function showDoc(doc){
+  document.querySelectorAll(".doc-section").forEach(s=>s.classList.remove("active"));
+  document.querySelectorAll(".doc-nav a").forEach(a=>a.classList.remove("active"));
+  document.getElementById(doc).classList.add("active");
+  document.getElementById("nav-"+doc).classList.add("active");
+  window.scrollTo(0,0);
+}
+
+// Handle URL hash on load
+document.addEventListener("DOMContentLoaded",()=>{
+  const hash=window.location.hash.slice(1);
+  if(hash&&["privacy","terms","genealogy","data","cookies","contact"].includes(hash)){
+    showDoc(hash);
+  }
+  // Handle query param ?doc=
+  const params=new URLSearchParams(window.location.search);
+  const doc=params.get("doc");
+  if(doc&&["privacy","terms","genealogy","data","cookies","contact"].includes(doc)){
+    showDoc(doc);
+  }
+});
+</script>
+</body>
+</html>
