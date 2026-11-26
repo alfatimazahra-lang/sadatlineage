@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Shia Toolkit — Sadat Lineage</title>
+  <link rel="manifest" href="manifest.json" />
+  <meta name="theme-color" content="#4A5446" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{--bg-cream:#F5F2EB;--bg-white:#FFF;--olive-dark:#2F362C;--olive-primary:#4A5446;--olive-mid:#687463;--olive-soft:#E3E8DF;--gold-accent:#C89D54;--gold-light:#F9F3EA;--text-dark:#1E231C;--text-muted:#656E61;--border-color:#E2DDD3;--shadow-soft:0 8px 24px rgba(47,54,44,.05);--shadow-card:0 12px 32px rgba(47,54,44,.08);--radius-xl:20px;--radius-lg:14px;--radius-md:10px;--font-serif:'Playfair Display',Georgia,serif;--font-sans:'Plus Jakarta Sans',sans-serif;--font-arabic:'Amiri',serif}
+    *{box-sizing:border-box;margin:0;padding:0}body{font-family:var(--font-sans);background:var(--bg-cream);color:var(--text-dark);line-height:1.6}[dir="rtl"]{text-align:right}h1,h2,h3{font-family:var(--font-serif)}
+    header{background:rgba(255,255,255,.88);backdrop-filter:blur(14px);border-bottom:1px solid var(--border-color);position:sticky;top:0;z-index:1000}
+    .top-bar{max-width:1280px;margin:0 auto;padding:.9rem 1.25rem;display:flex;justify-content:space-between;align-items:center;gap:1rem}
+    .brand{display:flex;align-items:center;gap:.85rem}.brand-crest{width:44px;height:44px;border-radius:12px;background:var(--olive-primary);color:#fff;display:flex;align-items:center;justify-content:center;font-family:var(--font-arabic);font-weight:700;font-size:1.4rem}.brand h1{font-size:1.25rem;color:var(--olive-dark)}
+    .nav-links{display:flex;gap:.5rem;flex-wrap:wrap}.nav-links a{padding:.5rem 1rem;border-radius:8px;background:var(--olive-light);color:var(--olive-dark);text-decoration:none;font-weight:600;font-size:.85rem}.nav-links a:hover{background:var(--gold-accent);color:#fff}.nav-links a.active{background:var(--olive-primary);color:#fff}
+    main{max-width:1280px;margin:0 auto;padding:1.5rem 1.25rem}
+    .prayer-times{background:linear-gradient(135deg,#4A5446,#2F362C);color:#fff;border-radius:20px;padding:1.5rem;margin-bottom:2rem;box-shadow:var(--shadow-card)}
+    .prayer-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:.75rem;margin-top:1rem}
+    .prayer-item{background:rgba(255,255,255,.1);padding:1rem;border-radius:12px;text-align:center}.prayer-item small{display:block;font-size:.7rem;color:#E3E8DF}.prayer-item strong{font-size:1.1rem;color:var(--gold-accent)}
+    .toolkit-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.5rem}
+    .toolkit-card{background:#fff;border:1px solid var(--border-color);border-radius:var(--radius-xl);padding:1.5rem;box-shadow:var(--shadow-soft);display:none}
+    .toolkit-card.active{display:block}
+    .card-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem;padding-bottom:1rem;border-bottom:1px solid var(--border-color)}
+    .card-header h2{color:var(--olive-dark)}
+    .tab-buttons{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:1rem}
+    .tab-btn{padding:.5rem 1rem;border:none;border-radius:8px;background:var(--olive-light);color:var(--olive-dark);font-weight:600;cursor:pointer;font-size:.85rem}.tab-btn:hover{background:var(--gold-accent);color:#fff}.tab-btn.active{background:var(--olive-primary);color:#fff}
+    .arabic-content{font-family:var(--font-arabic);font-size:1.3rem;line-height:2.5;direction:rtl;text-align:right;background:#fffdf7;padding:1.5rem;border-radius:10px;border:1px solid var(--border-color);min-height:200px;white-space:pre-wrap}
+    .duas-list,.ziyarat-list{display:flex;flex-direction:column;gap:.5rem}
+    .duas-list button,.ziyarat-list button{text-align:right;padding:1rem;background:var(--bg-cream-card);border:1px solid var(--border-color);border-radius:8px;cursor:pointer;font-family:var(--font-arabic);font-size:1.1rem;transition:.2rem}.duas-list button:hover,.ziyarat-list button:hover{background:var(--gold-light);border-color:var(--gold-accent)}
+    .tasbeeh-circle{width:180px;height:180px;border-radius:50%;background:var(--olive-primary);border:4px solid var(--gold-accent);color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;margin:2rem auto;cursor:pointer;box-shadow:var(--shadow-card);transition:transform .1s;font-size:3.5rem;font-weight:700;font-family:var(--font-serif);color:var(--gold-accent)}.tasbeeh-circle:active{transform:scale(.96)}.tasbeeh-phase{font-size:1rem;font-weight:600;color:var(--olive-dark);margin-bottom:.5rem}
+    .qibla-btn{width:100%;padding:1rem;background:var(--gold-accent);color:#fff;border:none;border-radius:10px;font-weight:600;font-size:1rem;cursor:pointer;margin-bottom:1rem}.qibla-btn:hover{background:#b58b44}
+    #qiblaResult{background:var(--bg-cream-card);padding:1.5rem;border-radius:10px;text-align:center;font-weight:700;font-size:1.2rem;color:var(--olive-dark)}
+    footer{background:var(--olive-dark);color:#A3ACA0;padding:1.5rem 1.25rem;text-align:center;font-size:.85rem}
+  </style>
+</head>
+<body>
+<header>
+  <div class="top-bar">
+    <div class="brand"><div class="brand-crest">سل</div><div><h1>SHIA TOOLKIT</h1><small style="display:block;font-size:.7rem;color:var(--text-muted)">Duas • Ziyarat • Tasbeeh • Qibla</small></div></div>
+    <nav class="nav-links">
+      <a href="index.html">🏠 Archive</a>
+      <a href="quran.html">📖 Quran</a>
+      <a href="toolkit.html" class="active">🛠 Toolkit</a>
+      <a href="certificate.html">📜 Certificate</a>
+      <a href="submit.html">📝 Submit</a>
+      <a href="matrimony.html">💍 Matrimony</a>
+      <a href="auth.html">🔐 Sign In</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <div class="prayer-times">
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:1rem">
+      <div class="siat-title" style="font-size:1.5rem">Shia Ithna Asheri Toolkit</div>
+      <div style="text-align:right"><strong id="hijriDate">13 Jumada Al-Ula 1448</strong><br><small style="color:#D5DCD1">Fiqh-e-Jafari</small></div>
+    </div>
+    <div class="prayer-grid">
+      <div class="prayer-item"><small>Fajr</small><strong>04:54 AM</strong></div>
+      <div class="prayer-item"><small>Dhuhr</small><strong>11:42 AM</strong></div>
+      <div class="prayer-item"><small>Asr</small><strong>02:38 PM</strong></div>
+      <div class="prayer-item"><small>Maghrib</small><strong>05:11 PM</strong></div>
+      <div class="prayer-item"><small>Isha</small><strong>06:15 PM</strong></div>
+    </div>
+  </div>
+
+  <div class="tab-buttons">
+    <button class="tab-btn active" onclick="showTab('duas')">🤲 Duas</button>
+    <button class="tab-btn" onclick="showTab('ziyarat')">🕋 Ziyarat</button>
+    <button class="tab-btn" onclick="showTab('tasbeeh')">📿 Tasbeeh</button>
+    <button class="tab-btn" onclick="showTab('qibla')">🧭 Qibla</button>
+  </div>
+
+  <div id="duas" class="toolkit-card active">
+    <div class="card-header"><h2>Duas Collection</h2></div>
+    <div class="duas-list" id="duasList"><div style="text-align:center;color:var(--text-muted);padding:2rem">Loading Duas...</div></div>
+  </div>
+
+  <div id="ziyarat" class="toolkit-card">
+    <div class="card-header"><h2>Ziyarat Collection</h2></div>
+    <div class="ziyarat-list" id="ziyaratList"><div style="text-align:center;color:var(--text-muted);padding:2rem">Loading Ziyarat...</div></div>
+  </div>
+
+  <div id="tasbeeh" class="toolkit-card">
+    <div class="card-header"><h2>Digital Tasbeeh-e-Zahra (s.a.)</h2></div>
+    <div style="text-align:center">
+      <div class="tasbeeh-phase" id="tasbeehPhase">34 × Allahu Akbar</div>
+      <div class="tasbeeh-circle" id="tasbeehCircle" onclick="incrementTasbeeh()">0</div>
+      <button class="btn btn-emerald" onclick="resetTasbeeh()">Reset Counter</button>
+    </div>
+  </div>
+
+  <div id="qibla" class="toolkit-card">
+    <div class="card-header"><h2>GPS Qibla Finder</h2></div>
+    <button class="qibla-btn" onclick="findQibla()">Detect Qibla Direction (GPS)</button>
+    <div id="qiblaResult">Tap button to locate direction</div>
+  </div>
+</main>
+
+<footer>SADAT LINEAGE ARCHIVE — <a href="index.html" style="color:var(--gold-accent)">Back to Home</a></footer>
+
+<script>
+const DUAS_API = "/.netlify/functions/duas";
+const ZIYARAT_API = "/.netlify/functions/ziyarat";
+
+async function fetchAPI(url, body) {
+  const res = await fetch(url, {method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(body)});
+  return res.json();
+}
+
+async function loadDuas() {
+  const data = await fetchAPI(DUAS_API, {list:true});
+  const list = data.duas || Object.keys(data);
+  document.getElementById("duasList").innerHTML = list.map(name => 
+    `<button onclick="loadDua('${name}')">${name.toUpperCase()}</button>`
+  ).join('');
+  if(list.length) loadDua(list[0]);
+}
+
+async function loadDua(name) {
+  const data = await fetchAPI(DUAS_API, {name});
+  document.getElementById("duasList").innerHTML = 
+    `<div style="margin-bottom:1rem"><button class="tab-btn" onclick="loadDuas()">← Back to List</button></div>
+     <div class="arabic-content">${data.arabic || "Not found"}</div>
+     ${data.translation ? `<div style="margin-top:1rem;color:var(--text-muted);font-style:italic">${data.translation}</div>` : ""}`;
+}
+
+async function loadZiyarat() {
+  const data = await fetchAPI(ZIYARAT_API, {list:true});
+  const list = data.ziyarat || Object.keys(data);
+  document.getElementById("ziyaratList").innerHTML = list.map(name => 
+    `<button onclick="loadZiyaratItem('${name}')">${name.toUpperCase()}</button>`
+  ).join('');
+  if(list.length) loadZiyaratItem(list[0]);
+}
+
+async function loadZiyaratItem(name) {
+  const data = await fetchAPI(ZIYARAT_API, {name});
+  document.getElementById("ziyaratList").innerHTML = 
+    `<div style="margin-bottom:1rem"><button class="tab-btn" onclick="loadZiyarat()">← Back to List</button></div>
+     <div class="arabic-content">${data.arabic || "Not found"}</div>
+     ${data.translation ? `<div style="margin-top:1rem;color:var(--text-muted);font-style:italic">${data.translation}</div>` : ""}`;
+}
+
+function showTab(tab) {
+  document.querySelectorAll(".toolkit-card").forEach(c=>c.classList.remove("active"));
+  document.querySelectorAll(".tab-btn").forEach(b=>b.classList.remove("active"));
+  document.getElementById(tab).classList.add("active");
+  event.target.classList.add("active");
+  if(tab==="duas" && !document.getElementById("duasList").dataset.loaded) {loadDuas();document.getElementById("duasList").dataset.loaded="true"}
+  if(tab==="ziyarat" && !document.getElementById("ziyaratList").dataset.loaded) {loadZiyarat();document.getElementById("ziyaratList").dataset.loaded="true"}
+}
+
+let tasbeehCount=0;
+function incrementTasbeeh(){
+  tasbeehCount=(tasbeehCount%100)+1;
+  document.getElementById("tasbeehCircle").textContent=tasbeehCount;
+  document.getElementById("tasbeehPhase").textContent=tasbeehCount<=34?`34 × Allahu Akbar (${tasbeehCount}/34)`:tasbeehCount<=67?`33 × Alhamdulillah (${tasbeehCount-34}/33)`:`33 × SubhanAllah (${tasbeehCount-67}/33)`;
+}
+function resetTasbeeh(){tasbeehCount=0;document.getElementById("tasbeehCircle").textContent=0;document.getElementById("tasbeehPhase").textContent="34 × Allahu Akbar"}
+
+function findQibla(){
+  const out=document.getElementById("qiblaResult");
+  if(!navigator.geolocation){out.textContent="GPS not supported";return}
+  out.textContent="Locating GPS...";
+  navigator.geolocation.getCurrentPosition(pos=>{
+    const lat1=pos.coords.latitude*Math.PI/180,lon1=pos.coords.longitude*Math.PI/180;
+    const lat2=21.4225*Math.PI/180,lon2=39.8262*Math.PI/180;
+    const y=Math.sin(lon2-lon1)*Math.cos(lat2);
+    const x=Math.cos(lat1)*Math.sin(lat2)-Math.sin(lat1)*Math.cos(lat2)*Math.cos(lon2-lon1);
+    const angle=((Math.atan2(y,x)*180/Math.PI)+360)%360;
+    out.innerHTML=`Exact Qibla Bearing: <span style="color:var(--olive-primary);font-size:1.5rem">${angle.toFixed(1)}°</span> from True North`;
+  },err=>{out.textContent="Permission error: "+err.message});
+}
+
+loadDuas();
+loadZiyarat();
+</script>
+</body>
+</html>
