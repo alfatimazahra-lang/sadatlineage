@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Portal — Sadat Lineage</title>
+  <link rel="manifest" href="manifest.json" />
+  <meta name="theme-color" content="#4A5446" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{--bg-cream:#F5F2EB;--bg-white:#FFF;--olive-dark:#2F362C;--olive-primary:#4A5446;--olive-mid:#687463;--olive-soft:#E3E8DF;--gold-accent:#C89D54;--gold-light:#F9F3EA;--text-dark:#1E231C;--text-muted:#656E61;--border-color:#E2DDD3;--shadow-soft:0 8px 24px rgba(47,54,44,.05);--shadow-card:0 12px 32px rgba(47,54,44,.08);--radius-xl:20px;--radius-lg:14px;--radius-md:10px;--font-serif:'Playfair Display',Georgia,serif;--font-sans:'Plus Jakarta Sans',sans-serif;--font-arabic:'Amiri',serif}
+    *{box-sizing:border-box;margin:0;padding:0}body{font-family:var(--font-sans);background:var(--bg-cream);color:var(--text-dark);line-height:1.6}[dir="rtl"]{text-align:right}h1,h2,h3{font-family:var(--font-serif)}
+    header{background:rgba(255,255,255,.88);backdrop-filter:blur(14px);border-bottom:1px solid var(--border-color);position:sticky;top:0;z-index:1000}
+    .top-bar{max-width:1400px;margin:0 auto;padding:.9rem 1.25rem;display:flex;justify-content:space-between;align-items:center;gap:1rem}
+    .brand{display:flex;align-items:center;gap:.85rem}.brand-crest{width:44px;height:44px;border-radius:12px;background:var(--olive-primary);color:#fff;display:flex;align-items:center;justify-content:center;font-family:var(--font-arabic);font-weight:700;font-size:1.4rem}.brand h1{font-size:1.25rem;color:var(--olive-dark)}
+    .nav-links{display:flex;gap:.5rem;flex-wrap:wrap}.nav-links a{padding:.5rem 1rem;border-radius:8px;background:var(--olive-light);color:var(--olive-dark);text-decoration:none;font-weight:600;font-size:.85rem}.nav-links a:hover{background:var(--gold-accent);color:#fff}.nav-links a.active{background:var(--olive-primary);color:#fff}
+    .user-info{display:flex;align-items:center;gap:1rem;font-size:.85rem;color:var(--text-muted)}
+    .logout-btn{padding:.4rem .8rem;background:var(--gold-accent);color:#fff;border:none;border-radius:6px;cursor:pointer;font-size:.8rem}
+    main{max-width:1400px;margin:0 auto;padding:1.5rem 1.25rem}
+    .auth-screen{max-width:500px;margin:3rem auto;padding:2rem;background:#fff;border:1px solid var(--border-color);border-radius:var(--radius-xl);box-shadow:var(--shadow-soft);text-align:center}
+    .auth-screen h2{color:var(--olive-dark);margin-bottom:.5rem}
+    .auth-screen p{color:var(--text-muted);margin-bottom:2rem}
+    .auth-screen input{width:100%;padding:.85rem 1rem;border:1px solid var(--border-color);border-radius:var(--radius-md);font-size:1rem;margin-bottom:1rem;background:#fff}
+    .auth-screen .btn{width:100%}
+    .dashboard{display:none}
+    .dashboard-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:2rem;flex-wrap:wrap;gap:1rem}
+    .dashboard-header h2{color:var(--olive-dark)}
+    .stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1rem;margin-bottom:2rem}
+    .stat-card{background:#fff;border:1px solid var(--border-color);border-radius:var(--radius-lg);padding:1.25rem;box-shadow:var(--shadow-soft)}
+    .stat-label{font-size:.8rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:.05em;margin-bottom:.5rem}
+    .stat-value{font-size:2rem;font-weight:700;color:var(--olive-dark);font-family:var(--font-serif)}
+    .stat-card.pending .stat-value{color:var(--gold-accent)}
+    .stat-card.approved .stat-value{color:#2E7D32}
+    .stat-card.rejected .stat-value{color:#C62828}
+    .tabs{display:flex;gap:.5rem;margin-bottom:1.5rem;flex-wrap:wrap}
+    .tab-btn{padding:.6rem 1.2rem;border:none;border-radius:8px;background:var(--olive-light);color:var(--olive-dark);font-weight:600;cursor:pointer;font-size:.85rem;transition:.2s}.tab-btn:hover{background:var(--gold-accent);color:#fff}.tab-btn.active{background:var(--olive-primary);color:#fff}
+    .tab-panel{display:none}.tab-panel.active{display:block}
+    .queue-table{width:100%;border-collapse:collapse;background:#fff;border:1px solid var(--border-color);border-radius:var(--radius-lg);overflow:hidden;box-shadow:var(--shadow-soft)}
+    .queue-table th,.queue-table td{padding:.85rem 1rem;text-align:left;border-bottom:1px solid var(--border-color)}
+    .queue-table th{background:var(--olive-light);color:var(--olive-dark);font-weight:600;font-size:.8rem;text-transform:uppercase}
+    .queue-table tr:hover{background:var(--bg-cream-card)}
+    .status-badge{padding:.25rem .6rem;border-radius:20px;font-size:.7rem;font-weight:700;text-transform:uppercase}
+    .status-pending{background:#FFF3E0;color:#E65100}
+    .status-approved{background:#E8F5E9;color:#2E7D32}
+    .status-rejected{background:#FDEDEC;color:#C62828}
+    .status-review{background:#E3F2FD;color:#1565C0}
+    .action-btn{padding:.4rem .8rem;border:none;border-radius:6px;font-size:.75rem;font-weight:600;cursor:pointer;margin-right:.25rem}.btn-approve{background:#E8F5E9;color:#2E7D32}.btn-reject{background:#FDEDEC;color:#C62828}.btn-view{background:var(--olive-light);color:var(--olive-dark)}
+    .empty-state{text-align:center;padding:3rem;color:var(--text-muted)}
+    .modal{display:none;position:fixed;inset:0;z-index:1000;background:rgba(0,0,0,.5);align-items:center;justify-content:center}
+    .modal.active{display:flex}
+    .modal-content{background:#fff;border-radius:var(--radius-xl);padding:2rem;max-width:600px;width:90%;max-height:80vh;overflow-y:auto;box-shadow:var(--shadow-card)}
+    .modal-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:1.5rem}
+    .modal-close{background:none;border:none;font-size:1.5rem;cursor:pointer;color:var(--text-muted)}
+    .detail-row{display:flex;gap:1rem;margin-bottom:1rem;padding-bottom:1rem;border-bottom:1px solid var(--border-color)}
+    .detail-label{font-weight:600;color:var(--olive-dark);min-width:150px}
+    .detail-value{color:var(--text-dark);flex:1}
+    .arabic-text{font-family:var(--font-arabic);font-size:1.1rem;line-height:2;direction:rtl;text-align:right;background:#fffdf7;padding:1rem;border-radius:8px;border:1px solid var(--border-color)}
+    footer{background:var(--olive-dark);color:#A3ACA0;padding:1.5rem 1.25rem;text-align:center;font-size:.85rem}
+  </style>
+</head>
+<body>
+<header>
+  <div class="top-bar">
+    <div class="brand"><div class="brand-crest">سل</div><div><h1>ADMIN PORTAL</h1><small style="display:block;font-size:.7rem;color:var(--text-muted)">Governance Dashboard</small></div></div>
+    <nav class="nav-links">
+      <a href="index.html">🏠 Archive</a>
+      <a href="quran.html">📖 Quran</a>
+      <a href="toolkit.html">🛠 Toolkit</a>
+      <a href="certificate.html">📜 Certificate</a>
+      <a href="submit.html">📝 Submit</a>
+      <a href="matrimony.html">💍 Matrimony</a>
+      <a href="admin.html" class="active">⚙️ Admin</a>
+      <a href="auth.html">🔐 Sign In</a>
+    </nav>
+    <div class="user-info" id="userInfo" style="display:none">
+      <span id="adminRole"></span>
+      <button class="logout-btn" onclick="logout()">Logout</button>
+    </div>
+  </div>
+</header>
+
+<main>
+  <!-- Auth Screen -->
+  <div class="auth-screen" id="authScreen">
+    <h2>Admin Authentication</h2>
+    <p>Enter your license key to access the governance dashboard</p>
+    <div style="text-align:left">
+      <label style="display:block;font-weight:600;margin-bottom:.5rem;color:var(--olive-dark)">Role</label>
+      <select id="adminRoleSelect" style="width:100%;padding:.85rem 1rem;border:1px solid var(--border-color);border-radius:var(--radius-md);font-size:1rem;background:#fff">
+        <option value="state_admin">State Admin</option>
+        <option value="super_admin">Super Admin</option>
+      </select>
+      <label style="display:block;font-weight:600;margin-top:1rem;margin-bottom:.5rem;color:var(--olive-dark)">License Key</label>
+      <input type="password" id="adminLicenseInput" placeholder="Enter admin license key">
+    </div>
+    <button class="btn btn-gold" onclick="authenticate()">Authenticate</button>
+    <p id="authError" style="margin-top:1rem;color:#C62828;display:none"></p>
+  </div>
+
+  <!-- Dashboard -->
+  <div class="dashboard" id="dashboard">
+    <div class="dashboard-header">
+      <div>
+        <h2>Governance Dashboard</h2>
+        <p style="color:var(--text-muted);font-size:.9rem">Manage submissions, matrimony requests, and canonical data</p>
+      </div>
+      <div style="display:flex;gap:.5rem">
+        <button class="btn btn-emerald" onclick="refreshAll()">🔄 Refresh</button>
+        <button class="btn btn-gold" onclick="exportData()">📊 Export</button>
+      </div>
+    </div>
+
+    <div class="stats-grid">
+      <div class="stat-card pending"><div class="stat-label">Pending Submissions</div><div class="stat-value" id="statPending">0</div></div>
+      <div class="stat-card approved"><div class="stat-label">Approved</div><div class="stat-value" id="statApproved">0</div></div>
+      <div class="stat-card rejected"><div class="stat-label">Rejected</div><div class="stat-value" id="statRejected">0</div></div>
+      <div class="stat-card"><div class="stat-label">Matrimony Requests</div><div class="stat-value" id="statMatrimony">0</div></div>
+    </div>
+
+    <div class="tabs">
+      <button class="tab-btn active" onclick="showTab('submissions')">📝 Submissions</button>
+      <button class="tab-btn" onclick="showTab('matrimony')">💍 Matrimony Requests</button>
+      <button class="tab-btn" onclick="showTab('certificates')">📜 Certificates</button>
+      <button class="tab-btn" onclick="showTab('users')">👥 Users</button>
+      <button class="tab-btn" onclick="showTab('audit')">📋 Audit Log</button>
+    </div>
+
+    <!-- Submissions Tab -->
+    <div class="tab-panel active" id="tab-submissions">
+      <table class="queue-table" id="submissionsTable">
+        <thead>
+          <tr>
+            <th>ID</th><th>Name</th><th>Father</th><th>Gender</th><th>Book</th><th>State</th><th>Status</th><th>Submitted</th><th>Actions</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+
+    <!-- Matrimony Tab -->
+    <div class="tab-panel" id="tab-matrimony">
+      <table class="queue-table" id="matrimonyTable">
+        <thead>
+          <tr>
+            <th>ID</th><th>Requester</th><th>Target</th><th>Type</th><th>Status</th><th>Requested</th><th>Actions</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+
+    <!-- Certificates Tab -->
+    <div class="tab-panel" id="tab-certificates">
+      <table class="queue-table" id="certificatesTable">
+        <thead>
+          <tr>
+            <th>ID</th><th>Person Name</th><th>Father</th><th>Generated</th><th>License Key</th><th>Actions</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+
+    <!-- Users Tab -->
+    <div class="tab-panel" id="tab-users">
+      <table class="queue-table" id="usersTable">
+        <thead>
+          <tr>
+            <th>Email</th><th>Role</th><th>State</th><th>Last Login</th><th>Status</th><th>Actions</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+
+    <!-- Audit Tab -->
+    <div class="tab-panel" id="tab-audit">
+      <table class="queue-table" id="auditTable">
+        <thead>
+          <tr>
+            <th>Timestamp</th><th>Admin</th><th>Action</th><th>Target</th><th>Details</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </div>
+</main>
+
+<!-- Submission Detail Modal -->
+<div class="modal" id="detailModal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h3 id="modalTitle">Submission Details</h3>
+      <button class="modal-close" onclick="closeModal()">&times;</button>
+    </div>
+    <div id="modalBody"></div>
+  </div>
+</div>
+
+<footer>SADAT LINEAGE ARCHIVE — <a href="index.html" style="color:var(--gold-accent)">Back to Home</a></footer>
+
+<script>
+const SUPABASE_URL="https://wouvkonvfqhztuienrgi.supabase.co";
+const SUPABASE_REST=SUPABASE_URL+"/rest/v1/";
+const SUPABASE_ANON_KEY="sb_publishable_Tds1DzdM6s5cdv2kXQx_JA_uNJdHROT";
+const sbHeaders={"apikey":SUPABASE_ANON_KEY,"Content-Type":"application/json"};
+
+let currentAdmin=null;
+let currentRole=null;
+
+function authenticate(){
+  const role=document.getElementById("adminRoleSelect").value;
+  const key=document.getElementById("adminLicenseInput").value.trim();
+  const errorEl=document.getElementById("authError");
+  
+  if(!key){errorEl.textContent="Enter license key";errorEl.style.display="block";return}
+  
+  // Demo keys: STATE-ADMIN-2026, SUPER-ADMIN-2026
+  const validKeys={
+    state_admin:["STATE-ADMIN-2026","UP-ADMIN-2026","BIHAR-ADMIN-2026"],
+    super_admin:["SUPER-ADMIN-2026","ROOT-ADMIN-2026"]
+  };
+  
+  if(validKeys[role]?.includes(key)){
+    currentAdmin=role==="super_admin"?"Super Admin":"State Admin";
+    currentRole=role;
+    document.getElementById("authScreen").style.display="none";
+    document.getElementById("dashboard").style.display="block";
+    document.getElementById("userInfo").style.display="flex";
+    document.getElementById("adminRole").textContent=currentAdmin;
+    loadAllData();
+  }else{
+    errorEl.textContent="Invalid license key for selected role";
+    errorEl.style.display="block";
+  }
+}
+
+function logout(){
+  currentAdmin=null;currentRole=null;
+  document.getElementById("authScreen").style.display="block";
+  document.getElementById("dashboard").style.display="none";
+  document.getElementById("userInfo").style.display="none";
+  document.getElementById("adminLicenseInput").value="";
+  document.getElementById("authError").style.display="none";
+}
+
+async function loadAllData(){
+  await Promise.all([
+    loadSubmissions(),
+    loadMatrimony(),
+    loadCertificates(),
+    loadUsers(),
+    loadAudit()
+  ]);
+  updateStats();
+}
+
+async function sbFetch(endpoint){
+  try{const res=await fetch(SUPABASE_REST+endpoint,{headers:sbHeaders});if(!res.ok)throw new Error("HTTP "+res.status);return res.json()}catch(e){return[]}
+}
+
+async function loadSubmissions(){
+  const data=await sbFetch("shajra_submissions?select=*&order=submitted_at.desc&limit=50");
+  renderTable(data,"submissionsTable",["submission_code","full_name","father_name","gender","canonical_book","state_queue","status","submitted_at"],"submission");
+}
+
+async function loadMatrimony(){
+  const data=await sbFetch("matrimony_requests?select=*&order=created_at.desc&limit=50");
+  renderTable(data,"matrimonyTable",["id","requester_name","target_name","type","status","created_at"],"matrimony");
+}
+
+async function loadCertificates(){
+  const data=await sbFetch("certificates?select=*&order=generated_at.desc&limit=50");
+  renderTable(data,"certificatesTable",["id","person_name","father_name","generated_at","license_key"],"certificate");
+}
+
+async function loadUsers(){
+  const data=await sbFetch("admin_users?select=*&order=last_login.desc&limit=50");
+  renderTable(data,"usersTable",["email","role","state","last_login","status"],"user");
+}
+
+async function loadAudit(){
+  const data=await sbFetch("audit_log?select=*&order=timestamp.desc&limit=100");
+  renderTable(data,"auditTable",["timestamp","admin_email","action","target_type","details"],"audit");
+}
+
+function renderTable(data,tableId,columns,type){
+  const tbody=document.querySelector("#"+tableId+" tbody");
+  if(!data.length){
+    tbody.innerHTML=`<tr><td colspan="${columns.length}" class="empty-state">No records found</td></tr>`;
+    return;
+  }
+  tbody.innerHTML=data.map(row=>{
+    const cells=columns.map(col=>{
+      let val=row[col]||"—";
+      if(col==="status"){
+        return `<span class="status-badge status-${val}">${val}</span>`;
+      }
+      if(col==="submitted_at"||col==="created_at"||col==="generated_at"||col==="timestamp"){
+        val=new Date(val).toLocaleString();
+      }
+      if(col==="details"&&typeof val==="object") val=JSON.stringify(val);
+      return escapeHtml(String(val).substring(0,100));
+    }).join("");
+    return `<tr>${cells}<td>
+      <button class="action-btn btn-view" onclick="viewDetail('${type}','${row.id||row.submission_code||row.id}')">View</button>
+      ${type==="submission"&&row.status==="pending"?`<button class="action-btn btn-approve" onclick="updateStatus('${row.submission_code}','approved')">Approve</button><button class="action-btn btn-reject" onclick="updateStatus('${row.submission_code}','rejected')">Reject</button>`:""}
+      ${type==="matrimony"&&row.status==="pending"?`<button class="action-btn btn-approve" onclick="updateMatrimony('${row.id}','approved')">Approve</button><button class="action-btn btn-reject" onclick="updateMatrimony('${row.id}','rejected')">Reject</button>`:""}
+    </td></tr>`;
+  }).join("");
+}
+
+function updateStats(){
+  // Stats would be calculated from loaded data
+  document.getElementById("statPending").textContent="—";
+  document.getElementById("statApproved").textContent="—";
+  document.getElementById("statRejected").textContent="—";
+  document.getElementById("statMatrimony").textContent="—";
+}
+
+async function updateStatus(code,status){
+  if(!confirm(`Mark ${code} as ${status}?`)) return;
+  try{
+    await fetch(SUPABASE_REST+`shajra_submissions?submission_code=eq.${code}`,{
+      method:"PATCH",headers:{...sbHeaders,"Prefer":"return=minimal"},
+      body:JSON.stringify({status,reviewed_at:new Date().toISOString(),reviewed_by:currentAdmin})
+    });
+    loadSubmissions();
+    logAudit("submission_status",code,`Status changed to ${status}`);
+  }catch(e){alert("Error: "+e.message)}
+}
+
+async function updateMatrimony(id,status){
+  if(!confirm(`Mark matrimony request as ${status}?`)) return;
+  try{
+    await fetch(SUPABASE_REST+`matrimony_requests?id=eq.${id}`,{
+      method:"PATCH",headers:{...sbHeaders,"Prefer":"return=minimal"},
+      body:JSON.stringify({status,reviewed_at:new Date().toISOString(),reviewed_by:currentAdmin})
+    });
+    loadMatrimony();
+    logAudit("matrimony_status",id,`Status changed to ${status}`);
+  }catch(e){alert("Error: "+e.message)}
+}
+
+function viewDetail(type,id){
+  // Fetch full record and show modal
+  const endpoints={
+    submission:`shajra_submissions?submission_code=eq.${id}`,
+    matrimony:`matrimony_requests?id=eq.${id}`,
+    certificate:`certificates?id=eq.${id}`,
+    user:`admin_users?id=eq.${id}`,
+    audit:`audit_log?id=eq.${id}`
+  };
+  fetch(SUPABASE_REST+endpoints[type],{headers:sbHeaders})
+    .then(r=>r.json())
+    .then(data=>{
+      const record=data[0];
+      if(!record){alert("Record not found");return}
+      document.getElementById("modalTitle").textContent=`${type} Details: ${id}`;
+      let html="";
+      for(const [key,val] of Object.entries(record)){
+        if(key==="book_text_english"||key==="book_text_urdu"){
+          html+=`<div class="detail-row"><span class="detail-label">${key}</span><div class="detail-value arabic-text">${escapeHtml(val||"—")}</div></div>`;
+        }else{
+          html+=`<div class="detail-row"><span class="detail-label">${key}</span><span class="detail-value">${escapeHtml(String(val||"—"))}</span></div>`;
+        }
+      }
+      document.getElementById("modalBody").innerHTML=html;
+      document.getElementById("detailModal").classList.add("active");
+    });
+}
+
+function closeModal(){document.getElementById("detailModal").classList.remove("active")}
+
+function showTab(tab){
+  document.querySelectorAll(".tab-panel").forEach(p=>p.classList.remove("active"));
+  document.querySelectorAll(".tab-btn").forEach(b=>b.classList.remove("active"));
+  document.getElementById("tab-"+tab).classList.add("active");
+  event.target.classList.add("active");
+}
+
+function refreshAll(){loadAllData()}
+
+function exportData(){
+  // Would export CSV/JSON
+  alert("Export feature coming soon");
+}
+
+async function logAudit(action,target,details){
+  try{
+    await fetch(SUPABASE_REST+"audit_log",{
+      method:"POST",headers:{...sbHeaders,"Prefer":"return=minimal"},
+      body:JSON.stringify({action,target_type:action.split("_")[0],target_id:target,details,admin_email:currentAdmin,timestamp:new Date().toISOString()})
+    });
+  }catch(e){}
+}
+
+function escapeHtml(s){if(!s)return"";return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;")}
+</script>
+</body>
+</html>
