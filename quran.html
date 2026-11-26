@@ -1,149 +1,89 @@
-<!DOCTYPE html>
-<html lang="en" dir="ltr">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Al Quran — Sadat Lineage</title>
-  <link rel="manifest" href="manifest.json" />
-  <meta name="theme-color" content="#4A5446" />
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  <style>
-    :root{--bg-cream:#F5F2EB;--bg-white:#FFF;--olive-dark:#2F362C;--olive-primary:#4A5446;--olive-mid:#687463;--olive-soft:#E3E8DF;--gold-accent:#C89D54;--gold-light:#F9F3EA;--text-dark:#1E231C;--text-muted:#656E61;--border-color:#E2DDD3;--shadow-soft:0 8px 24px rgba(47,54,44,.05);--shadow-card:0 12px 32px rgba(47,54,44,.08);--radius-xl:20px;--radius-lg:14px;--radius-md:10px;--font-serif:'Playfair Display',Georgia,serif;--font-sans:'Plus Jakarta Sans',sans-serif;--font-arabic:'Amiri',serif}
-    *{box-sizing:border-box;margin:0;padding:0}body{font-family:var(--font-sans);background:var(--bg-cream);color:var(--text-dark);line-height:1.6}[dir="rtl"]{text-align:right}h1,h2,h3{font-family:var(--font-serif)}
-    header{background:rgba(255,255,255,.88);backdrop-filter:blur(14px);border-bottom:1px solid var(--border-color);position:sticky;top:0;z-index:1000}
-    .top-bar{max-width:1280px;margin:0 auto;padding:.9rem 1.25rem;display:flex;justify-content:space-between;align-items:center;gap:1rem}
-    .brand{display:flex;align-items:center;gap:.85rem}.brand-crest{width:44px;height:44px;border-radius:12px;background:var(--olive-primary);color:#fff;display:flex;align-items:center;justify-content:center;font-family:var(--font-arabic);font-weight:700;font-size:1.4rem}.brand h1{font-size:1.25rem;color:var(--olive-dark)}
-    .nav-links{display:flex;gap:.5rem;flex-wrap:wrap}.nav-links a{padding:.5rem 1rem;border-radius:8px;background:var(--olive-light);color:var(--olive-dark);text-decoration:none;font-weight:600;font-size:.85rem}.nav-links a:hover{background:var(--gold-accent);color:#fff}.nav-links a.active{background:var(--olive-primary);color:#fff}
-    main{max-width:1280px;margin:0 auto;padding:1.5rem 1.25rem}
-    .card{background:#fff;border:1px solid var(--border-color);border-radius:var(--radius-xl);padding:1.5rem;box-shadow:var(--shadow-soft);margin-bottom:1.5rem}
-    .controls{display:flex;gap:.75rem;flex-wrap:wrap;margin-bottom:1.5rem;align-items:center}
-    .controls input,.controls select{padding:.7rem 1rem;border:1px solid var(--border-color);border-radius:var(--radius-md);background:#fff;font-size:.95rem}.controls input{width:120px}.controls select{min-width:180px}
-    .btn{padding:.7rem 1.2rem;border:none;border-radius:8px;font-weight:600;cursor:pointer;font-size:.9rem}.btn-gold{background:var(--gold-accent);color:#fff}.btn-emerald{background:var(--olive-primary);color:#fff}
-    #quranContent{font-family:var(--font-arabic);font-size:1.4rem;line-height:3;direction:rtl;text-align:right;background:#fffdf7;padding:2rem;border-radius:10px;border:1px solid var(--border-color);min-height:300px}
-    .ayah{display:inline-block;padding:0 .3rem}.ayah-num{font-size:.8rem;vertical-align:super;margin-left:.2rem;color:var(--gold-accent);font-family:var(--font-sans)}
-    .surah-info{background:var(--olive-light);padding:1rem;border-radius:8px;margin-bottom:1rem;display:flex;justify-content:space-between;flex-wrap:wrap;gap:.5rem;color:var(--olive-dark)}
-    .loading{text-align:center;padding:2rem;color:var(--text-muted)}
-    footer{background:var(--olive-dark);color:#A3ACA0;padding:1.5rem 1.25rem;text-align:center;font-size:.85rem}
-  </style>
-</head>
-<body>
-<header>
-  <div class="top-bar">
-    <div class="brand"><div class="brand-crest">سل</div><div><h1>AL QURAN</h1><small style="display:block;font-size:.7rem;color:var(--text-muted)">Complete Quran with Arabic & Search</small></div></div>
-    <nav class="nav-links">
-      <a href="index.html">🏠 Archive</a>
-      <a href="quran.html" class="active">📖 Quran</a>
-      <a href="toolkit.html">🛠 Toolkit</a>
-      <a href="certificate.html">📜 Certificate</a>
-      <a href="submit.html">📝 Submit</a>
-      <a href="matrimony.html">💍 Matrimony</a>
-      <a href="auth.html">🔐 Sign In</a>
-    </nav>
-  </div>
-</header>
-
-<main>
-  <div class="card">
-    <div class="surah-info">
-      <div><strong>Surah:</strong> <span id="surahName">—</span> | <strong>Ayahs:</strong> <span id="ayahCount">—</span></div>
-      <div><strong>Type:</strong> <span id="surahType">—</span> | <strong>Juz:</strong> <span id="juzNum">—</span></div>
-    </div>
-    <div class="controls">
-      <input type="number" id="surahInput" min="1" max="114" placeholder="Surah (1-114)" value="1">
-      <input type="number" id="ayahInput" min="1" placeholder="Ayah (optional)">
-      <button class="btn btn-gold" onclick="loadSurah()">Load Surah</button>
-      <button class="btn btn-emerald" onclick="loadPage()">Load Page</button>
-      <select id="juzSelect" onchange="loadJuz()"><option value="">Select Juz (1-30)</option></select>
-    </div>
-    <div id="quranContent" class="loading">Enter Surah number & click Load Surah</div>
-  </div>
-
-  <div class="card">
-    <h3 style="margin-bottom:1rem;color:var(--olive-dark)">Quick Surah Navigation</h3>
-    <div style="display:flex;flex-wrap:wrap;gap:.5rem" id="surahList"></div>
-  </div>
-</main>
-
-<footer>SADAT LINEAGE ARCHIVE — <a href="index.html" style="color:var(--gold-accent)">Back to Home</a></footer>
-
 <script>
-const API_BASE = "/.netlify/functions/quran";
-
-async function apiCall(body) {
-  const res = await fetch(API_BASE, {method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(body)});
-  return res.json();
-}
+const QURAN_API = "https://api.quran.com/api/v4";
 
 function populateJuzSelect() {
   const sel = document.getElementById("juzSelect");
-  for(let i=1;i<=30;i++){const o=document.createElement("option");o.value=i;o.textContent=`Juz ${i}`;sel.appendChild(o)}
+  for (let i = 1; i <= 30; i++) {
+    const o = document.createElement("option");
+    o.value = i; o.textContent = `Juz ${i}`;
+    sel.appendChild(o);
+  }
+}
+
+function showLoading() {
+  document.getElementById("quranContent").innerHTML = '<div class="loading">Loading…</div>';
+}
+function showError(msg) {
+  document.getElementById("quranContent").innerHTML = `<div class="loading" style="color:red">Error: ${msg}</div>`;
+}
+
+function renderQuran(data) {
+  const verses = data.verses || [];
+  if (!verses.length) { showError("No verses found"); return; }
+
+  const first = verses[0];
+  document.getElementById("surahName").textContent = 
+    `${first.chapter_id}: ${first.chapter_name_arabic} (${first.chapter_name_complex})`;
+  document.getElementById("ayahCount").textContent = verses.length;
+  document.getElementById("surahType").textContent = first.chapter_type;
+  document.getElementById("juzNum").textContent = first.juz_number;
+
+  const html = verses.map(v => 
+    `<span class="ayah">${v.text_uthmani} <sup class="ayah-num">${v.verse_key.split(":")[1]}</sup></span>`
+  ).join(" ");
+  document.getElementById("quranContent").innerHTML = html;
+}
+
+async function fetchVerses(params) {
+  const url = `${QURAN_API}/verses/uthmani?${new URLSearchParams(params)}`;
+  const res = await fetch(url, { headers: { Accept: "application/json" } });
+  if (!res.ok) throw new Error(`API ${res.status}`);
+  return res.json();
 }
 
 async function loadSurah() {
   const surah = parseInt(document.getElementById("surahInput").value) || 1;
-  const ayah = document.getElementById("ayahInput").value ? parseInt(document.getElementById("ayahInput").value) : undefined;
+  const ayah = document.getElementById("ayahInput").value ? parseInt(document.getElementById("ayahInput").value) : null;
   showLoading();
   try {
-    const data = await apiCall({surah, ayah});
+    const params = { surah, translations: "20,21", fields: "text_uthmani,verse_key,chapter_id,chapter_name_arabic,chapter_name_complex,chapter_type,juz_number" };
+    if (ayah) params.ayah = ayah;
+    const data = await fetchVerses(params);
     renderQuran(data);
-  } catch(e) { showError(e.message) }
+  } catch (e) { showError(e.message); }
 }
 
 async function loadPage() {
   const page = parseInt(document.getElementById("surahInput").value) || 1;
   showLoading();
   try {
-    const data = await apiCall({page});
+    const data = await fetchVerses({ page, translations: "20,21", fields: "text_uthmani,verse_key,chapter_id,chapter_name_arabic,chapter_name_complex,chapter_type,juz_number" });
     renderQuran(data);
-  } catch(e) { showError(e.message) }
+  } catch (e) { showError(e.message); }
 }
 
 async function loadJuz() {
   const juz = parseInt(document.getElementById("juzSelect").value);
-  if(!juz) return;
+  if (!juz) return;
   showLoading();
   try {
-    const data = await apiCall({juz});
+    const data = await fetchVerses({ juz, translations: "20,21", fields: "text_uthmani,verse_key,chapter_id,chapter_name_arabic,chapter_name_complex,chapter_type,juz_number" });
     renderQuran(data);
-  } catch(e) { showError(e.message) }
+  } catch (e) { showError(e.message); }
 }
-
-function renderQuran(data) {
-  if(data.error){showError(data.error);return}
-  const verses = data.verses || [];
-  if(!verses.length){showError("No verses found");return}
-  
-  const first = verses[0];
-  document.getElementById("surahName").textContent = `${first.chapter_id}: ${first.chapter_name_arabic} (${first.chapter_name_complex})`;
-  document.getElementById("ayahCount").textContent = verses.length;
-  document.getElementById("surahType").textContent = first.chapter_type;
-  document.getElementById("juzNum").textContent = first.juz_number;
-
-  const html = verses.map(v => 
-    `<span class="ayah">${v.text_uthmani} <sup class="ayah-num">${v.verse_number}</sup></span>`
-  ).join(' ');
-  document.getElementById("quranContent").innerHTML = html;
-}
-
-function showLoading() { document.getElementById("quranContent").innerHTML = '<div class="loading">Loading...</div>'; }
-function showError(msg) { document.getElementById("quranContent").innerHTML = `<div class="loading" style="color:red">Error: ${msg}</div>`; }
 
 async function loadSurahList() {
   try {
-    const data = await apiCall({list: true});
-    const chapters = data.chapters || [];
+    const res = await fetch(`${QURAN_API}/chapters?language=en`, { headers: { Accept: "application/json" } });
+    const data = await res.json();
     const container = document.getElementById("surahList");
-    container.innerHTML = chapters.map(c => 
+    container.innerHTML = (data.chapters || []).map(c => 
       `<button class="btn btn-emerald" style="padding:.4rem .8rem;font-size:.8rem" onclick="document.getElementById('surahInput').value=${c.id};loadSurah()">${c.id}. ${c.name_arabic}</button>`
-    ).join('');
-  } catch(e) {}
+    ).join("");
+  } catch (e) { console.error(e); }
 }
 
 populateJuzSelect();
 loadSurahList();
 loadSurah();
 </script>
-</body>
-</html>
