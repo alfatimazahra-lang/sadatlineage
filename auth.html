@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Member Sign In — Sadat Lineage</title>
+  <link rel="manifest" href="manifest.json" />
+  <meta name="theme-color" content="#4A5446" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{--bg-cream:#F5F2EB;--bg-white:#FFF;--olive-dark:#2F362C;--olive-primary:#4A5446;--olive-mid:#687463;--olive-soft:#E3E8DF;--gold-accent:#C89D54;--gold-light:#F9F3EA;--text-dark:#1E231C;--text-muted:#656E61;--border-color:#E2DDD3;--shadow-soft:0 8px 24px rgba(47,54,44,.05);--shadow-card:0 12px 32px rgba(47,54,44,.08);--radius-xl:20px;--radius-lg:14px;--radius-md:10px;--font-serif:'Playfair Display',Georgia,serif;--font-sans:'Plus Jakarta Sans',sans-serif;--font-arabic:'Amiri',serif}
+    *{box-sizing:border-box;margin:0;padding:0}body{font-family:var(--font-sans);background:var(--bg-cream);color:var(--text-dark);line-height:1.6;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:2rem 1rem}[dir="rtl"]{text-align:right}h1,h2,h3{font-family:var(--font-serif)}
+    .auth-container{width:100%;max-width:480px}
+    .auth-card{background:#fff;border:1px solid var(--border-color);border-radius:var(--radius-xl);padding:2.5rem;box-shadow:var(--shadow-soft)}
+    .auth-header{text-align:center;margin-bottom:2rem}
+    .auth-crest{width:70px;height:70px;border-radius:50%;background:var(--olive-primary);color:#fff;display:flex;align-items:center;justify-content:center;font-family:var(--font-arabic);font-weight:700;font-size:2rem;margin:0 auto 1rem;box-shadow:0 0 30px rgba(74,84,70,.3)}
+    .auth-header h1{color:var(--olive-dark);font-size:1.75rem;margin-bottom:.5rem}
+    .auth-header p{color:var(--text-muted);font-size:.95rem}
+    .tabs{display:flex;gap:.5rem;justify-content:center;margin-bottom:2rem}
+    .tab-btn{padding:.7rem 2rem;border:none;border-radius:8px;background:var(--olive-light);color:var(--olive-dark);font-weight:600;font-size:.9rem;cursor:pointer;transition:.2s}.tab-btn:hover{background:var(--gold-accent);color:#fff}.tab-btn.active{background:var(--olive-primary);color:#fff}
+    .auth-form{display:none}.auth-form.active{display:block;animation:fadeIn .3s ease}@keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+    .form-group{margin-bottom:1.25rem}
+    label{display:block;font-weight:600;font-size:.9rem;margin-bottom:.5rem;color:var(--olive-dark)}
+    .required::after{content:" *";color:var(--gold-accent)}
+    input{width:100%;padding:.85rem 1rem;border:1px solid var(--border-color);border-radius:var(--radius-md);font-size:1rem;font-family:var(--font-sans);background:#fff;transition:.2s}
+    input:focus{border-color:var(--olive-primary);outline:none;box-shadow:0 0 0 3px var(--olive-soft)}
+    .input-wrapper{position:relative}
+    .input-wrapper input{padding-right:3rem}
+    .toggle-password{position:absolute;right:1rem;top:50%;transform:translateY(-50%);background:none;border:none;color:var(--text-muted);cursor:pointer;font-size:.85rem;padding:.25rem}
+    .btn{width:100%;padding:.85rem 1.5rem;border:none;border-radius:10px;font-weight:600;font-size:1rem;cursor:pointer;transition:.2s;margin-top:.5rem}.btn-gold{background:var(--gold-accent);color:#fff}.btn-emerald{background:var(--olive-primary);color:#fff}.btn-gold:hover{background:#b58b44}.btn-emerald:hover{background:var(--olive-dark)}
+    .divider{display:flex;align-items:center;gap:1rem;margin:1.5rem 0;color:var(--text-muted);font-size:.85rem}.divider::before,.divider::after{content:"";flex:1;height:1px;background:var(--border-color)}
+    .social-btn{width:100%;padding:.75rem 1rem;border:1px solid var(--border-color);border-radius:var(--radius-md);background:#fff;font-size:.9rem;font-weight:500;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:.5rem;transition:.2s}.social-btn:hover{background:var(--bg-cream-card);border-color:var(--olive-primary)}
+    .auth-footer{text-align:center;margin-top:1.5rem;font-size:.85rem;color:var(--text-muted)}
+    .auth-footer a{color:var(--olive-primary);font-weight:600;text-decoration:none}.auth-footer a:hover{text-decoration:underline}
+    .status-msg{padding:.75rem 1rem;border-radius:8px;margin-bottom:1rem;font-size:.9rem;font-weight:500;display:none}.status-msg.success{background:#E8F5E9;color:#2E7D32;border:1px solid #C8E6C9;display:block}.status-msg.error{background:#FDEDEC;color:#C62828;border:1px solid #FFCDD2;display:block}.status-msg.info{background:#E3F2FD;color:#1565C0;border:1px solid #BBDEFB;display:block}
+    .password-strength{height:4px;background:var(--border-color);border-radius:2px;margin-top:.5rem;overflow:hidden}.password-strength-bar{height:100%;width:0%;transition:width .3s,bg .3s}
+    footer{position:fixed;bottom:0;left:0;right:0;background:var(--olive-dark);color:#A3ACA0;padding:1rem;text-align:center;font-size:.8rem}
+  </style>
+</head>
+<body>
+<div class="auth-container">
+  <div class="auth-card">
+    <div class="auth-header">
+      <div class="auth-crest">سل</div>
+      <h1>SADAT LINEAGE</h1>
+      <p>Member Portal — Access your lineage, certificates & toolkit</p>
+    </div>
+
+    <div class="tabs">
+      <button class="tab-btn active" onclick="showTab('signin')">Sign In</button>
+      <button class="tab-btn" onclick="showTab('register')">Register</button>
+    </div>
+
+    <div id="statusMsg" class="status-msg"></div>
+
+    <!-- Sign In Form -->
+    <form class="auth-form active" id="signinForm" onsubmit="handleSignIn(event)">
+      <div class="form-group">
+        <label class="required">Email Address</label>
+        <input type="email" id="signinEmail" required placeholder="you@example.com" autocomplete="email">
+      </div>
+      <div class="form-group">
+        <label class="required">Password</label>
+        <div class="input-wrapper">
+          <input type="password" id="signinPassword" required placeholder="Enter password" autocomplete="current-password">
+          <button type="button" class="toggle-password" onclick="togglePassword('signinPassword',this)">Show</button>
+        </div>
+      </div>
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem;font-size:.85rem">
+        <label style="display:flex;align-items:center;gap:.5rem;cursor:pointer"><input type="checkbox" id="rememberMe"> Remember me</label>
+        <a href="#" onclick="showTab('forgot')" style="color:var(--olive-primary);font-weight:600">Forgot password?</a>
+      </div>
+      <button type="submit" class="btn btn-gold">Sign In</button>
+    </form>
+
+    <!-- Register Form -->
+    <form class="auth-form" id="registerForm" onsubmit="handleRegister(event)">
+      <div class="form-group">
+        <label class="required">Full Name</label>
+        <input type="text" id="regName" required placeholder="Syed Anwar Ali" autocomplete="name">
+      </div>
+      <div class="form-group">
+        <label class="required">Email Address</label>
+        <input type="email" id="regEmail" required placeholder="you@example.com" autocomplete="email">
+      </div>
+      <div class="form-group">
+        <label class="required">Password</label>
+        <div class="input-wrapper">
+          <input type="password" id="regPassword" required placeholder="Min 8 characters" autocomplete="new-password" oninput="checkPasswordStrength(this.value)">
+          <button type="button" class="toggle-password" onclick="togglePassword('regPassword',this)">Show</button>
+        </div>
+        <div class="password-strength"><div class="password-strength-bar" id="strengthBar"></div></div>
+        <p id="strengthText" style="font-size:.75rem;color:var(--text-muted);margin-top:.25rem">Enter password</p>
+      </div>
+      <div class="form-group">
+        <label class="required">Confirm Password</label>
+        <div class="input-wrapper">
+          <input type="password" id="regConfirmPassword" required placeholder="Confirm password" autocomplete="new-password">
+          <button type="button" class="toggle-password" onclick="togglePassword('regConfirmPassword',this)">Show</button>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="required">Gender</label>
+        <select id="regGender" required style="width:100%;padding:.85rem 1rem;border:1px solid var(--border-color);border-radius:var(--radius-md);font-size:1rem;font-family:var(--font-sans);background:#fff">
+          <option value="">Select Gender</option>
+          <option value="Male">Male</option>
+          <option value="Female">Female</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="required">Phone (for verification)</label>
+        <input type="tel" id="regPhone" required placeholder="+92 3XX XXXXXXX" autocomplete="tel">
+      </div>
+      <div style="display:flex;align-items:flex-start;gap:.5rem;font-size:.8rem;color:var(--text-muted);margin-bottom:.5rem">
+        <input type="checkbox" id="termsAccept" required style="margin-top:.25rem">
+        <span>I agree to the <a href="legal.html?doc=terms" target="_blank" style="color:var(--olive-primary)">Terms of Service</a> and <a href="legal.html?doc=privacy" target="_blank" style="color:var(--olive-primary)">Privacy Policy</a></span>
+      </div>
+      <button type="submit" class="btn btn-gold">Create Account</button>
+    </form>
+
+    <!-- Forgot Password Form -->
+    <form class="auth-form" id="forgotForm" onsubmit="handleForgot(event)">
+      <div style="text-align:center;margin-bottom:1.5rem">
+        <p style="color:var(--text-muted)">Enter your email to receive a password reset link</p>
+      </div>
+      <div class="form-group">
+        <label class="required">Email Address</label>
+        <input type="email" id="forgotEmail" required placeholder="you@example.com" autocomplete="email">
+      </div>
+      <button type="submit" class="btn btn-emerald">Send Reset Link</button>
+      <button type="button" class="btn btn-emerald" style="margin-top:.75rem;background:var(--olive-light);color:var(--olive-dark)" onclick="showTab('signin')">Back to Sign In</button>
+    </form>
+
+    <div class="divider">or continue with</div>
+
+    <button class="social-btn" onclick="socialLogin('google')">
+      <svg width="20" height="20" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
+      <span>Continue with Google</span>
+    </button>
+    <button class="social-btn" style="margin-top:.75rem" onclick="socialLogin('apple')">
+      <svg width="20" height="20" viewBox="0 0 24 24"><path fill="currentColor" d="M18.71 14.38c.23.74.37 1.52.37 2.33 0 2.94-1.03 5.3-3.28 7.13-1.69 1.37-4.12 2.14-7.28 2.14-3.63 0-6.48-1.37-8.32-3.61-.54-.66-.83-1.45-.83-2.32 0-1.13.45-2.1.88-2.78.8-.12 2.5-.33 3.61-1.05.33.68.83 1.26 1.48 1.7.56.4.1.85.1 1.34 0 1.94-.96 3.52-2.86 4.57-.85.44-1.9.7-3.07.7-2.69 0-4.88-1.54-5.94-3.66-.08-.15-.12-.3-.12-.48 0-2.05 1.05-3.86 2.93-4.9.82-.46 1.92-.73 3.16-.82.06.75.1 1.5.1 2.27 0 2.6-1.2 4.72-3.56 5.84-1.59.75-3.63 1.14-6.08 1.14-4.41 0-7.91-2.18-9.26-5.52-.16-.39-.24-.8-.24-1.23 0-2.14 1.09-3.96 3.04-5.04.77-.42 1.84-.66 3.13-.7 1.16-.03 2.47-.18 3.6-.48.57.63 1.4 1.17 2.34 1.6.4.18.7.27 1.08.27 2.44 0 4.46-1.56 5.24-3.86.25-.7.38-1.44.38-2.22 0-1.95-.76-3.65-2.26-4.93-.77-.67-1.9-1.06-3.16-1.18C12.72 3.04 10.89 2.5 8.86 2.5c-4.17 0-7.5 2.58-8.76 6.13-.14.4-.22.81-.22 1.23 0 2.1 1.06 3.92 2.96 5C4.59 13.52 7.03 15.5 10.08 16.63c.76.27 1.5.41 2.3.41.97 0 1.85-.17 2.66-.46.67-.24 1.22-.6 1.67-1.03C12.66 15.8 12.12 15 12.12 14.03c0-.8.48-1.52 1.22-1.87.56-.27 1.17-.4 1.85-.4.55 0 1.1.1 1.58.31.62.27 1.12.7 1.47 1.26.07.1.1.2.1.31.05.57-.03 1.12-.13 1.67C16.57 15.6 17.77 15 18.71 14.38z"/></svg>
+      <span>Continue with Apple</span>
+    </button>
+
+    <div class="auth-footer">
+      <p>Don't have an account? <a href="#" onclick="showTab('register')">Register</a></p>
+      <p style="margin-top:.5rem">Already have an account? <a href="#" onclick="showTab('signin')">Sign In</a></p>
+    </div>
+  </div>
+</div>
+
+<footer>SADAT LINEAGE ARCHIVE — <a href="index.html" style="color:var(--gold-accent)">Back to Home</a></footer>
+
+<script>
+const SUPABASE_URL="https://wouvkonvfqhztuienrgi.supabase.co";
+const SUPABASE_REST=SUPABASE_URL+"/rest/v1/";
+const SUPABASE_ANON_KEY="sb_publishable_Tds1DzdM6s5cdv2kXQx_JA_uNJdHROT";
+const sbHeaders={"apikey":SUPABASE_ANON_KEY,"Content-Type":"application/json"};
+
+function showTab(tab){
+  document.querySelectorAll(".auth-form").forEach(f=>f.classList.remove("active"));
+  document.querySelectorAll(".tab-btn").forEach(b=>b.classList.remove("active"));
+  document.getElementById(tab+"Form").classList.add("active");
+  if(tab!=="forgot")document.querySelector(`.tab-btn[onclick*='${tab}']`).classList.add("active");
+  document.getElementById("statusMsg").style.display="none";
+}
+
+function togglePassword(id,btn){
+  const input=document.getElementById(id);
+  input.type=input.type==="password"?"text":"password";
+  btn.textContent=input.type==="password"?"Show":"Hide";
+}
+
+function checkPasswordStrength(pwd){
+  const bar=document.getElementById("strengthBar");
+  const text=document.getElementById("strengthText");
+  let score=0;
+  if(pwd.length>=8)score++;
+  if(/[A-Z]/.test(pwd))score++;
+  if(/[a-z]/.test(pwd))score++;
+  if(/[0-9]/.test(pwd))score++;
+  if(/[^A-Za-z0-9]/.test(pwd))score++;
+  const colors=["#C62828","#EF6C00","#F57F17","#F9A825","#2E7D32"];
+  const labels=["Very Weak","Weak","Fair","Strong","Very Strong"];
+  bar.style.width=(score*20)+"%";
+  bar.style.background=colors[score-1]||colors[0];
+  text.textContent=labels[score-1]||"Enter password";
+  text.style.color=colors[score-1]||colors[0];
+}
+
+function showStatus(msg,type){
+  const el=document.getElementById("statusMsg");
+  el.className="status-msg "+type;
+  el.textContent=msg;
+  el.style.display="block";
+}
+
+async function handleSignIn(e){
+  e.preventDefault();
+  const email=document.getElementById("signinEmail").value.trim();
+  const password=document.getElementById("signinPassword").value;
+  const remember=document.getElementById("rememberMe").checked;
+  
+  showStatus("Signing in...","info");
+  try{
+    // Supabase Auth signIn
+    const res=await fetch(SUPABASE_URL+"/auth/v1/token?grant_type=password",{
+      method:"POST",headers:{"Content-Type":"application/json","apikey":SUPABASE_ANON_KEY},
+      body:JSON.stringify({email,password})
+    });
+    const data=await res.json();
+    if(data.error)throw new Error(data.error_description||data.error);
+    
+    // Store session
+    localStorage.setItem("sb_token",data.access_token);
+    localStorage.setItem("sb_refresh",data.refresh_token);
+    localStorage.setItem("sb_user",JSON.stringify(data.user));
+    if(remember){localStorage.setItem("sb_remember","true")}
+    
+    showStatus("Sign in successful! Redirecting...","success");
+    setTimeout(()=>window.location.href="index.html",1000);
+  }catch(err){
+    showStatus(err.message,"error");
+  }
+}
+
+async function handleRegister(e){
+  e.preventDefault();
+  const name=document.getElementById("regName").value.trim();
+  const email=document.getElementById("regEmail").value.trim();
+  const password=document.getElementById("regPassword").value;
+  const confirm=document.getElementById("regConfirmPassword").value;
+  const gender=document.getElementById("regGender").value;
+  const phone=document.getElementById("regPhone").value.trim();
+  
+  if(password!==confirm){showStatus("Passwords do not match","error");return}
+  if(password.length<8){showStatus("Password must be at least 8 characters","error");return}
+  
+  showStatus("Creating account...","info");
+  try{
+    const res=await fetch(SUPABASE_URL+"/auth/v1/signup",{
+      method:"POST",headers:{"Content-Type":"application/json","apikey":SUPABASE_ANON_KEY},
+      body:JSON.stringify({email,password,data:{full_name:name,gender,phone}})
+    });
+    const data=await res.json();
+    if(data.error)throw new Error(data.error_description||data.error);
+    
+    showStatus("Account created! Check email for verification.","success");
+    setTimeout(()=>showTab('signin'),2000);
+  }catch(err){
+    showStatus(err.message,"error");
+  }
+}
+
+async function handleForgot(e){
+  e.preventDefault();
+  const email=document.getElementById("forgotEmail").value.trim();
+  showStatus("Sending reset link...","info");
+  try{
+    const res=await fetch(SUPABASE_URL+"/auth/v1/recover",{
+      method:"POST",headers:{"Content-Type":"application/json","apikey":SUPABASE_ANON_KEY},
+      body:JSON.stringify({email})
+    });
+    const data=await res.json();
+    if(data.error)throw new Error(data.error_description||data.error);
+    showStatus("Reset link sent! Check your email.","success");
+  }catch(err){
+    showStatus(err.message,"error");
+  }
+}
+
+function socialLogin(provider){
+  const redirectTo=window.location.origin+"/auth-callback.html";
+  window.location.href=SUPABASE_URL+"/auth/v1/authorize?provider="+provider+"&redirect_to="+encodeURIComponent(redirectTo);
+}
+
+// Check existing session on load
+document.addEventListener("DOMContentLoaded",()=>{
+  const token=localStorage.getItem("sb_token");
+  if(token){
+    // Validate token
+    fetch(SUPABASE_URL+"/auth/v1/user",{headers:{"apikey":SUPABASE_ANON_KEY,"Authorization":"Bearer "+token}})
+      .then(r=>r.json())
+      .then(data=>{
+        if(data.user){
+          showStatus(`Welcome back, ${data.user.user_metadata?.full_name||data.user.email}! Redirecting...`,"success");
+          setTimeout(()=>window.location.href="index.html",1500);
+        }
+      })
+      .catch(()=>{localStorage.removeItem("sb_token");localStorage.removeItem("sb_refresh");localStorage.removeItem("sb_user")});
+  }
+});
+</script>
+</body>
+</html>
