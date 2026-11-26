@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Shajra Certificate Generator — Sadat Lineage</title>
+  <link rel="manifest" href="manifest.json" />
+  <meta name="theme-color" content="#4A5446" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  <style>
+    :root{--bg-cream:#F5F2EB;--bg-white:#FFF;--olive-dark:#2F362C;--olive-primary:#4A5446;--olive-mid:#687463;--olive-soft:#E3E8DF;--gold-accent:#C89D54;--gold-light:#F9F3EA;--text-dark:#1E231C;--text-muted:#656E61;--border-color:#E2DDD3;--shadow-soft:0 8px 24px rgba(47,54,44,.05);--shadow-card:0 12px 32px rgba(47,54,44,.08);--radius-xl:20px;--radius-lg:14px;--radius-md:10px;--font-serif:'Playfair Display',Georgia,serif;--font-sans:'Plus Jakarta Sans',sans-serif;--font-arabic:'Amiri',serif}
+    *{box-sizing:border-box;margin:0;padding:0}body{font-family:var(--font-sans);background:var(--bg-cream);color:var(--text-dark);line-height:1.6}[dir="rtl"]{text-align:right}h1,h2,h3{font-family:var(--font-serif)}
+    header{background:rgba(255,255,255,.88);backdrop-filter:blur(14px);border-bottom:1px solid var(--border-color);position:sticky;top:0;z-index:1000}
+    .top-bar{max-width:1280px;margin:0 auto;padding:.9rem 1.25rem;display:flex;justify-content:space-between;align-items:center;gap:1rem}
+    .brand{display:flex;align-items:center;gap:.85rem}.brand-crest{width:44px;height:44px;border-radius:12px;background:var(--olive-primary);color:#fff;display:flex;align-items:center;justify-content:center;font-family:var(--font-arabic);font-weight:700;font-size:1.4rem}.brand h1{font-size:1.25rem;color:var(--olive-dark)}
+    .nav-links{display:flex;gap:.5rem;flex-wrap:wrap}.nav-links a{padding:.5rem 1rem;border-radius:8px;background:var(--olive-light);color:var(--olive-dark);text-decoration:none;font-weight:600;font-size:.85rem}.nav-links a:hover{background:var(--gold-accent);color:#fff}.nav-links a.active{background:var(--olive-primary);color:#fff}
+    main{max-width:900px;margin:0 auto;padding:1.5rem 1.25rem}
+    .card{background:#fff;border:1px solid var(--border-color);border-radius:var(--radius-xl);padding:2rem;box-shadow:var(--shadow-soft);margin-bottom:2rem}
+    .card-gold{border-top:4px solid var(--gold-accent)}
+    .section-title{color:var(--olive-dark);font-size:1.5rem;margin-bottom:1.5rem;padding-bottom:.75rem;border-bottom:1px solid var(--border-color)}
+    .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem}
+    .form-group{margin-bottom:1.25rem}
+    label{display:block;font-weight:600;font-size:.9rem;margin-bottom:.5rem;color:var(--olive-dark)}
+    input,select,textarea{width:100%;padding:.85rem 1rem;border:1px solid var(--border-color);border-radius:var(--radius-md);font-size:1rem;font-family:var(--font-sans);background:#fff;transition:.2s}
+    input:focus,select:focus,textarea:focus{border-color:var(--olive-primary);outline:none;box-shadow:0 0 0 3px var(--olive-soft)}
+    .btn{padding:.85rem 1.5rem;border:none;border-radius:10px;font-weight:600;font-size:1rem;cursor:pointer;transition:.2s}.btn-gold{background:var(--gold-accent);color:#fff}.btn-emerald{background:var(--olive-primary);color:#fff}.btn-gold:hover{background:#b58b44}.btn-emerald:hover{background:var(--olive-dark)}
+    .certificate-preview{border:4px double var(--gold-accent);padding:3rem;background:#fffdf7;border-radius:16px;text-align:center;margin-top:2rem;position:relative}
+    .certificate-preview::before{content:"";position:absolute;top:20px;right:20px;width:60px;height:60px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Cpath fill='%23C89D54' d='M24 8c-7 6-10 12-10 17h20c0-5-3-11-10-17zM12 27h24v13H12z'/%3E%3Crect x='9' y='15' width='2.5' height='23' fill='%23C89D54'/%3E%3Crect x='36.5' y='15' width='2.5' height='23' fill='%23C89D54'/%3E%3C/svg%3E") no-repeat center/contain}
+    .certificate-preview::after{content:"";position:absolute;bottom:20px;left:20px;width:60px;height:60px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Cpath fill='%23C89D54' d='M24 8c-7 6-10 12-10 17h20c0-5-3-11-10-17zM12 27h24v13H12z'/%3E%3Crect x='9' y='15' width='2.5' height='23' fill='%23C89D54'/%3E%3Crect x='36.5' y='15' width='2.5' height='23' fill='%23C89D54'/%3E%3C/svg%3E") no-repeat center/contain}
+    .bismillah{font-family:var(--font-arabic);font-size:1.5rem;color:var(--gold-accent);margin-bottom:1rem}
+    .cert-title{font-size:1.8rem;color:var(--olive-dark);margin:.5rem 0 1rem;font-weight:700}
+    .cert-subtitle{font-size:1rem;color:var(--text-muted);margin-bottom:1.5rem}
+    .cert-name{font-size:2.2rem;color:var(--olive-dark);margin:1rem 0;font-weight:700}
+    .cert-father{font-size:1.1rem;color:var(--text-muted);margin-bottom:1rem}
+    .cert-ref{font-size:.95rem;color:var(--text-muted);margin-bottom:2rem}
+    .seal{margin-top:2rem;padding-top:1.5rem;border-top:1px solid var(--border-color);font-size:.8rem;color:var(--olive-mid)}
+    .qr-area{margin:1.5rem auto}
+    .license-notice{background:var(--olive-light);border-left:4px solid var(--olive-primary);padding:1rem 1.25rem;border-radius:8px;margin-bottom:1.5rem;font-size:.9rem;color:var(--olive-dark)}
+    @media print{body *{visibility:hidden}.certificate-preview,.certificate-preview *{visibility:visible}.certificate-preview{position:absolute;left:0;top:0;width:100%;padding:2rem}header,footer,.card:first-child,.btn{display:none}}
+    footer{background:var(--olive-dark);color:#A3ACA0;padding:1.5rem 1.25rem;text-align:center;font-size:.85rem}
+  </style>
+</head>
+<body>
+<header>
+  <div class="top-bar">
+    <div class="brand"><div class="brand-crest">سل</div><div><h1>CERTIFICATE GENERATOR</h1><small style="display:block;font-size:.7rem;color:var(--text-muted)">Official Shajra PDF Generator</small></div></div>
+    <nav class="nav-links">
+      <a href="index.html">🏠 Archive</a>
+      <a href="quran.html">📖 Quran</a>
+      <a href="toolkit.html">🛠 Toolkit</a>
+      <a href="certificate.html" class="active">📜 Certificate</a>
+      <a href="submit.html">📝 Submit</a>
+      <a href="matrimony.html">💍 Matrimony</a>
+      <a href="auth.html">🔐 Sign In</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <div class="card">
+    <h2 class="section-title">Official Shajra Certificate PDF Generator</h2>
+    <div class="license-notice">
+      🔐 <strong>License Key Required:</strong> Enter your certificate license key to unlock PDF generation. Keys are issued by Sadat Canonical Board.
+    </div>
+    <div class="form-grid">
+      <div class="form-group"><label>Verified Full Name *</label><input type="text" id="certPersonName" placeholder="e.g., Syed Anwar Ali"></div>
+      <div class="form-group"><label>Father's Name *</label><input type="text" id="certFatherName" placeholder="e.g., Syed Mahmood Ali"></div>
+      <div class="form-group"><label>Book & Page Citation *</label><input type="text" id="certBookRef" placeholder="e.g., Tarikh Anwar-us-Sadat p. 234"></div>
+      <div class="form-group"><label>Certificate License Key *</label><input type="text" id="certLicenseKey" placeholder="SADAT-CERT-2026-XXXXX" value="SADAT-CERT-2026"></div>
+    </div>
+    <div style="display:flex;gap:1rem;flex-wrap:wrap;margin-top:1rem">
+      <button class="btn btn-gold" onclick="generateCertificate()">Generate & Print PDF</button>
+      <button class="btn btn-emerald" onclick="loadFromArchive()">Load from Archive</button>
+    </div>
+  </div>
+
+  <div class="card card-gold" id="certificatePreview">
+    <div class="certificate-preview" id="certificatePrintArea">
+      <div class="bismillah">بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ</div>
+      <h2 class="cert-title">SADAT LINEAGE ARCHIVE</h2>
+      <p class="cert-subtitle">This officially certifies the verified lineage record of</p>
+      <h3 class="cert-name" id="previewCertName">[Enter Name Above]</h3>
+      <p class="cert-father" id="previewCertFather">Son/Daughter of: <strong>—</strong></p>
+      <p class="cert-ref" id="previewCertBook">Canonical Reference: <strong>—</strong></p>
+      <div class="qr-area" id="qrcode"></div>
+      <div class="seal">SEAL OF AUTHENTICITY • SADAT CANONICAL BOARD</div>
+    </div>
+  </div>
+</main>
+
+<footer>SADAT LINEAGE ARCHIVE — <a href="index.html" style="color:var(--gold-accent)">Back to Home</a></footer>
+
+<script>
+function generateCertificate(){
+  const name=document.getElementById("certPersonName").value.trim();
+  const father=document.getElementById("certFatherName").value.trim();
+  const book=document.getElementById("certBookRef").value.trim();
+  const license=document.getElementById("certLicenseKey").value.trim();
+  if(!name||!father||!book||!license){alert("Please fill all fields");return}
+  if(!license.startsWith("SADAT-CERT")){alert("Invalid license key format");return}
+  document.getElementById("previewCertName").textContent=name;
+  document.getElementById("previewCertFather").innerHTML=`Son/Daughter of: <strong>${escapeHtml(father)}</strong>`;
+  document.getElementById("previewCertBook").textContent=`Canonical Reference: ${escapeHtml(book)}`;
+  generateQR(name);
+  window.print();
+}
+function generateQR(text){
+  const el=document.getElementById("qrcode");el.innerHTML="";
+  new QRCode(el,{text:"https://sadatlineage.in/verify?id="+encodeURIComponent(text),width:128,height:128});
+}
+function loadFromArchive(){
+  const name=localStorage.getItem("certPersonName");
+  const father=localStorage.getItem("certFatherName");
+  const book=localStorage.getItem("certBookRef");
+  if(name){document.getElementById("certPersonName").value=name;document.getElementById("certFatherName").value=father||"";document.getElementById("certBookRef").value=book||"";alert("Loaded from Archive search");}else{alert("No archive record found. Search in Archive first.")}
+}
+function escapeHtml(s){if(!s)return"";return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;")}
+document.getElementById("certPersonName").addEventListener("input",()=>document.getElementById("previewCertName").textContent=document.getElementById("certPersonName").value||"[Enter Name Above]");
+document.getElementById("certFatherName").addEventListener("input",()=>document.getElementById("previewCertFather").innerHTML=`Son/Daughter of: <strong>${escapeHtml(document.getElementById("certFatherName").value)}</strong>`||"Son/Daughter of: <strong>—</strong>");
+document.getElementById("certBookRef").addEventListener("input",()=>document.getElementById("previewCertBook").textContent=`Canonical Reference: ${escapeHtml(document.getElementById("certBookRef").value)}`||"Canonical Reference: <strong>—</strong>");
+</script>
+</body>
+</html>
