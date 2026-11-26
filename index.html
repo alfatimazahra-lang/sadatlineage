@@ -642,7 +642,7 @@ function escapeHtml(s) {
 }
 
 // AI Chatbot (Free Gemini)
-const GEMINI_KEY = "YOUR_FREE_GEMINI_KEY";
+const GEMINI_KEY = "AQ.Ab8RN6ITaTAEZsiDYIf3L7ina-6fay5HlUEu469nVfOrYUcApg";
 function toggleAIChat(){const b=document.getElementById("aiChatBox");b.style.display=b.style.display==="flex"?"none":"flex";b.style.flexDirection="column";}
 function addMsg(t,who){const d=document.createElement("div");d.style.margin="6px 0";d.style.textAlign=who==="user"?"right":"left";d.innerHTML=`<span style="display:inline-block;padding:6px 10px;border-radius:10px;background:${who==="user"?"var(--olive-light)":"var(--gold-light)"};">${t}</span>`;document.getElementById("aiMessages").appendChild(d);document.getElementById("aiMessages").scrollTop=9999;}
 async function sendAI(){
