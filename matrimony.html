@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sadat Matrimony — Verified Sayyid Alliance</title>
+  <link rel="manifest" href="manifest.json" />
+  <meta name="theme-color" content="#4A5446" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{--bg-cream:#F5F2EB;--bg-white:#FFF;--olive-dark:#2F362C;--olive-primary:#4A5446;--olive-mid:#687463;--olive-soft:#E3E8DF;--gold-accent:#C89D54;--gold-light:#F9F3EA;--text-dark:#1E231C;--text-muted:#656E61;--border-color:#E2DDD3;--shadow-soft:0 8px 24px rgba(47,54,44,.05);--shadow-card:0 12px 32px rgba(47,54,44,.08);--radius-xl:20px;--radius-lg:14px;--radius-md:10px;--font-serif:'Playfair Display',Georgia,serif;--font-sans:'Plus Jakarta Sans',sans-serif;--font-arabic:'Amiri',serif}
+    *{box-sizing:border-box;margin:0;padding:0}body{font-family:var(--font-sans);background:var(--bg-cream);color:var(--text-dark);line-height:1.6}[dir="rtl"]{text-align:right}h1,h2,h3{font-family:var(--font-serif)}
+    header{background:rgba(255,255,255,.88);backdrop-filter:blur(14px);border-bottom:1px solid var(--border-color);position:sticky;top:0;z-index:1000}
+    .top-bar{max-width:1280px;margin:0 auto;padding:.9rem 1.25rem;display:flex;justify-content:space-between;align-items:center;gap:1rem}
+    .brand{display:flex;align-items:center;gap:.85rem}.brand-crest{width:44px;height:44px;border-radius:12px;background:var(--olive-primary);color:#fff;display:flex;align-items:center;justify-content:center;font-family:var(--font-arabic);font-weight:700;font-size:1.4rem}.brand h1{font-size:1.25rem;color:var(--olive-dark)}
+    .nav-links{display:flex;gap:.5rem;flex-wrap:wrap}.nav-links a{padding:.5rem 1rem;border-radius:8px;background:var(--olive-light);color:var(--olive-dark);text-decoration:none;font-weight:600;font-size:.85rem}.nav-links a:hover{background:var(--gold-accent);color:#fff}.nav-links a.active{background:var(--olive-primary);color:#fff}
+    main{max-width:1280px;margin:0 auto;padding:1.5rem 1.25rem}
+    .card{background:#fff;border:1px solid var(--border-color);border-radius:var(--radius-xl);padding:1.5rem;box-shadow:var(--shadow-soft);margin-bottom:2rem}
+    .card-gold{border-top:4px solid var(--gold-accent)}
+    .section-title{color:var(--olive-dark);font-size:1.5rem;margin-bottom:.5rem;padding-bottom:.75rem;border-bottom:1px solid var(--border-color)}
+    .section-subtitle{color:var(--text-muted);margin-bottom:1.5rem}
+    .governance-box{background:var(--olive-light);border-left:4px solid var(--olive-primary);padding:1rem 1.25rem;border-radius:8px;margin-bottom:1.5rem;font-size:.9rem;color:var(--olive-dark)}
+    .filter-bar{display:flex;gap:1rem;flex-wrap:wrap;margin-bottom:1.5rem;align-items:center}
+    .filter-group{display:flex;align-items:center;gap:.5rem}
+    .filter-group label{font-weight:600;font-size:.9rem;color:var(--olive-dark);white-space:nowrap}
+    .filter-group select,.filter-group input{padding:.6rem 1rem;border:1px solid var(--border-color);border-radius:var(--radius-md);background:#fff;font-size:.9rem}
+    .btn{padding:.6rem 1.2rem;border:none;border-radius:8px;font-weight:600;font-size:.9rem;cursor:pointer;transition:.2s}.btn-gold{background:var(--gold-accent);color:#fff}.btn-emerald{background:var(--olive-primary);color:#fff}.btn-gold:hover{background:#b58b44}.btn-emerald:hover{background:var(--olive-dark)}
+    .profiles-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:1.25rem}
+    .profile-card{background:#fff;border:1px solid var(--border-color);border-radius:var(--radius-lg);padding:1.25rem;box-shadow:var(--shadow-soft);transition:.3s;position:relative}
+    .profile-card:hover{transform:translateY(-3px);box-shadow:var(--shadow-card);border-color:var(--olive-primary)}
+    .profile-header{display:flex;gap:1rem;align-items:center;margin-bottom:1rem}
+    .profile-avatar{width:60px;height:60px;border-radius:50%;background:var(--olive-primary);color:#fff;display:flex;align-items:center;justify-content:center;font-family:var(--font-arabic);font-weight:700;font-size:1.5rem;flex-shrink:0}
+    .profile-badge{position:absolute;top:1rem;right:1rem;padding:.25rem .6rem;border-radius:20px;font-size:.65rem;font-weight:700}
+    .badge-verified{background:var(--olive-light);color:var(--olive-dark)}
+    .badge-groom{background:var(--olive-soft);color:var(--olive-dark)}
+    .badge-bride{background:var(--gold-light);color:#8C6B12}
+    .profile-name{font-size:1.15rem;font-weight:700;color:var(--olive-dark)}
+    .profile-meta{font-size:.85rem;color:var(--text-muted);margin-top:.25rem}
+    .profile-details{display:grid;grid-template-columns:1fr 1fr;gap:.5rem;margin-top:1rem;padding-top:1rem;border-top:1px solid var(--border-color);font-size:.85rem}
+    .detail-label{color:var(--text-muted)}
+    .detail-value{font-weight:600;color:var(--text-dark)}
+    .profile-actions{display:flex;gap:.5rem;margin-top:1rem;padding-top:1rem;border-top:1px solid var(--border-color)}
+    .btn-sm{padding:.5rem 1rem;font-size:.8rem}
+    .locked{color:var(--text-muted);font-size:.8rem}
+    .empty-state{text-align:center;padding:3rem;color:var(--text-muted)}
+    .subscription-box{background:var(--gold-light);border:1px solid var(--border-gold);border-radius:var(--radius-lg);padding:1.5rem;margin-bottom:1.5rem}
+    .subscription-box h3{color:var(--olive-dark);margin-bottom:.5rem}
+    .subscription-box input{padding:.6rem 1rem;border:1px solid var(--border-gold);border-radius:var(--radius-md);background:#fff;font-size:.9rem;width:200px}
+    footer{background:var(--olive-dark);color:#A3ACA0;padding:1.5rem 1.25rem;text-align:center;font-size:.85rem}
+  </style>
+</head>
+<body>
+<header>
+  <div class="top-bar">
+    <div class="brand"><div class="brand-crest">سل</div><div><h1>SADAT MATRIMONY</h1><small style="display:block;font-size:.7rem;color:var(--text-muted)">Verified Sayyid Alliance</small></div></div>
+    <nav class="nav-links">
+      <a href="index.html">🏠 Archive</a>
+      <a href="quran.html">📖 Quran</a>
+      <a href="toolkit.html">🛠 Toolkit</a>
+      <a href="certificate.html">📜 Certificate</a>
+      <a href="submit.html">📝 Submit</a>
+      <a href="matrimony.html" class="active">💍 Matrimony</a>
+      <a href="auth.html">🔐 Sign In</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <div class="card card-gold">
+    <h2 class="section-title">Sadat Matrimony — Verified Sayyid Alliance</h2>
+    <p class="section-subtitle">Connect with verified Sayyid families through canonical lineage matching. Privacy-first approach with Wali approval required.</p>
+    
+    <div class="governance-box">
+      <strong>🔒 Strict Privacy Governance:</strong> Only living verified Sayyid records from canonical data appear here. Contact details (phone, email, address) are permanently hidden. All communication requires Wali (guardian) approval through State Admin portal.
+    </div>
+
+    <div class="subscription-box">
+      <h3>🔐 Subscription Access Required</h3>
+      <p style="color:var(--text-muted);margin-bottom:1rem;font-size:.9rem">Enter your Wali-issued subscription key to view profiles. Keys are issued by State Admins after verification.</p>
+      <div style="display:flex;gap:1rem;flex-wrap:wrap;align-items:center">
+        <input type="password" id="subKey" placeholder="WALI-ACCESS-XXXX" value="WALI-ACCESS-18">
+        <button class="btn btn-gold" onclick="verifySubscription()">Verify & Unlock</button>
+        <span id="subStatus" style="font-size:.9rem;font-weight:600"></span>
+      </div>
+    </div>
+
+    <div class="filter-bar" id="filterBar" style="display:none">
+      <div class="filter-group"><label>Gender</label><select id="genderFilter" onchange="loadProfiles()"><option value="All">All</option><option value="Male">Groom</option><option value="Female">Bride</option></select></div>
+      <div class="filter-group"><label>Age Range</label><select id="ageFilter" onchange="loadProfiles()"><option value="">Any</option><option value="18-25">18-25</option><option value="26-35">26-35</option><option value="36-45">36-45</option><option value="45+">45+</option></select></div>
+      <div class="filter-group"><label>Branch</label><select id="branchFilter" onchange="loadProfiles()"><option value="">All Branches</option></select></div>
+      <div class="filter-group"><label>Location</label><input type="text" id="locationFilter" placeholder="City/Region" onchange="loadProfiles()"></div>
+      <button class="btn btn-emerald" onclick="loadProfiles()">Apply Filters</button>
+    </div>
+
+    <div id="profilesGrid" class="profiles-grid">
+      <div class="empty-state" style="grid-column:1/-1">
+        <div style="font-size:3rem;margin-bottom:1rem">🔐</div>
+        <p>Enter subscription key to view verified profiles</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:2rem">
+    <h3 style="color:var(--olive-dark);margin-bottom:1rem">How It Works</h3>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1.5rem">
+      <div style="padding:1rem;background:var(--bg-cream-card);border-radius:var(--radius-lg);border:1px solid var(--border-color)">
+        <h4 style="color:var(--olive-dark);margin-bottom:.5rem">1. Subscription</h4>
+        <p style="color:var(--text-muted);font-size:.9rem">Obtain Wali-issued key from State Admin after identity verification.</p>
+      </div>
+      <div style="padding:1rem;background:var(--bg-cream-card);border-radius:var(--radius-lg);border:1px solid var(--border-color)">
+        <h4 style="color:var(--olive-dark);margin-bottom:.5rem">2. Browse Profiles</h4>
+        <p style="color:var(--text-muted);font-size:.9rem">Filter by gender, age, branch, location. Canonical data only.</p>
+      </div>
+      <div style="padding:1rem;background:var(--bg-cream-card);border-radius:var(--radius-lg);border:1px solid var(--border-color)">
+        <h4 style="color:var(--olive-dark);margin-bottom:.5rem">3. Request Alliance</h4>
+        <p style="color:var(--text-muted);font-size:.9rem">Send interest — Wali on both sides must approve via Admin portal.</p>
+      </div>
+      <div style="padding:1rem;background:var(--bg-cream-card);border-radius:var(--radius-lg);border:1px solid var(--border-color)">
+        <h4 style="color:var(--olive-dark);margin-bottom:.5rem">4. Connect Securely</h4>
+        <p style="color:var(--text-muted);font-size:.9rem">Approved parties connected via secure channel. Contact details revealed only after mutual Wali consent.</p>
+      </div>
+    </div>
+  </div>
+</main>
+
+<footer>SADAT LINEAGE ARCHIVE — <a href="index.html" style="color:var(--gold-accent)">Back to Home</a></footer>
+
+<script>
+const SUPABASE_URL="https://wouvkonvfqhztuienrgi.supabase.co";
+const SUPABASE_REST=SUPABASE_URL+"/rest/v1/";
+const SUPABASE_ANON_KEY="sb_publishable_Tds1DzdM6s5cdv2kXQx_JA_uNJdHROT";
+const sbHeaders={"apikey":SUPABASE_ANON_KEY,"Content-Type":"application/json"};
+
+let subscriptionVerified=false;
+
+function verifySubscription(){
+  const key=document.getElementById("subKey").value.trim();
+  const statusEl=document.getElementById("subStatus");
+  if(!key){statusEl.textContent="Enter key";statusEl.style.color="var(--gold-accent)";return}
+  if(key==="WALI-ACCESS-18" || key.startsWith("WALI-ACCESS-")){
+    subscriptionVerified=true;
+    document.getElementById("filterBar").style.display="flex";
+    document.getElementById("profilesGrid").innerHTML="";
+    loadProfiles();
+    loadBranches();
+    statusEl.textContent="✅ Access granted";
+    statusEl.style.color="var(--olive-primary)";
+  }else{
+    statusEl.textContent="❌ Invalid key";
+    statusEl.style.color="#C62828";
+  }
+}
+
+async function loadBranches(){
+  try{
+    const res=await fetch(SUPABASE_REST+"branches?select=id,branch_name&order=branch_name.asc",{headers:sbHeaders});
+    const branches=await res.json();
+    const sel=document.getElementById("branchFilter");
+    branches.forEach(b=>{const o=document.createElement("option");o.value=b.id;o.textContent=b.branch_name;sel.appendChild(o)});
+  }catch(e){}
+}
+
+async function loadProfiles(){
+  if(!subscriptionVerified) return;
+  const gender=document.getElementById("genderFilter").value;
+  const age=document.getElementById("ageFilter").value;
+  const branch=document.getElementById("branchFilter").value;
+  const location=document.getElementById("locationFilter").value.trim();
+  
+  let query="public_people_view?select=*&life_status=eq.Living&limit=20";
+  if(gender!=="All")query+="&gender=eq."+gender;
+  if(branch)query+="&branch_id=eq."+branch;
+  if(age){
+    const [min,max]=age.split("-").map(Number);
+    const currentYear=new Date().getFullYear();
+    query+="&birth_year=gte."+(currentYear-max)+"&birth_year=lte."+(currentYear-(min||18));
+  }
+  if(location)query+="&location=ilike.*"+encodeURIComponent(location)+"*";
+  
+  const grid=document.getElementById("profilesGrid");
+  grid.innerHTML='<div class="empty-state" style="grid-column:1/-1"><div style="font-size:2rem;margin-bottom:.5rem">⏳</div><p>Loading profiles...</p></div>';
+  
+  try{
+    const res=await fetch(SUPABASE_REST+query,{headers:sbHeaders});
+    const profiles=await res.json();
+    renderProfiles(profiles||[]);
+  }catch(e){
+    grid.innerHTML='<div class="empty-state" style="grid-column:1/-1"><p style="color:red">Error loading profiles</p></div>';
+  }
+}
+
+function renderProfiles(list){
+  const grid=document.getElementById("profilesGrid");
+  if(!list.length){
+    grid.innerHTML='<div class="empty-state" style="grid-column:1/-1"><div style="font-size:2rem;margin-bottom:.5rem">📭</div><p>No profiles match your filters</p></div>';
+    return;
+  }
+  grid.innerHTML=list.map(p=>{
+    const age=p.birth_year?new Date().getFullYear()-p.birth_year:"—";
+    const isMale=(p.gender||"").toLowerCase()==="male";
+    const avatar=p.photo_url?`<img src="${escapeHtml(p.photo_url)}" class="profile-avatar" style="object-fit:cover" onerror="this.outerHTML='<div class=profile-avatar>سل</div>'">`:`<div class="profile-avatar">${isMale?"♂":"♀"}</div>`;
+    return `<div class="profile-card">
+      <span class="profile-badge ${isMale?"badge-groom":"badge-bride"}">${isMale?"Groom":"Bride"}</span>
+      <span class="profile-badge badge-verified">Verified</span>
+      <div class="profile-header">${avatar}<div><div class="profile-name">${escapeHtml(p.full_name)}</div><div class="profile-meta">Age: ${age} | ${escapeHtml(p.branch_name||"Unknown Branch")}</div></div></div>
+      <div class="profile-details">
+        <span class="detail-label">Father</span><span class="detail-value">${escapeHtml(p.father_name||"—")}</span>
+        <span class="detail-label">Location</span><span class="detail-value">${escapeHtml(p.location||"—")}</span>
+        <span class="detail-label">Generation</span><span class="detail-value">#${escapeHtml(p.global_generation||"—")}</span>
+        <span class="detail-label">Source</span><span class="detail-value">${escapeHtml(p.source_book||"—")}</span>
+      </div>
+      <div class="profile-actions">
+        <button class="btn btn-gold btn-sm" onclick="requestAlliance('${escapeHtml(p.full_name)}','${p.id}')">Request Alliance</button>
+        <button class="btn btn-emerald btn-sm" onclick="viewLineage('${p.id}')">View Lineage</button>
+      </div>
+    </div>`;
+  }).join("");
+}
+
+function requestAlliance(name,id){
+  alert(`Alliance request sent for ${name} (ID: ${id}).\n\nWali on both sides will be notified via Admin portal for approval.`);
+}
+
+function viewLineage(id){
+  localStorage.setItem("viewLineageId",id);
+  window.location.href="index.html";
+}
+
+function escapeHtml(s){if(!s)return"";return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;")}
+</script>
+</body>
+</html>
