@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Submit Shajra Record — Sadat Lineage</title>
+  <link rel="manifest" href="manifest.json" />
+  <meta name="theme-color" content="#4A5446" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{--bg-cream:#F5F2EB;--bg-white:#FFF;--olive-dark:#2F362C;--olive-primary:#4A5446;--olive-mid:#687463;--olive-soft:#E3E8DF;--gold-accent:#C89D54;--gold-light:#F9F3EA;--text-dark:#1E231C;--text-muted:#656E61;--border-color:#E2DDD3;--shadow-soft:0 8px 24px rgba(47,54,44,.05);--shadow-card:0 12px 32px rgba(47,54,44,.08);--radius-xl:20px;--radius-lg:14px;--radius-md:10px;--font-serif:'Playfair Display',Georgia,serif;--font-sans:'Plus Jakarta Sans',sans-serif;--font-arabic:'Amiri',serif}
+    *{box-sizing:border-box;margin:0;padding:0}body{font-family:var(--font-sans);background:var(--bg-cream);color:var(--text-dark);line-height:1.6}[dir="rtl"]{text-align:right}h1,h2,h3{font-family:var(--font-serif)}
+    header{background:rgba(255,255,255,.88);backdrop-filter:blur(14px);border-bottom:1px solid var(--border-color);position:sticky;top:0;z-index:1000}
+    .top-bar{max-width:1280px;margin:0 auto;padding:.9rem 1.25rem;display:flex;justify-content:space-between;align-items:center;gap:1rem}
+    .brand{display:flex;align-items:center;gap:.85rem}.brand-crest{width:44px;height:44px;border-radius:12px;background:var(--olive-primary);color:#fff;display:flex;align-items:center;justify-content:center;font-family:var(--font-arabic);font-weight:700;font-size:1.4rem}.brand h1{font-size:1.25rem;color:var(--olive-dark)}
+    .nav-links{display:flex;gap:.5rem;flex-wrap:wrap}.nav-links a{padding:.5rem 1rem;border-radius:8px;background:var(--olive-light);color:var(--olive-dark);text-decoration:none;font-weight:600;font-size:.85rem}.nav-links a:hover{background:var(--gold-accent);color:#fff}.nav-links a.active{background:var(--olive-primary);color:#fff}
+    main{max-width:800px;margin:0 auto;padding:1.5rem 1.25rem}
+    .card{background:#fff;border:1px solid var(--border-color);border-radius:var(--radius-xl);padding:2rem;box-shadow:var(--shadow-soft);margin-bottom:2rem}
+    .section-title{color:var(--olive-dark);font-size:1.5rem;margin-bottom:.5rem;padding-bottom:.75rem;border-bottom:1px solid var(--border-color)}
+    .section-subtitle{color:var(--text-muted);font-size:.95rem;margin-bottom:2rem}
+    .governance-box{background:var(--olive-light);border-left:4px solid var(--olive-primary);padding:1rem 1.25rem;border-radius:8px;margin-bottom:2rem;font-size:.9rem;color:var(--olive-dark)}
+    .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem}
+    .form-group{margin-bottom:1.25rem}
+    .form-group.full-width{grid-column:1/-1}
+    label{display:block;font-weight:600;font-size:.9rem;margin-bottom:.5rem;color:var(--olive-dark)}
+    .required::after{content:" *";color:var(--gold-accent)}
+    input,select,textarea{width:100%;padding:.85rem 1rem;border:1px solid var(--border-color);border-radius:var(--radius-md);font-size:1rem;font-family:var(--font-sans);background:#fff;transition:.2s}
+    input:focus,select:focus,textarea:focus{border-color:var(--olive-primary);outline:none;box-shadow:0 0 0 3px var(--olive-soft)}
+    textarea{min-height:100px;resize:vertical}
+    .btn{padding:.85rem 1.5rem;border:none;border-radius:10px;font-weight:600;font-size:1rem;cursor:pointer;transition:.2s}.btn-gold{background:var(--gold-accent);color:#fff}.btn-emerald{background:var(--olive-primary);color:#fff}.btn-gold:hover{background:#b58b44}.btn-emerald:hover{background:var(--olive-dark)}
+    .submit-actions{display:flex;gap:1rem;margin-top:2rem;padding-top:1.5rem;border-top:1px solid var(--border-color)}
+    .status-box{padding:1rem;border-radius:8px;margin-top:1.5rem;font-weight:600;display:none}
+    .status-box.success{background:#E8F5E9;color:#2E7D32;border:1px solid #C8E6C9;display:block}
+    .status-box.error{background:#FDEDEC;color:#C62828;border:1px solid #FFCDD2;display:block}
+    .status-box.info{background:#E3F2FD;color:#1565C0;border:1px solid #BBDEFB;display:block}
+    .help-text{font-size:.8rem;color:var(--text-muted);margin-top:.25rem}
+    footer{background:var(--olive-dark);color:#A3ACA0;padding:1.5rem 1.25rem;text-align:center;font-size:.85rem}
+  </style>
+</head>
+<body>
+<header>
+  <div class="top-bar">
+    <div class="brand"><div class="brand-crest">سل</div><div><h1>SUBMIT RECORD</h1><small style="display:block;font-size:.7rem;color:var(--text-muted)">Canonical Verification</small></div></div>
+    <nav class="nav-links">
+      <a href="index.html">🏠 Archive</a>
+      <a href="quran.html">📖 Quran</a>
+      <a href="toolkit.html">🛠 Toolkit</a>
+      <a href="certificate.html">📜 Certificate</a>
+      <a href="submit.html" class="active">📝 Submit</a>
+      <a href="matrimony.html">💍 Matrimony</a>
+      <a href="auth.html">🔐 Sign In</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <div class="card">
+    <h2 class="section-title">Submit New Shajra Record</h2>
+    <p class="section-subtitle">Submit a new lineage entry for canonical verification. All submissions undergo strict review by State Admins.</p>
+    
+    <div class="governance-box">
+      <strong>🔒 Privacy Governance:</strong> Submitted data enters verification queue. Phone, Email & Address are never stored in public view. Only canonical fields (name, father, generation, source) are retained after approval.
+    </div>
+
+    <form id="submissionForm" novalidate>
+      <div class="form-grid">
+        <div class="form-group">
+          <label class="required">Full Name</label>
+          <input type="text" id="subName" required placeholder="e.g., Syed Anwar Ali">
+        </div>
+        <div class="form-group">
+          <label class="required">Father's Name</label>
+          <input type="text" id="subFather" required placeholder="e.g., Syed Mahmood Ali">
+        </div>
+        <div class="form-group">
+          <label class="required">Gender</label>
+          <select id="subGender" required>
+            <option value="">Select Gender</option>
+            <option value="Male">Male</option>
+            <option value="Female">Female / Daughter</option>
+          </select>
+        </div>
+        <div class="form-group" id="inLawsGroup" style="display:none">
+          <label>Husband & In-Laws Info</label>
+          <input type="text" id="subInLaws" placeholder="Husband name, father-in-law, location">
+          <p class="help-text">Required for daughters — husband name, father-in-law, marital location</p>
+        </div>
+        <div class="form-group">
+          <label class="required">Canonical Source Book</label>
+          <select id="subBook" required>
+            <option value="">Select Source</option>
+            <option value="Tareekh Anwar Al Sadat">Tarikh Anwar-us-Sadat</option>
+            <option value="Tarikh Sadat-e-Barha Vol I">Tarikh Sadat-e-Barha Vol I</option>
+            <option value="Tarikh Sadat-e-Barha Vol II">Tarikh Sadat-e-Barha Vol II</option>
+            <option value="Tareekh Sadat-e-Amroha">Tarikh Sadat-e-Amroha</option>
+            <option value="Shajra Nasab Sadat Barha">Shajra Nasab Sadat Barha</option>
+            <option value="Other">Other (specify in notes)</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="required">Page Number</label>
+          <input type="text" id="subPage" required placeholder="e.g., 234">
+        </div>
+        <div class="form-group">
+          <label class="required">State Admin Queue</label>
+          <select id="subState" required>
+            <option value="">Select State</option>
+            <option value="UP-India">India — Uttar Pradesh</option>
+            <option value="Bihar-India">India — Bihar</option>
+            <option value="Punjab-Pakistan">Pakistan — Punjab</option>
+            <option value="Sindh-Pakistan">Pakistan — Sindh</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+        <div class="form-group full-width">
+          <label class="required">Payment Receipt ID</label>
+          <input type="text" id="subReceipt" required placeholder="e.g., RCPT-2026-001234">
+          <p class="help-text">Verification fee receipt from State Admin office</p>
+        </div>
+        <div class="form-group full-width">
+          <label>Additional Notes</label>
+          <textarea id="subNotes" placeholder="Any additional information: generation number, branch name, spouse details, etc."></textarea>
+        </div>
+      </div>
+
+      <div class="submit-actions">
+        <button type="submit" class="btn btn-gold" id="submitBtn">Submit for Verification</button>
+        <button type="reset" class="btn btn-emerald">Clear Form</button>
+      </div>
+
+      <div id="statusBox" class="status-box"></div>
+    </form>
+  </div>
+
+  <div class="card" style="margin-top:2rem">
+    <h3 style="color:var(--olive-dark);margin-bottom:1rem">What Happens After Submission?</h3>
+    <ol style="padding-left:1.5rem;line-height:2;color:var(--text-muted)">
+      <li><strong>Queue Assignment:</strong> Record routed to State Admin based on location.</li>
+      <li><strong>Canonical Verification:</strong> Admin cross-references with source books (Tarikh Anwar-us-Sadat, Sadat-e-Barha, etc.).</li>
+      <li><strong>Generation Mapping:</strong> Paternal lineage traced to existing canonical records.</li>
+      <li><strong>Approval/Rejection:</strong> Status updated with reference code. Applicant notified.</li>
+      <li><strong>Public Entry:</strong> Approved records appear in Archive search (privacy fields hidden).</li>
+    </ol>
+  </div>
+</main>
+
+<footer>SADAT LINEAGE ARCHIVE — <a href="index.html" style="color:var(--gold-accent)">Back to Home</a></footer>
+
+<script>
+const SUPABASE_URL="https://wouvkonvfqhztuienrgi.supabase.co";
+const SUPABASE_REST=SUPABASE_URL+"/rest/v1/";
+const SUPABASE_ANON_KEY="sb_publishable_Tds1DzdM6s5cdv2kXQx_JA_uNJdHROT";
+const sbHeaders={"apikey":SUPABASE_ANON_KEY,"Content-Type":"application/json","Prefer":"return=minimal"};
+
+const form=document.getElementById("submissionForm");
+const genderSelect=document.getElementById("subGender");
+const inLawsGroup=document.getElementById("inLawsGroup");
+const statusBox=document.getElementById("statusBox");
+const submitBtn=document.getElementById("submitBtn");
+
+genderSelect.addEventListener("change",()=>{
+  inLawsGroup.style.display=genderSelect.value==="Female"?"block":"none";
+});
+
+form.addEventListener("submit",async(e)=>{
+  e.preventDefault();
+  statusBox.className="status-box";
+  statusBox.textContent="";
+  submitBtn.disabled=true;
+  submitBtn.textContent="Submitting...";
+
+  const payload={
+    submission_code:"SUB-"+Date.now().toString().slice(-6),
+    full_name:document.getElementById("subName").value.trim(),
+    father_name:document.getElementById("subFather").value.trim(),
+    gender:genderSelect.value,
+    in_laws_info:document.getElementById("subInLaws").value.trim(),
+    canonical_book:document.getElementById("subBook").value,
+    book_page:document.getElementById("subPage").value.trim(),
+    state_queue:document.getElementById("subState").value,
+    payment_receipt:document.getElementById("subReceipt").value.trim(),
+    notes:document.getElementById("subNotes").value.trim(),
+    submitted_at:new Date().toISOString(),
+    status:"pending"
+  };
+
+  if(!payload.full_name||!payload.father_name||!payload.gender||!payload.canonical_book||!payload.book_page||!payload.state_queue||!payload.payment_receipt){
+    showStatus("Please fill all required fields","error");
+    submitBtn.disabled=false;
+    submitBtn.textContent="Submit for Verification";
+    return;
+  }
+
+  try{
+    const res=await fetch(SUPABASE_REST+"shajra_submissions",{
+      method:"POST",headers:sbHeaders,body:JSON.stringify(payload)
+    });
+    if(!res.ok)throw new Error(await res.text());
+    showStatus(`Record Submitted! Reference: <strong>${payload.submission_code}</strong> — Your submission is now in the verification queue. State Admin will review within 14 working days.`,"success");
+    form.reset();
+    inLawsGroup.style.display="none";
+  }catch(err){
+    showStatus("Error: "+err.message,"error");
+  }finally{
+    submitBtn.disabled=false;
+    submitBtn.textContent="Submit for Verification";
+  }
+});
+
+function showStatus(msg,type){
+  statusBox.className="status-box "+type;
+  statusBox.innerHTML=msg;
+  statusBox.scrollIntoView({behavior:"smooth"});
+}
+</script>
+</body>
+</html>
