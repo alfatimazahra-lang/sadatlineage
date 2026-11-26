@@ -105,7 +105,21 @@ function renderQuran(data) {
 }
 
 async function fetchVerses(params) {
-  const url = `${QURAN_API}/verses/uthmani?${new URLSearchParams(params)}`;
+  let url;
+  const { surah, page, juz, ayah, ...query } = params; // ayah alag handle karenge
+  const qs = new URLSearchParams(query).toString();
+
+  if (surah) {
+    url = `${QURAN_API}/verses/by_chapter/${surah}`;
+  } else if (page) {
+    url = `${QURAN_API}/verses/by_page/${page}`;
+  } else if (juz) {
+    url = `${QURAN_API}/verses/by_juz/${juz}`;
+  } else {
+    throw new Error("No valid query (surah/page/juz)");
+  }
+
+  if (qs) url += `?${qs}`;
   const res = await fetch(url, { headers: { Accept: "application/json" } });
   if (!res.ok) throw new Error(`API ${res.status}`);
   return res.json();
